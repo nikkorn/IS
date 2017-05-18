@@ -3,9 +3,9 @@ package com.itemshop.state;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
- * The world map state.
+ * The title screen state.
  */
-public class WorldState implements IState {
+public class TitleState implements IState {
 
 	@Override
 	public void render() {
@@ -18,5 +18,5 @@ public class WorldState implements IState {
 	}
 
 	@Override
-	public String getStateName() { return "world"; }
+	public String getStateName() { return "title"; }
 }
