@@ -1,33 +1,38 @@
 package com.itemshop.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.itemshop.state.IState;
+import com.itemshop.state.TownState;
 
+/**
+ * Represents the game.
+ */
 public class Game extends ApplicationAdapter {
+	/** The current game state. */
+	IState state;
+	/** The SpriteBatch to use throughout the application. */
 	SpriteBatch batch;
-	Texture img;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		state = getInitialState();
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+		if (state != null) {
+			// Render the current state.
+			state.render();
+			// Draw the current state.
+			state.draw(batch);
+		}
 	}
 	
-	@Override
-	public void dispose () {
-		batch.dispose();
-		img.dispose();
-	}
+	/**
+	 * Get the inital game state.
+	 * @return initial game state.
+	 */
+	public IState getInitialState() { return new TownState(); }
 }
