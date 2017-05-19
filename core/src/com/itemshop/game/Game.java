@@ -24,9 +24,13 @@ public class Game extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		state = getInitialState();
 		
+		// Create the overall engine.
 		engine = new Engine();
+		
+		// Add the input system.
 		engine.addSystem(new InputSystem());
 		
+		// Add a test entity to verify the input system.
 		com.itemshop.input.TestFactory.create(engine);
 	}
 
@@ -39,6 +43,7 @@ public class Game extends ApplicationAdapter {
 			state.draw(batch);
 		}
 		
+		// Update the engine.
 		engine.update(Gdx.graphics.getDeltaTime());
 	}
 	
