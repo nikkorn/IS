@@ -1,7 +1,10 @@
 package com.itemshop.game;
 
+import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.itemshop.input.InputSystem;
 import com.itemshop.state.IState;
 import com.itemshop.state.TownState;
 
@@ -13,11 +16,22 @@ public class Game extends ApplicationAdapter {
 	IState state;
 	/** The SpriteBatch to use throughout the application. */
 	SpriteBatch batch;
+	/**  The game engine */
+	Engine engine;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		state = getInitialState();
+		
+		// Create the overall engine.
+		engine = new Engine();
+		
+		// Add the input system.
+		engine.addSystem(new InputSystem());
+		
+		// Add a test entity to verify the input system.
+		com.itemshop.input.TestFactory.create(engine);
 	}
 
 	@Override
@@ -28,6 +42,9 @@ public class Game extends ApplicationAdapter {
 			// Draw the current state.
 			state.draw(batch);
 		}
+		
+		// Update the engine.
+		engine.update(Gdx.graphics.getDeltaTime());
 	}
 	
 	/**
