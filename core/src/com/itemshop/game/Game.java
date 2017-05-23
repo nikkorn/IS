@@ -3,10 +3,10 @@ package com.itemshop.game;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.itemshop.input.InputSystem;
+import com.itemshop.render.RenderSystem;
 import com.itemshop.state.IState;
-import com.itemshop.state.TownState;
+import com.itemshop.state.StateSystem;
 
 /**
  * Represents the game.
@@ -14,21 +14,23 @@ import com.itemshop.state.TownState;
 public class Game extends ApplicationAdapter {
 	/** The current game state. */
 	IState state;
-	/** The SpriteBatch to use throughout the application. */
-	SpriteBatch batch;
 	/**  The game engine */
 	Engine engine;
 	
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		state = getInitialState();
 		
 		// Create the overall engine.
 		engine = new Engine();
 		
-		// Add the input system.
+		// Add the state system.
+		StateSystem stateSystem = new StateSystem();
+		engine.addSystem(stateSystem);
+		stateSystem.initialize();
+		
+		// Add the other systems.
 		engine.addSystem(new InputSystem());
+		engine.addSystem(new RenderSystem());
 		
 		// Add a test entity to verify the input system.
 		factories.TestFactory.create(engine);
@@ -36,20 +38,7 @@ public class Game extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		if (state != null) {
-			// Render the current state.
-			state.render();
-			// Draw the current state.
-			state.draw(batch);
-		}
-		
 		// Update the engine.
 		engine.update(Gdx.graphics.getDeltaTime());
 	}
-	
-	/**
-	 * Get the inital game state.
-	 * @return initial game state.
-	 */
-	public IState getInitialState() { return new TownState(); }
 }

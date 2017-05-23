@@ -1,26 +1,23 @@
 package com.itemshop.state;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.ashley.core.Engine;
 
 /**
  * Represents a game state.
  */
 public interface IState {
-    
-    /**
-     * Render the state.
-     */
-    void render();
-    
-    /**
-     * Draw the state.
-     * @param batch
-     */
-    void draw(SpriteBatch batch);
+	
+	public State getState();
+	
+	/**
+	 * Performed when the game state is switched to.
+	 * @param engine The game engine.
+	 */
+	void beginState(Engine engine);
 
-    /**
-     * Get the name of this state.
-     * @return name
-     */
-    String getStateName();
+	/**
+	 * Performed when the game state is switched away from.
+	 * @param engine The game engine.
+	 */
+	void endState(Engine engine);
 }

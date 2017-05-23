@@ -4,20 +4,20 @@ import com.badlogic.ashley.core.Engine;
 import factories.TestFactory;
 
 /**
- * The splash screen state.
+ * The game state in which the player is in town.
  */
-public class SplashState implements IState {
+public class GameState implements IState {
 	
-	public State getState() { return State.Splash; }
-
+	public State getState() { return State.Game; }
+	
 	/**
 	 * Performed when the game state is switched to.
 	 * @param engine The game engine.
 	 */
 	public void beginState(Engine engine) {
 		
-		// Create the splash screen entities.
-		System.out.println("Beginning Splash state");
+		// Create the game screen entities.
+		System.out.println("Beginning Game state");
 		
 		// We only have a test entity so use that for now.
 		TestFactory.create(engine);
@@ -29,9 +29,9 @@ public class SplashState implements IState {
 	 */
 	public void endState(Engine engine) {
 		
-		System.out.println("Ending Splash state");
+		System.out.println("Ending Game state");
 		
-		// Clear up the splash screen entities.
+		// Clear up the town screen entities.
 		engine.removeAllEntities();
 	}
 }
