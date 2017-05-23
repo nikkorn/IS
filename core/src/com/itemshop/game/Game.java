@@ -31,7 +31,7 @@ public class Game extends ApplicationAdapter {
 		engine.addSystem(new InputSystem());
 		
 		// Add a test entity to verify the input system.
-		com.itemshop.input.TestFactory.create(engine);
+		factories.TestFactory.create(engine);
 	}
 
 	@Override

@@ -1,8 +1,9 @@
-package com.itemshop.input;
+package factories;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Input;
+import com.itemshop.input.InputComponent;
 
 /**
  * Factory for producing entities configured to test the input system. 
