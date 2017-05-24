@@ -49,4 +49,18 @@ public class TestFactory {
 		// Put the entity into the engine. 
 		engine.addEntity(entity);
 	}
+	
+	/**
+	 * Creates the town tile entities.
+	 * @param engine The engine to add the entity to.
+	 */
+	public static void createTownTiles(Engine engine) {
+		// For each tile on disk:
+		//  - Create an entity.
+		//  - Add PositionComponent
+		//  - Add TilePositionComponent
+		//  - Add DimensionsComponent
+		//  - Add SpriteComponent
+		//  - Add entity to engine.
+	}
 }

@@ -23,12 +23,8 @@ public class Game extends ApplicationAdapter {
 		// Create the overall engine.
 		engine = new Engine();
 		
-		// Add the state system.
-		StateSystem stateSystem = new StateSystem();
-		engine.addSystem(stateSystem);
-		stateSystem.initialize();
-		
-		// Add the other systems.
+		// Add the systems.
+		engine.addSystem(new StateSystem());
 		engine.addSystem(new CameraSystem());
 		engine.addSystem(new InputSystem());
 		engine.addSystem(new RenderSystem());
@@ -38,7 +34,5 @@ public class Game extends ApplicationAdapter {
 	public void render() {
 		// Update the engine.
 		engine.update(Gdx.graphics.getDeltaTime());
-		
-		System.out.println(engine.getEntities().size());
 	}
 }
