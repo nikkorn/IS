@@ -15,11 +15,12 @@ import com.itemshop.state.StateSystem;
 public class Game extends ApplicationAdapter {
 	/** The current game state. */
 	IState state;
-	/** The game engine */
+	/**  The game engine */
 	Engine engine;
 	
 	@Override
-	public void create() {
+	public void create () {
+		
 		// Create the overall engine.
 		engine = new Engine();
 		
@@ -32,13 +33,14 @@ public class Game extends ApplicationAdapter {
 		engine.addSystem(new CameraSystem());
 		engine.addSystem(new InputSystem());
 		engine.addSystem(new RenderSystem());
+		
+		// Add a test entity to verify the input system.
+		com.itemshop.input.TestFactory.create(engine);
 	}
 
 	@Override
-	public void render() {
+	public void render () {
 		// Update the engine.
 		engine.update(Gdx.graphics.getDeltaTime());
-		
-		System.out.println(engine.getEntities().size());
 	}
 }

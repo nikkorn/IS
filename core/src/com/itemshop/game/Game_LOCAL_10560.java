@@ -4,7 +4,6 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.itemshop.input.InputSystem;
-import com.itemshop.render.CameraSystem;
 import com.itemshop.render.RenderSystem;
 import com.itemshop.state.IState;
 import com.itemshop.state.StateSystem;
@@ -23,13 +22,8 @@ public class Game extends ApplicationAdapter {
 		// Create the overall engine.
 		engine = new Engine();
 		
-		// Add the state system.
-		StateSystem stateSystem = new StateSystem();
-		engine.addSystem(stateSystem);
-		stateSystem.initialize();
-		
-		// Add the other systems.
-		engine.addSystem(new CameraSystem());
+		// Add the systems.
+		engine.addSystem(new StateSystem());
 		engine.addSystem(new InputSystem());
 		engine.addSystem(new RenderSystem());
 	}

@@ -29,6 +29,11 @@ public class RenderSystem extends EntitySystem {
 	 * @param Time since last update.
 	 */
     public void update(float deltaTime) {
+    	
+    	CameraSystem camera = this.getEngine().getSystem(CameraSystem.class);
+    	
+    	batch.setProjectionMatrix(camera.getProjectionMatrix());
+    	
 		Gdx.gl.glClearColor(0, 1, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }

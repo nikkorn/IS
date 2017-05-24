@@ -23,6 +23,10 @@ public class Game extends ApplicationAdapter {
 		// Create the overall engine.
 		engine = new Engine();
 		
+<<<<<<< HEAD
+		// Add the systems.
+		engine.addSystem(new StateSystem());
+=======
 		// Add the state system.
 		StateSystem stateSystem = new StateSystem();
 		engine.addSystem(stateSystem);
@@ -30,6 +34,7 @@ public class Game extends ApplicationAdapter {
 		
 		// Add the other systems.
 		engine.addSystem(new CameraSystem());
+>>>>>>> master
 		engine.addSystem(new InputSystem());
 		engine.addSystem(new RenderSystem());
 	}
