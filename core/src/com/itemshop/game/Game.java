@@ -23,6 +23,9 @@ public class Game extends ApplicationAdapter {
 		// Create the overall engine.
 		engine = new Engine();
 		
+		// Load the game assets.
+		Assets.load();
+		
 		// Add the systems.
 		engine.addSystem(new StateSystem());
 		engine.addSystem(new CameraSystem());
@@ -34,5 +37,7 @@ public class Game extends ApplicationAdapter {
 	public void render() {
 		// Update the engine.
 		engine.update(Gdx.graphics.getDeltaTime());
+		
+		//System.out.println(engine.getEntities().size());
 	}
 }

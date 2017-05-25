@@ -1,6 +1,7 @@
 package com.itemshop.state;
 
 import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.Entity;
 import factories.TestFactory;
 
 /**
@@ -32,6 +33,8 @@ public class TitleState implements IState {
 		System.out.println("Ending Title state");
 		
 		// Clear up the title screen entities.
-		engine.removeAllEntities();
+		for (Entity entity: engine.getEntities()) {
+			engine.removeEntity(entity);
+		}
 	}
 }

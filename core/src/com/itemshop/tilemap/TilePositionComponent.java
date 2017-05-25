@@ -12,4 +12,14 @@ public class TilePositionComponent implements Component {
 	
 	/** The y position. */
 	public int y;
+	
+	/**
+	 * Create a new instance of TilePositionComponent.
+	 * @param x
+	 * @param y
+	 */
+	public TilePositionComponent(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
 }
