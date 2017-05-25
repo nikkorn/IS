@@ -1,7 +1,9 @@
 package com.itemshop.state;
 
 import com.badlogic.ashley.core.Engine;
-import com.itemshop.input.TestFactory;
+import com.badlogic.ashley.core.Entity;
+import factories.TestFactory;
+import factories.TownEntityFactory;
 
 /**
  * The game state in which the player is in town.
@@ -21,6 +23,9 @@ public class GameState implements IState {
 		
 		// We only have a test entity so use that for now.
 		TestFactory.create(engine);
+		
+		// Create the entities we need for this state.
+		TownEntityFactory.createTown(engine);
 	}
 
 	/**
@@ -32,6 +37,8 @@ public class GameState implements IState {
 		System.out.println("Ending Game state");
 		
 		// Clear up the town screen entities.
-		engine.removeAllEntities();
+		for (Entity entity: engine.getEntities()) {
+			engine.removeEntity(entity);
+		}
 	}
 }

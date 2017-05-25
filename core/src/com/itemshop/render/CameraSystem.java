@@ -87,10 +87,7 @@ public class CameraSystem extends EntitySystem {
 	 * Gets the camera's projection matrix.
 	 * @return The camera's projection matrix.
 	 */
-	public Matrix4 getProjectionMatrix() {
-		
-		return camera.combined;
-	}
+	public Matrix4 getProjectionMatrix() { return camera.combined; }
 	
 	/**
 	 * Updates the system.

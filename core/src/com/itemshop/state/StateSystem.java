@@ -16,19 +16,10 @@ public class StateSystem extends EntitySystem {
 
 	/** The current state. */
 	private IState currentState;
-
-	/**
-	 * Initialize the State system.
-	 */
-	public void initialize() {
-		
-		// I had to add this initialize method separately as the states do
-		// engine.getSystem(StateSystem...) which will fail if we are still
-		// inside the StateSystem constructor D:
-		
-		// Get the engine.
-		Engine engine = this.getEngine();
-		
+	
+	@Override
+	public void addedToEngine(Engine engine) {
+		// Create the initial state.
 		currentState = new SplashState();
 		
 		// Begin the new state.

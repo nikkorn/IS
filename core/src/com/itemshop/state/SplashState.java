@@ -1,7 +1,8 @@
 package com.itemshop.state;
 
 import com.badlogic.ashley.core.Engine;
-import com.itemshop.input.TestFactory;
+import com.badlogic.ashley.core.Entity;
+import factories.TestFactory;
 
 /**
  * The splash screen state.
@@ -32,6 +33,8 @@ public class SplashState implements IState {
 		System.out.println("Ending Splash state");
 		
 		// Clear up the splash screen entities.
-		engine.removeAllEntities();
+		for (Entity entity: engine.getEntities()) {
+			engine.removeEntity(entity);
+		}
 	}
 }

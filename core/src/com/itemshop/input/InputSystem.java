@@ -39,7 +39,7 @@ public class InputSystem extends EntitySystem {
     		for (Map.Entry<Integer, InputAction> entry : input.actions.entrySet()) {
     			
     			// Check if the key was pressed.
-    			if(Gdx.input.isKeyPressed(entry.getKey())) {
+    			if(Gdx.input.isKeyJustPressed(entry.getKey())) {
     				
     				// Perform the action.
     				entry.getValue().perform(entity);
