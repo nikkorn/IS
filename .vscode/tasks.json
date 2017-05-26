@@ -24,6 +24,10 @@
 			"taskName": "test",
 			"args": ["test"],
 			"isTestCommand": true
+		},
+		{
+			"taskName": "run",
+			"args": ["run"]
 		}
 	]
 }
