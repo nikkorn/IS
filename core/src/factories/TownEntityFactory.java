@@ -8,6 +8,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.itemshop.game.Assets;
 import com.itemshop.game.Constants;
+import com.itemshop.movement.NonWalkableTileComponent;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.SizeComponent;
 import com.itemshop.render.TextureComponent;
@@ -86,6 +87,7 @@ public class TownEntityFactory {
 			// WALL
 			case -4949926:
 				entity.add(new TextureComponent(Assets.wall_tile));
+				entity.add(new NonWalkableTileComponent());
 				break;
 		}
 	}
