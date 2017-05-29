@@ -7,7 +7,6 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.itemshop.game.Assets;
-import com.itemshop.game.Constants;
 import com.itemshop.movement.NonWalkableTileComponent;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.SizeComponent;
@@ -50,9 +49,8 @@ public class TownEntityFactory {
 				// Create the tile entity.
 				Entity entity = new Entity();
 				
-				entity.add(new SizeComponent(Constants.TILE_SIZE, Constants.TILE_SIZE));
-				entity.add(new TilePositionComponent(x, y));
-				entity.add(new PositionComponent(x * Constants.TILE_SIZE, y * Constants.TILE_SIZE));
+				entity.add(new SizeComponent(1, 1));
+				entity.add(new PositionComponent(x, y));
 				
 				// Add tile entity characteristics based on type.
 				addTileEntityCharacteristics(entity, map.getRGB(x, map.getHeight() - (1 + y)));
