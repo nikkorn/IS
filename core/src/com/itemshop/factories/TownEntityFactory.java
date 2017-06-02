@@ -1,4 +1,4 @@
-package factories;
+package com.itemshop.factories;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -11,7 +11,6 @@ import com.itemshop.movement.NonWalkableTileComponent;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.SizeComponent;
 import com.itemshop.render.TextureComponent;
-import com.itemshop.tilemap.TilePositionComponent;
 
 /**
  * Factory for producing entities specific to the game town. 

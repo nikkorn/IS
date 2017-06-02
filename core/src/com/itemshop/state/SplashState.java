@@ -2,7 +2,7 @@ package com.itemshop.state;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import factories.TestFactory;
+import com.itemshop.factories.TestFactory;
 
 /**
  * The splash screen state.

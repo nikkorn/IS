@@ -82,8 +82,8 @@ public class RenderSystem extends IteratingSystem {
 
 		// Do some sweet animations to demonstrate the camera functionality.
 		time += deltaTime;
-		camera.position.x = (float) (Math.sin(time / 2) * 10) + HALF_MAP_SIZE;
-		camera.position.y = (float) (Math.cos(time / 2) * 10) + HALF_MAP_SIZE;
+		camera.position.x = (float) (Math.sin(time / 2) * 5) + HALF_MAP_SIZE;
+		camera.position.y = (float) (Math.cos(time / 2) * 5) + HALF_MAP_SIZE;
 		
 		// Make sure we are observing the camera position.
 		camera.update();
