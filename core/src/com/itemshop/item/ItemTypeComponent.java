@@ -10,11 +10,16 @@ public class ItemTypeComponent implements Component {
 	/** The item type. */
 	public ItemType type;
 	
+	/** The item name. */
+	public String name;
+	
 	/**
 	 * Create a new instance of ItemTypeComponent.
 	 * @param type
+	 * @param name
 	 */
-	public ItemTypeComponent(ItemType type) {
+	public ItemTypeComponent(ItemType type, String name) {
 		this.type = type;
+		this.name = name;
 	}
 }

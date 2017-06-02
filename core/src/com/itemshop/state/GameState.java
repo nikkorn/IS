@@ -2,8 +2,8 @@ package com.itemshop.state;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import factories.TestFactory;
-import factories.TownEntityFactory;
+import com.itemshop.factories.TestFactory;
+import com.itemshop.factories.TownEntityFactory;
 
 /**
  * The game state in which the player is in town.

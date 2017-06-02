@@ -1,4 +1,4 @@
-package factories;
+package com.itemshop.factories;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;

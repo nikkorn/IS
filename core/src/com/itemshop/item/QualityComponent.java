@@ -15,6 +15,13 @@ public class QualityComponent implements Component {
 	
 	/**
 	 * Create a new instance of QualityComponent.
+	 */
+	public QualityComponent() {
+		this.setQuality(MAX_QUALITY);
+	}
+	
+	/**
+	 * Create a new instance of QualityComponent.
 	 * @param quality
 	 */
 	public QualityComponent(int quality) {

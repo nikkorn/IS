@@ -1,4 +1,4 @@
-package factories;
+package com.itemshop.factories;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
