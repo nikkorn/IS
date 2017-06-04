@@ -3,7 +3,9 @@ package com.itemshop.game;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.itemshop.input.InputSystem;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.itemshop.input.KeyboardSystem;
+import com.itemshop.input.MouseSystem;
 import com.itemshop.render.RenderSystem;
 import com.itemshop.state.IState;
 import com.itemshop.state.StateSystem;
@@ -25,10 +27,16 @@ public class Game extends ApplicationAdapter {
 		// Load the game assets.
 		Assets.load();
 		
+		// Create the camera.
+		float screenWidth = Gdx.graphics.getWidth();
+		float screenHeight = Gdx.graphics.getHeight();
+		OrthographicCamera camera = new OrthographicCamera(screenWidth, screenHeight);
+		
 		// Add the systems.
 		engine.addSystem(new StateSystem());
-		engine.addSystem(new InputSystem());
-		engine.addSystem(new RenderSystem());
+		engine.addSystem(new KeyboardSystem());
+		engine.addSystem(new MouseSystem(camera));
+		engine.addSystem(new RenderSystem(camera));
 	}
 
 	@Override

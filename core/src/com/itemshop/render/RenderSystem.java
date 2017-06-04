@@ -41,7 +41,7 @@ public class RenderSystem extends IteratingSystem {
 	/**
 	 * Constructs the render system instance.
 	 */
-	public RenderSystem() { 
+	public RenderSystem(OrthographicCamera worldCamera) { 
 		super(Family.all(PositionComponent.class, TextureComponent.class, SizeComponent.class).get());
 		
 		// Create the sprite batch.
@@ -52,10 +52,7 @@ public class RenderSystem extends IteratingSystem {
 		textureMapper  = ComponentMapper.getFor(TextureComponent.class);
 		sizeMapper     = ComponentMapper.getFor(SizeComponent.class);
 		
-		// Create the camera.
-		float screenWidth = Gdx.graphics.getWidth();
-		float screenHeight = Gdx.graphics.getHeight();
-		this.camera = new OrthographicCamera(screenWidth, screenHeight);
+		this.camera = worldCamera;
 		
 		// Move to the middle of the map.
 		this.camera.translate(HALF_MAP_SIZE, HALF_MAP_SIZE);

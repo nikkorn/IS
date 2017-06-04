@@ -3,7 +3,7 @@ package com.itemshop.factories;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Input;
-import com.itemshop.input.InputComponent;
+import com.itemshop.input.KeyboardComponent;
 import com.itemshop.state.State;
 import com.itemshop.state.StateSystem;
 
@@ -22,7 +22,7 @@ public class TestFactory {
 		Entity entity = new Entity();
 		
 		// Configure an input component with some simple actions.
-		InputComponent inputComponent = new InputComponent();
+		KeyboardComponent inputComponent = new KeyboardComponent();
 		inputComponent.actions.put(Input.Keys.UP, (Entity target) -> { System.out.println("Up in yo grill!"); });
 		inputComponent.actions.put(Input.Keys.DOWN, (Entity target) -> { System.out.println("Down to partay!"); });
 		inputComponent.actions.put(Input.Keys.LEFT, (Entity target) -> { System.out.println("Left alone!"); });

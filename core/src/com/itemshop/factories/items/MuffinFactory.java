@@ -13,13 +13,13 @@ import com.itemshop.render.TextureComponent;
 /**
  * Factory for creating a Muffin item.
  */
-public class MuffinFactory {
+public class MuffinFactory implements ItemFactory {
 
 	/**
 	 * Creates the entity.
 	 * @param engine The engine to add the entity to.
 	 */
-	public static void create(Engine engine) {
+	public void create(Engine engine) {
 
 		// Create the entity.
 		Entity item = new Entity();

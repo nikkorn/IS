@@ -8,17 +8,15 @@ import com.badlogic.ashley.core.Component;
 /**
  * An entity's input component describing how it should respond to key presses etc.
  */
-public class InputComponent implements Component {
+public class KeyboardComponent implements Component {
 	
-	/**
-	 * The map of input codes to actions.
-	 */
+	/** The map of input codes to actions. */
 	public Map<Integer, InputAction> actions;
 	
 	/**
 	 * Constructs the input component instance.
 	 */
-	public InputComponent() {
+	public KeyboardComponent() {
 		actions = new HashMap<Integer, InputAction>();
 	}
 }
