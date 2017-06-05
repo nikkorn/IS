@@ -7,7 +7,6 @@ import com.itemshop.input.MouseComponent;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.SizeComponent;
 import com.itemshop.render.TextureComponent;
-import com.itemshop.state.State;
 
 /**
  * Factory for creating a Path tile.

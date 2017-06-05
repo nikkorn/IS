@@ -4,26 +4,20 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.imageio.ImageIO;
 import com.badlogic.ashley.core.Engine;
-import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.itemshop.factories.tiles.GrassFactory;
 import com.itemshop.factories.tiles.PathFactory;
 import com.itemshop.factories.tiles.TileFactory;
 import com.itemshop.factories.tiles.WallFactory;
-import com.itemshop.game.Assets;
-import com.itemshop.movement.NonWalkableTileComponent;
-import com.itemshop.render.PositionComponent;
-import com.itemshop.render.SizeComponent;
-import com.itemshop.render.TextureComponent;
 
 /**
  * Factory for producing entities specific to the game town. 
  */
 public class TownEntityFactory {
 	
+	@SuppressWarnings("serial")
 	static Map<Integer, TileFactory> colorMap = new HashMap<Integer, TileFactory>() {{
 		put(-14771389, new GrassFactory());
 		put(-206, new PathFactory());
