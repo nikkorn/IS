@@ -1,6 +1,5 @@
 package com.itemshop.factories.items;
 
-import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.itemshop.game.Assets;
 import com.itemshop.item.ItemType;
@@ -16,9 +15,9 @@ public class CheeseFactory implements ItemFactory {
 
 	/**
 	 * Creates the entity.
-	 * @param engine The engine to add the entity to.
+	 * @returns The entity
 	 */
-	public void create(Engine engine) {
+	public Entity create() {
 
 		// Create the entity.
 		Entity item = new Entity();
@@ -29,7 +28,6 @@ public class CheeseFactory implements ItemFactory {
 		item.add(new QualityComponent());
 		item.add(new ValueComponent(5));	
 		
-		// Put the entity into the engine. 
-		engine.addEntity(item);
+		return item;
 	}
 }

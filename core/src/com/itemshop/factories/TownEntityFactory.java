@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import javax.imageio.ImageIO;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.Gdx;
@@ -16,6 +17,8 @@ import com.itemshop.factories.tiles.WallFactory;
  * Factory for producing entities specific to the game town. 
  */
 public class TownEntityFactory {
+	/** The RNG to use throughout the factory. */
+	private static Random rng = new Random(12345);
 	
 	@SuppressWarnings("serial")
 	static Map<Integer, TileFactory> colorMap = new HashMap<Integer, TileFactory>() {{
@@ -45,7 +48,7 @@ public class TownEntityFactory {
 				// Add tile entity characteristics based on type.
 				int color = map.getRGB(x, map.getHeight() - (1 + y));
 				TileFactory factory = colorMap.get(color);
-				factory.create(engine, x, y);
+				factory.create(engine, rng, x, y);
 			}
 		}
 	}
