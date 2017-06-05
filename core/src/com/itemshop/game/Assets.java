@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 public class Assets {
 	// Tiles.
 	public static Texture grass_tile;
+	public static Texture grass_tile_plain;
+	public static Texture grass_tile_rough;
 	public static Texture path_tile;
 	public static Texture wall_tile;
 	public static Texture bucks_tile;
@@ -24,10 +26,12 @@ public class Assets {
 	 */
 	public static void load () {
 		// Tiles.
-		grass_tile = new Texture(Gdx.files.internal("images/tiles/grass_tile.png"));
-		path_tile  = new Texture(Gdx.files.internal("images/tiles/path_tile.png"));
-		wall_tile  = new Texture(Gdx.files.internal("images/tiles/wall_tile.png"));
-		bucks_tile = new Texture(Gdx.files.internal("images/ui/bucks_tile.png"));
+		grass_tile       = new Texture(Gdx.files.internal("images/tiles/grass_tile.png"));
+		grass_tile_plain = new Texture(Gdx.files.internal("images/tiles/grass_tile_plain.png"));
+		grass_tile_rough = new Texture(Gdx.files.internal("images/tiles/grass_tile_rough.png"));
+		path_tile        = new Texture(Gdx.files.internal("images/tiles/path_tile.png"));
+		wall_tile        = new Texture(Gdx.files.internal("images/tiles/wall_tile.png"));
+		bucks_tile       = new Texture(Gdx.files.internal("images/ui/bucks_tile.png"));
 		
 		// Items.
 		apple_texture  = new Texture(Gdx.files.internal("images/items/apple.png"));

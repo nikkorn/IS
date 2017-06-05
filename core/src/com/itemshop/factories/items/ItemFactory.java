@@ -1,6 +1,6 @@
 package com.itemshop.factories.items;
 
-import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.Entity;
 
 /**
  * Factory for creating a item.
@@ -10,7 +10,7 @@ public interface ItemFactory {
 
 	/**
 	 * Creates the entity.
-	 * @param engine The engine to add the entity to.
+	 * @return the entity
 	 */
-	void create(Engine engine);
+	Entity create();
 }
