@@ -10,8 +10,10 @@ import com.itemshop.game.Assets;
  * Stand alone render system for drawing the in-game UI.
  */
 public class UserInterface {
+	
 	/** Textures. */
 	Texture dollarTexture;
+	Texture cursorTexture;
 	
 	/** Sprite batch shared with the rest of the game. */
 	SpriteBatch spriteBatch;
@@ -21,6 +23,8 @@ public class UserInterface {
 
 	public UserInterface(SpriteBatch spriteBatch) {
 		this.dollarTexture = Assets.bucks_tile;
+		this.cursorTexture = Assets.cursor;
+		
 		this.spriteBatch = spriteBatch;
 		
 		// Create the camera with the same width and height as device.
@@ -37,5 +41,6 @@ public class UserInterface {
 		// Sprite batch is shared, apply our camera.
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.draw(dollarTexture, 0, 0);
+		spriteBatch.draw(cursorTexture, Gdx.input.getX(), -Gdx.input.getY() + Gdx.graphics.getHeight(), 16, 16);
 	}
 }

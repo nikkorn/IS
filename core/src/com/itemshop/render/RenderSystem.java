@@ -37,6 +37,8 @@ public class RenderSystem extends IteratingSystem {
     
     /** Keep track of the time so that we can do some demo camera animation. */
     private float time;
+    
+    private float offsetX, offsetY = 0f;
 	
 	/**
 	 * Constructs the render system instance.
@@ -79,8 +81,14 @@ public class RenderSystem extends IteratingSystem {
 
 		// Do some sweet animations to demonstrate the camera functionality.
 		time += deltaTime;
-		camera.position.x = (float) (Math.sin(time / 2) * 5) + HALF_MAP_SIZE;
-		camera.position.y = (float) (Math.cos(time / 2) * 5) + HALF_MAP_SIZE;
+		//camera.position.x = (float) (Math.sin(time / 2) * 5) + HALF_MAP_SIZE;
+		//camera.position.y = (float) (Math.cos(time / 2) * 5) + HALF_MAP_SIZE;
+		
+		offsetX += Gdx.input.getDeltaX() * ZOOM_SCALE;
+		offsetY -= Gdx.input.getDeltaY() * ZOOM_SCALE;
+	
+		camera.position.x = offsetX + HALF_MAP_SIZE;
+		camera.position.y = offsetY + HALF_MAP_SIZE;
 		
 		// Make sure we are observing the camera position.
 		camera.update();

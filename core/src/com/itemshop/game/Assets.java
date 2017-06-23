@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Assets {
+	// UI.
+	public static Texture cursor;
+	
 	// Tiles.
 	public static Texture grass_tile;
 	public static Texture grass_tile_plain;
@@ -25,6 +28,9 @@ public class Assets {
 	 * Load assets from disk.
 	 */
 	public static void load () {
+		// UI.
+		cursor = new Texture(Gdx.files.internal("images/ui/cursor.png"));
+		
 		// Tiles.
 		grass_tile       = new Texture(Gdx.files.internal("images/tiles/grass_tile.png"));
 		grass_tile_plain = new Texture(Gdx.files.internal("images/tiles/grass_tile_plain.png"));
