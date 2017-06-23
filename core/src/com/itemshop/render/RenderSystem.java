@@ -1,9 +1,11 @@
 package com.itemshop.render;
 
+import java.util.Comparator;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.ashley.systems.SortedIteratingSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -13,7 +15,7 @@ import com.itemshop.ui.UserInterface;
 /**
  * Handles processing of each entity's render component.
  */
-public class RenderSystem extends IteratingSystem {
+public class RenderSystem extends SortedIteratingSystem {
 	
 	/** The size of the map. */
 	public static final int HALF_MAP_SIZE = 25;
@@ -25,7 +27,7 @@ public class RenderSystem extends IteratingSystem {
 	private SpriteBatch batch;
 
 	/** Component mappers to get components from entities. */
-    private ComponentMapper<PositionComponent> positionMapper;
+    private static ComponentMapper<PositionComponent> positionMapper;
     private ComponentMapper<TextureComponent> textureMapper;
     private ComponentMapper<SizeComponent> sizeMapper;
     
@@ -42,7 +44,7 @@ public class RenderSystem extends IteratingSystem {
 	 * Constructs the render system instance.
 	 */
 	public RenderSystem(OrthographicCamera worldCamera) { 
-		super(Family.all(PositionComponent.class, TextureComponent.class, SizeComponent.class).get());
+		super(Family.all(PositionComponent.class, TextureComponent.class, SizeComponent.class).get(), new ZComparator());
 		
 		// Create the sprite batch.
 		batch = new SpriteBatch(); 
@@ -105,5 +107,15 @@ public class RenderSystem extends IteratingSystem {
     	SizeComponent size         = sizeMapper.get(entity);
     	
     	batch.draw(texture.texture, position.x, position.y, size.width, size.height);
+    }
+    
+    /**
+     * The comparator class for ordering positioned entities by Z index.
+     */
+    private static class ZComparator implements Comparator<Entity> {
+        @Override
+        public int compare(Entity e1, Entity e2) {
+            return (int)Math.signum(positionMapper.get(e1).z - positionMapper.get(e2).z);
+        }
     }
 }
