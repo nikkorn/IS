@@ -21,6 +21,8 @@ public class Assets {
 	public static Texture table_texture;
 	public static Texture chest_texture;
 	
+	// Player
+	
 	/**
 	 * Load assets from disk.
 	 */

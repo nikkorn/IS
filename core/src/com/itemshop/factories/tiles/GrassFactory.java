@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Texture;
 import com.itemshop.game.Assets;
+import com.itemshop.movement.WalkableTileComponent;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.SizeComponent;
 import com.itemshop.render.TextureComponent;
@@ -29,6 +30,7 @@ public class GrassFactory implements TileFactory {
 		// Add the entities components.
 		entity.add(new SizeComponent(1, 1));
 		entity.add(new PositionComponent(x, y));
+		entity.add(new WalkableTileComponent());
 		entity.add(new TextureComponent(
 				new Lotto<Texture>(random).add(Assets.grass_tile_plain, 4)
 				.add(Assets.grass_tile, 1)

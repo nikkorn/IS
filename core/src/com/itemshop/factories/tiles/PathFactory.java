@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.itemshop.game.Assets;
 import com.itemshop.input.MouseComponent;
+import com.itemshop.movement.WalkableTileComponent;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.SizeComponent;
 import com.itemshop.render.TextureComponent;
@@ -28,6 +29,7 @@ public class PathFactory implements TileFactory {
 		// Add the entities components.
 		entity.add(new SizeComponent(1, 1));
 		entity.add(new PositionComponent(x, y));
+		entity.add(new WalkableTileComponent());
 		entity.add(new TextureComponent(Assets.path_tile));
 		
 		MouseComponent mouseComponent = new MouseComponent();

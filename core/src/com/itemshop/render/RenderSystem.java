@@ -28,8 +28,9 @@ public class RenderSystem extends SortedIteratingSystem {
 
 	/** Component mappers to get components from entities. */
     private static ComponentMapper<PositionComponent> positionMapper;
-    private ComponentMapper<TextureComponent> textureMapper;
     private ComponentMapper<SizeComponent> sizeMapper;
+    private ComponentMapper<TextureComponent> textureMapper;
+    private ComponentMapper<AnimationComponent> animationMapper;
     
     /** Stand alone user interface rendering logic. */
     private UserInterface userInterface;
@@ -44,15 +45,17 @@ public class RenderSystem extends SortedIteratingSystem {
 	 * Constructs the render system instance.
 	 */
 	public RenderSystem(OrthographicCamera worldCamera) { 
-		super(Family.all(PositionComponent.class, TextureComponent.class, SizeComponent.class).get(), new ZComparator());
+		super(Family.all(PositionComponent.class, SizeComponent.class)
+				.one(TextureComponent.class, AnimationComponent.class).get(), new ZComparator());
 		
 		// Create the sprite batch.
 		batch = new SpriteBatch(); 
 		
 		// Create the componentMappers.
-		positionMapper = ComponentMapper.getFor(PositionComponent.class);
-		textureMapper  = ComponentMapper.getFor(TextureComponent.class);
-		sizeMapper     = ComponentMapper.getFor(SizeComponent.class);
+		positionMapper  = ComponentMapper.getFor(PositionComponent.class);
+		sizeMapper      = ComponentMapper.getFor(SizeComponent.class);
+		textureMapper   = ComponentMapper.getFor(TextureComponent.class);
+		animationMapper = ComponentMapper.getFor(AnimationComponent.class);
 		
 		this.camera = worldCamera;
 		
@@ -103,8 +106,10 @@ public class RenderSystem extends SortedIteratingSystem {
     public void processEntity(Entity entity, float deltaTime)
     {
     	PositionComponent position = positionMapper.get(entity);
-    	TextureComponent texture   = textureMapper.get(entity);
     	SizeComponent size         = sizeMapper.get(entity);
+    	
+    	// TODO Get either animation or texture.
+    	TextureComponent texture = textureMapper.get(entity);
     	
     	batch.draw(texture.texture, position.x, position.y, size.width, size.height);
     }
