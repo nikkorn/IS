@@ -24,7 +24,7 @@ public class ChestFactory implements ItemFactory {
 		
 		// Add the entities components.
 		item.add(new ItemTypeComponent(ItemType.CHEST, "Chest"));
-		item.add(new TextureComponent(Assets.chest_texture));
+		item.add(new TextureComponent(Assets.unknown));
 		item.add(new ValueComponent(150));
 		item.add(new ContainerComponent(10));
 		

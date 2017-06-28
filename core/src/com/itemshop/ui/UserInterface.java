@@ -2,8 +2,8 @@ package com.itemshop.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.itemshop.game.Assets;
 
 /**
@@ -11,7 +11,7 @@ import com.itemshop.game.Assets;
  */
 public class UserInterface {
 	/** Textures. */
-	Texture dollarTexture;
+	TextureRegion dollarTexture;
 	
 	/** Sprite batch shared with the rest of the game. */
 	SpriteBatch spriteBatch;
@@ -20,7 +20,7 @@ public class UserInterface {
 	OrthographicCamera camera;
 
 	public UserInterface(SpriteBatch spriteBatch) {
-		this.dollarTexture = Assets.bucks_tile;
+		this.dollarTexture = Assets.dollar;
 		this.spriteBatch = spriteBatch;
 		
 		// Create the camera with the same width and height as device.
