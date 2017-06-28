@@ -3,7 +3,7 @@ package com.itemshop.factories.tiles;
 import java.util.Random;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.itemshop.game.Assets;
+import com.itemshop.game.assets.Assets;
 import com.itemshop.input.MouseComponent;
 import com.itemshop.movement.WalkableTileComponent;
 import com.itemshop.render.PositionComponent;

@@ -5,6 +5,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.itemshop.character.CharacterSystem;
+import com.itemshop.game.assets.Assets;
 import com.itemshop.input.KeyboardSystem;
 import com.itemshop.input.MouseSystem;
 import com.itemshop.render.RenderSystem;

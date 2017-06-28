@@ -1,7 +1,7 @@
 package com.itemshop.factories.items;
 
 import com.badlogic.ashley.core.Entity;
-import com.itemshop.game.Assets;
+import com.itemshop.game.assets.Assets;
 import com.itemshop.item.ContainerComponent;
 import com.itemshop.item.ItemType;
 import com.itemshop.item.ItemTypeComponent;

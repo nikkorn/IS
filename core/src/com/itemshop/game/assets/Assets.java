@@ -1,9 +1,17 @@
-package com.itemshop.game;
+package com.itemshop.game.assets;
 
+import java.util.HashMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.itemshop.character.ISCharacter;
 
+/**
+ * Various game assets.
+ */
 public class Assets {
+	// Character resource map.
+	private static HashMap<ISCharacter, CharacterResources> characterResources = new HashMap<ISCharacter, CharacterResources>();
+		
 	// Tiles.
 	public static Texture grass_tile;
 	public static Texture grass_tile_plain;
@@ -21,12 +29,15 @@ public class Assets {
 	public static Texture table_texture;
 	public static Texture chest_texture;
 	
-	// Player
-	
 	/**
 	 * Load assets from disk.
 	 */
 	public static void load () {
+		// Character resources.
+		for (ISCharacter character : ISCharacter.values()) {
+			characterResources.put(character, new CharacterResources(character));
+		}
+				
 		// Tiles.
 		grass_tile       = new Texture(Gdx.files.internal("images/tiles/grass_tile.png"));
 		grass_tile_plain = new Texture(Gdx.files.internal("images/tiles/grass_tile_plain.png"));
@@ -43,5 +54,14 @@ public class Assets {
 		//muffin_texture = new Texture(Gdx.files.internal("images/items/apple.png"));
 		//table_texture  = new Texture(Gdx.files.internal("images/items/apple.png"));
 		//chest_texture  = new Texture(Gdx.files.internal("images/items/apple.png"));
+	}
+	
+	/**
+	 * Get the character resources for a specific character.
+	 * @param character
+	 * @return character resources
+	 */
+	public static CharacterResources getCharacterResources(ISCharacter character) {
+		return characterResources.get(character);
 	}
 }
