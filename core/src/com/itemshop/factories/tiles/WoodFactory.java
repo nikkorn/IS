@@ -12,7 +12,7 @@ import com.itemshop.render.TextureComponent;
 /**
  * Factory for creating a Wall tile.
  */
-public class WallFactory implements TileFactory {
+public class WoodFactory implements TileFactory {
 
 	/**
 	 * Creates the entity.
@@ -28,7 +28,7 @@ public class WallFactory implements TileFactory {
 		// Add the entities components.
 		entity.add(new SizeComponent(1, 1));
 		entity.add(new PositionComponent(x, y));
-		entity.add(new TextureComponent(Assets.stone));
+		entity.add(new TextureComponent(Assets.wood_horizontal));
 		entity.add(new NonWalkableTileComponent());
 
 		// Add the tile entity to the engine.

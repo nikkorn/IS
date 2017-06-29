@@ -12,7 +12,7 @@ public interface TileFactory {
 	/**
 	 * Creates the entity.
 	 * @param engine The engine to add the entity to.
-	 * @param random The rng to use.
+	 * @param random The random number generator to use.
 	 * @param x The x position.
 	 * @param y The y position.
 	 */
