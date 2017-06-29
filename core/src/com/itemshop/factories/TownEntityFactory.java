@@ -12,6 +12,7 @@ import com.itemshop.factories.tiles.GrassFactory;
 import com.itemshop.factories.tiles.PathFactory;
 import com.itemshop.factories.tiles.TileFactory;
 import com.itemshop.factories.tiles.WallFactory;
+import com.itemshop.factories.tiles.WoodFactory;
 
 /**
  * Factory for producing entities specific to the game town. 
@@ -25,6 +26,7 @@ public class TownEntityFactory {
 		put(-14771389, new GrassFactory());
 		put(-206, new PathFactory());
 		put(-4949926, new WallFactory());
+		put(-2970983, new WoodFactory());
 	}};
 	
 	/**

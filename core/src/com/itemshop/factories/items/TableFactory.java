@@ -24,7 +24,7 @@ public class TableFactory implements ItemFactory {
 		
 		// Add the entities components.
 		item.add(new ItemTypeComponent(ItemType.TABLE, "Table"));
-		item.add(new TextureComponent(Assets.table_texture));
+		item.add(new TextureComponent(Assets.wood_square));
 		item.add(new ValueComponent(100));
 		item.add(new ContainerComponent(1));
 		
