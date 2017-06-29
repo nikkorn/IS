@@ -10,6 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.itemshop.movement.MovementTileTransitionComponent;
 import com.itemshop.ui.UserInterface;
 
 /**
@@ -31,6 +32,7 @@ public class RenderSystem extends SortedIteratingSystem {
     private ComponentMapper<SizeComponent> sizeMapper;
     private ComponentMapper<TextureComponent> textureMapper;
     private ComponentMapper<AnimationComponent> animationMapper;
+    private ComponentMapper<MovementTileTransitionComponent> tileTransitionMapper;
     
     /** Stand alone user interface rendering logic. */
     private UserInterface userInterface;
@@ -52,10 +54,11 @@ public class RenderSystem extends SortedIteratingSystem {
 		batch = new SpriteBatch(); 
 		
 		// Create the componentMappers.
-		positionMapper  = ComponentMapper.getFor(PositionComponent.class);
-		sizeMapper      = ComponentMapper.getFor(SizeComponent.class);
-		textureMapper   = ComponentMapper.getFor(TextureComponent.class);
-		animationMapper = ComponentMapper.getFor(AnimationComponent.class);
+		positionMapper       = ComponentMapper.getFor(PositionComponent.class);
+		sizeMapper           = ComponentMapper.getFor(SizeComponent.class);
+		textureMapper        = ComponentMapper.getFor(TextureComponent.class);
+		animationMapper      = ComponentMapper.getFor(AnimationComponent.class);
+		tileTransitionMapper = ComponentMapper.getFor(MovementTileTransitionComponent.class);
 		
 		this.camera = worldCamera;
 		
@@ -111,7 +114,28 @@ public class RenderSystem extends SortedIteratingSystem {
     	// TODO Get either animation or texture.
     	TextureComponent texture = textureMapper.get(entity);
     	
-    	batch.draw(texture.texture, position.x, position.y, size.width, size.height);
+    	// Determine whether this entity should be drawn with an offset
+    	float offsetX = 0f, offsetY = 0f;
+    	if (tileTransitionMapper.has(entity)) {
+    		// Apply the offset in the specified direction.
+    		switch(tileTransitionMapper.get(entity).direction) {
+				case DOWN:
+					offsetY -= tileTransitionMapper.get(entity).offset;
+					break;
+				case LEFT:
+					offsetX -= tileTransitionMapper.get(entity).offset;
+					break;
+				case RIGHT:
+					offsetX += tileTransitionMapper.get(entity).offset;
+					break;
+				case UP:
+					offsetY += tileTransitionMapper.get(entity).offset;
+					break;
+    		}
+    	}
+    	
+    	// Draw the entity.
+    	batch.draw(texture.texture, position.x + offsetX, position.y + offsetY, size.width, size.height);
     }
     
     /**

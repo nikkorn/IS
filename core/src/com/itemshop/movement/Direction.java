@@ -1,9 +1,9 @@
-package com.itemshop.character;
+package com.itemshop.movement;
 
 /**
  * Face-able directions.
  */
-public enum FacingDirection {
+public enum Direction {
 	UP,
 	DOWN,
 	LEFT,

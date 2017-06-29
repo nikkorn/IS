@@ -3,8 +3,8 @@ package com.itemshop.game.assets;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.itemshop.character.FacingDirection;
 import com.itemshop.character.ISCharacter;
+import com.itemshop.movement.Direction;
 import com.itemshop.render.AnimationComponent;
 import com.itemshop.render.TextureComponent;
 
@@ -47,7 +47,7 @@ public class CharacterResources {
 	 * @param isWalking
 	 * @return visual component
 	 */
-	public Component getVisualComponent(FacingDirection direction, boolean isWalking) {
+	public Component getVisualComponent(Direction direction, boolean isWalking) {
 		switch(direction) {
 			case DOWN:
 				return isWalking ? walking_down : stationary_down;

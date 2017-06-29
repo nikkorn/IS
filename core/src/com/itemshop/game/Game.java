@@ -5,6 +5,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.itemshop.character.CharacterSystem;
+import com.itemshop.character.walking.WalkingSystem;
 import com.itemshop.game.assets.Assets;
 import com.itemshop.input.KeyboardSystem;
 import com.itemshop.input.MouseSystem;
@@ -37,6 +38,7 @@ public class Game extends ApplicationAdapter {
 		// Add the systems.
 		engine.addSystem(new StateSystem());
 		engine.addSystem(new CharacterSystem());
+		engine.addSystem(new WalkingSystem());
 		engine.addSystem(new KeyboardSystem());
 		engine.addSystem(new MouseSystem(camera));
 		engine.addSystem(new RenderSystem(camera));

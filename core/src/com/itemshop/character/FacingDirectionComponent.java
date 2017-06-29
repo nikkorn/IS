@@ -1,6 +1,7 @@
 package com.itemshop.character;
 
 import com.badlogic.ashley.core.Component;
+import com.itemshop.movement.Direction;
 
 /**
  * A component that defines a face-able direction.
@@ -8,11 +9,11 @@ import com.badlogic.ashley.core.Component;
 public class FacingDirectionComponent implements Component {
 	
 	/** The facing direction. Default is down to face camera. */
-	public FacingDirection direction = FacingDirection.DOWN;
+	public Direction direction = Direction.DOWN;
 	
 	/**
 	 * Create a new instance of FacingDirection.
 	 * @param direction
 	 */
-	public FacingDirectionComponent(FacingDirection direction) { this.direction = direction; }
+	public FacingDirectionComponent(Direction direction) { this.direction = direction; }
 }
