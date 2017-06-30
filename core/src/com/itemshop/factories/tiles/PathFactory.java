@@ -30,15 +30,6 @@ public class PathFactory implements TileFactory {
 		entity.add(new SizeComponent(1, 1));
 		entity.add(new PositionComponent(x, y));
 		entity.add(new TextureComponent(Assets.slab));
-		
-		MouseComponent mouseComponent = new MouseComponent();
-		mouseComponent.onBeginHover = (hoveredEntity) -> {
-			System.out.println("Hovering on path @ " + x + ", " + y);
-		};
-		mouseComponent.onBeginClick = (hoveredEntity) -> {
-			System.out.println("Clicking on path @ " + x + ", " + y);
-		};
-		entity.add(mouseComponent);
 
 		// Add the tile entity to the engine.
 		engine.addEntity(entity);

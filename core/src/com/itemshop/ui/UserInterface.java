@@ -1,6 +1,7 @@
 package com.itemshop.ui;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -13,7 +14,6 @@ public class UserInterface {
 	
 	/** Textures. */
 	TextureRegion dollarTexture;
-	TextureRegion cursorTexture;
 	
 	/** Sprite batch shared with the rest of the game. */
 	SpriteBatch spriteBatch;
@@ -23,7 +23,6 @@ public class UserInterface {
 
 	public UserInterface(SpriteBatch spriteBatch) {
 		this.dollarTexture = Assets.dollar;
-		this.cursorTexture = Assets.cursor;
 		this.spriteBatch = spriteBatch;
 		
 		// Create the camera with the same width and height as device.
@@ -40,6 +39,5 @@ public class UserInterface {
 		// Sprite batch is shared, apply our camera.
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.draw(dollarTexture, 0, 0);
-		spriteBatch.draw(cursorTexture, Gdx.input.getX(), -Gdx.input.getY() + Gdx.graphics.getHeight(), 16, 16);
 	}
 }

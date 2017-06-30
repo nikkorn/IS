@@ -7,7 +7,14 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Cursor;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Pixmap.Filter;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
+import com.itemshop.game.Assets;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.SizeComponent;
 
@@ -41,6 +48,7 @@ public class MouseSystem extends IteratingSystem {
 	public MouseSystem(Camera camera) {
 		super(Family.all(MouseComponent.class, PositionComponent.class, SizeComponent.class).get());
 		this.camera = camera;
+		setUpCursor();
 	}
 	
 	/**
@@ -128,5 +136,24 @@ public class MouseSystem extends IteratingSystem {
 			return;
 		}
 		mouse.onEndClick.perform(entity);
+	}
+	
+	private static void setUpCursor() {
+		Texture cursorTexture = Assets.cursor;
+		if (!cursorTexture.getTextureData().isPrepared())
+		{
+			cursorTexture.getTextureData().prepare();
+		}
+		
+		Pixmap pixmap = cursorTexture.getTextureData().consumePixmap();
+		
+		int scale = 2;
+		Pixmap pixmapScaled = new Pixmap(pixmap.getWidth() * scale, pixmap.getHeight() * scale, Format.RGBA8888);
+		Pixmap.setFilter(Filter.NearestNeighbour);
+		pixmapScaled.drawPixmap(pixmap, 0, 0, pixmap.getWidth(), pixmap.getHeight(), 0, 0, pixmapScaled.getWidth(), pixmapScaled.getHeight());
+		
+		Cursor customCursor = Gdx.graphics.newCursor(pixmapScaled, 0, 0);
+		
+		Gdx.graphics.setCursor(customCursor);
 	}
 }

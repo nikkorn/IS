@@ -35,9 +35,6 @@ public class RenderSystem extends IteratingSystem {
     /** The game camera. */
     private OrthographicCamera camera;
     
-    /** Keep track of the time so that we can do some demo camera animation. */
-    private float time;
-    
     private float offsetX, offsetY = 0f;
 	
 	/**
@@ -64,9 +61,6 @@ public class RenderSystem extends IteratingSystem {
 		
 		// Prepare the user interface for rendering.
 		userInterface = new UserInterface(batch);
-		
-		// Track the amount of time passed so that we can do some sweet animations.
-		time = 0;
 	}
 
 	/**
@@ -78,11 +72,6 @@ public class RenderSystem extends IteratingSystem {
     	// Clear the screen.
     	Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		// Do some sweet animations to demonstrate the camera functionality.
-		time += deltaTime;
-		//camera.position.x = (float) (Math.sin(time / 2) * 5) + HALF_MAP_SIZE;
-		//camera.position.y = (float) (Math.cos(time / 2) * 5) + HALF_MAP_SIZE;
 		
 		offsetX += Gdx.input.getDeltaX() * ZOOM_SCALE;
 		offsetY -= Gdx.input.getDeltaY() * ZOOM_SCALE;

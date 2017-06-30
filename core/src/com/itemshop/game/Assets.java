@@ -25,7 +25,6 @@ public class Assets {
 	public static TextureRegion plate;
 	public static TextureRegion apple;
 	public static TextureRegion dollar;
-	public static TextureRegion cursor;
 
 	public static TextureRegion water;
 	public static TextureRegion water_top;
@@ -55,11 +54,13 @@ public class Assets {
 	
 	public static TextureRegion unknown;
 	
+	public static Texture cursor;
+	
 	/**
 	 * Load assets from disk.
 	 */
 	public static void load () {
-		Texture spritesheet = new Texture(Gdx.files.internal("images/sprites/1.png"));
+		Texture spritesheet = getTexture("images/sprites/1.png");
 
 		wood_horizontal = getTextureAt(spritesheet, 0, 0);
 		wood_vertical = getTextureAt(spritesheet, 1, 0);
@@ -79,7 +80,6 @@ public class Assets {
 		plate = getTextureAt(spritesheet, 2, 2);
 		apple = getTextureAt(spritesheet, 3, 2);
 		dollar = getTextureAt(spritesheet, 4, 2);
-		dollar = getTextureAt(spritesheet, 5, 2);
 
 		water = getTextureAt(spritesheet, 0, 3);
 		water_top = getTextureAt(spritesheet, 1, 3);
@@ -109,6 +109,12 @@ public class Assets {
 		
 		// Use one of the empty question marks as a placeholder if we need it.
 		unknown = getTextureAt(spritesheet, 0, 7);
+		
+		cursor = getTexture("images/sprites/cursor.png");
+	}
+	
+	private static Texture getTexture(String file) {
+		return new Texture(Gdx.files.internal(file));
 	}
 	
 	private static TextureRegion getTextureAt(Texture spritesheet, int x, int y) {
