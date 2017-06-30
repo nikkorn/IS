@@ -7,6 +7,12 @@ import com.badlogic.ashley.core.Component;
  */
 public class CharacterComponent implements Component {
 	
-	/** The character name. */
-	public String name;
+	/** The character. */
+	public ISCharacter character;
+	
+	/**
+	 * Create a new instance of CharacterComponent.
+	 * @param character
+	 */
+	public CharacterComponent(ISCharacter character) { this.character = character; }
 }

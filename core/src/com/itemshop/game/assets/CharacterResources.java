@@ -40,22 +40,16 @@ public class CharacterResources {
 		// TODO Initialise the animation components.
 	}
 	
-	/**
-	 * Get a visual component for this character, either an animation or texture.
-	 * @param direction
-	 * @param isWalking
-	 * @return visual component
-	 */
-	public Component getVisualComponent(Direction direction, boolean isWalking) {
+	public TextureComponent getTexture(Direction direction) {
 		switch(direction) {
 			case DOWN:
-				return isWalking ? walking_down : stationary_down;
+				return stationary_down;
 			case LEFT:
-				return isWalking ? walking_left : stationary_left;
+				return stationary_left;
 			case RIGHT:
-				return isWalking ? walking_right : stationary_right;
+				return stationary_right;
 			case UP:
-				return isWalking ? walking_up : stationary_up;
+				return stationary_up;
 			default:
 				return stationary_down;
 		}

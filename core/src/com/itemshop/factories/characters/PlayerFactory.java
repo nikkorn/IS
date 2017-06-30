@@ -1,6 +1,7 @@
 package com.itemshop.factories.characters;
 
 import com.badlogic.ashley.core.Entity;
+import com.itemshop.character.CharacterComponent;
 import com.itemshop.character.FacingDirectionComponent;
 import com.itemshop.character.ISCharacter;
 import com.itemshop.game.assets.Assets;
@@ -19,6 +20,7 @@ public class PlayerFactory {
 	public static Entity create() {
 
 		Entity player = new Entity();
+		player.add(new CharacterComponent(ISCharacter.PLAYER));
 		
 		// The player character should be the size of a tile.
 		player.add(new SizeComponent(1, 1));
@@ -27,8 +29,7 @@ public class PlayerFactory {
 		player.add(new FacingDirectionComponent(Direction.DOWN));
 		
 		// Add the visual component for the player character.
-		player.add(Assets.getCharacterResources(ISCharacter.PLAYER)
-				.getVisualComponent(Direction.DOWN, false));
+		player.add(Assets.getCharacterResources(ISCharacter.PLAYER).getTexture(Direction.DOWN));
 		
 		return player;
 	}
