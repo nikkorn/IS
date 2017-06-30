@@ -5,16 +5,14 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.itemshop.game.assets.Assets;
 import com.itemshop.movement.WalkableTileComponent;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.SizeComponent;
 import com.itemshop.render.TextureComponent;
-import com.itemshop.utilities.lotto.Lotto;
 
 /**
- * Factory for creating a Grass tile.
+ * Factory for creating a Wall tile.
  */
-public class GrassFactory implements TileFactory {
+public class WoodFactory implements TileFactory {
 
 	/**
 	 * Creates the entity.
@@ -30,17 +28,8 @@ public class GrassFactory implements TileFactory {
 		// Add the entities components.
 		entity.add(new SizeComponent(1, 1));
 		entity.add(new PositionComponent(x, y));
+		entity.add(new TextureComponent(Assets.wood_horizontal));
 		entity.add(new WalkableTileComponent());
-		entity.add(new TextureComponent(
-				new Lotto<TextureRegion>(random)
-					.add(Assets.grass, 4)
-					.add(Assets.grass_flower, 2)
-					.add(Assets.grass_mole, 1)
-					.add(Assets.grass_pebble, 4)
-					.add(Assets.grass_medium, 8)
-					.add(Assets.grass_long, 8)
-					.draw()
-			));
 
 		// Add the tile entity to the engine.
 		engine.addEntity(entity);

@@ -25,7 +25,7 @@ public class BerryFactory implements ItemFactory {
 		
 		// Add the entities components.
 		item.add(new ItemTypeComponent(ItemType.BERRY, "Berry"));
-		item.add(new TextureComponent(Assets.berry_texture));
+		item.add(new TextureComponent(Assets.unknown));
 		item.add(new QualityComponent());
 		item.add(new ValueComponent(3));
 		item.add(new PerishableComponent(5));		

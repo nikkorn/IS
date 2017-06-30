@@ -1,7 +1,7 @@
 package com.itemshop.render;
 
 import com.badlogic.ashley.core.Component;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * A component describing the texture to use in drawing the component.
@@ -9,11 +9,11 @@ import com.badlogic.gdx.graphics.Texture;
 public class TextureComponent implements Component {
 	
 	/** The texture to use in drawing the component. */
-	public Texture texture;
+	public TextureRegion region;
 	
 	/**
 	 * Create a new instance of TextureComponent.
-	 * @param texture
+	 * @param region
 	 */
-	public TextureComponent(Texture texture) { this.texture = texture; }
+	public TextureComponent(TextureRegion region) { this.region = region; }
 }

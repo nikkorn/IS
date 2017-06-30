@@ -25,7 +25,7 @@ public class AppleFactory implements ItemFactory {
 		
 		// Add the entities components.
 		item.add(new ItemTypeComponent(ItemType.APPLE, "Apple"));
-		item.add(new TextureComponent(Assets.apple_texture));
+		item.add(new TextureComponent(Assets.apple));
 		item.add(new QualityComponent());
 		item.add(new ValueComponent(2));
 		item.add(new PerishableComponent(4));		

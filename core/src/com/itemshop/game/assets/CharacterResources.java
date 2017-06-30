@@ -1,7 +1,6 @@
 package com.itemshop.game.assets;
 
 import com.badlogic.ashley.core.Component;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.itemshop.character.ISCharacter;
 import com.itemshop.movement.Direction;
@@ -27,16 +26,16 @@ public class CharacterResources {
 	 * Creates a new instance of the CharacterResources class.
 	 * @param character
 	 */
-	public CharacterResources(ISCharacter character) {
+	public CharacterResources(ISCharacter character, Texture spritesheet) {
 		
-		// Get the correct directory based on the character.
-		String dir = character.name().toLowerCase();
-		
+		// The oridinal of the character enum defines its vertical position in the character spritesheet.
+		int regionYPositon = character.ordinal();
+
 		// Load the relevant assets.
-		stationary_up    = new TextureComponent(new Texture(Gdx.files.internal("images/characters/"+ dir +"/stationary_up.png")));
-		stationary_down  = new TextureComponent(new Texture(Gdx.files.internal("images/characters/"+ dir +"/stationary_down.png")));
-		stationary_left  = new TextureComponent(new Texture(Gdx.files.internal("images/characters/"+ dir +"/stationary_left.png")));
-		stationary_right = new TextureComponent(new Texture(Gdx.files.internal("images/characters/"+ dir +"/stationary_right.png")));
+		stationary_down  = new TextureComponent(Assets.getTextureAt(spritesheet, 0, regionYPositon));
+		stationary_left  = new TextureComponent(Assets.getTextureAt(spritesheet, 1, regionYPositon));
+		stationary_up    = new TextureComponent(Assets.getTextureAt(spritesheet, 2, regionYPositon));
+		stationary_right = new TextureComponent(Assets.getTextureAt(spritesheet, 3, regionYPositon));
 		
 		// TODO Initialise the animation components.
 	}

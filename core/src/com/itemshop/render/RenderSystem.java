@@ -10,6 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.itemshop.movement.MovementTileTransitionComponent;
 import com.itemshop.ui.UserInterface;
 
@@ -111,8 +112,13 @@ public class RenderSystem extends SortedIteratingSystem {
     	PositionComponent position = positionMapper.get(entity);
     	SizeComponent size         = sizeMapper.get(entity);
     	
-    	// TODO Get either animation or texture.
-    	TextureComponent texture = textureMapper.get(entity);
+    	// Get the actual texture to draw, either from the texture or animation component.
+    	TextureRegion texture = null;
+    	if (textureMapper.has(entity)) {
+    		texture = textureMapper.get(entity).region;
+    	} else {
+    		texture = animationMapper.get(entity).animation.getKeyFrame(time, true);
+    	}
     	
     	// Determine whether this entity should be drawn with an offset
     	float offsetX = 0f, offsetY = 0f;
@@ -135,7 +141,7 @@ public class RenderSystem extends SortedIteratingSystem {
     	}
     	
     	// Draw the entity.
-    	batch.draw(texture.texture, position.x + offsetX, position.y + offsetY, size.width, size.height);
+    	batch.draw(texture, position.x + offsetX, position.y + offsetY, size.width, size.height);
     }
     
     /**

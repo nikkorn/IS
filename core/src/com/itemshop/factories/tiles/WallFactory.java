@@ -16,7 +16,7 @@ public class WallFactory implements TileFactory {
 	/**
 	 * Creates the entity.
 	 * @param engine The engine to add the entity to.
-	 * @param random The rng to use.
+	 * @param random The random number generator to use.
 	 * @param x The x position.
 	 * @param y The y position.
 	 */
@@ -27,7 +27,7 @@ public class WallFactory implements TileFactory {
 		// Add the entities components.
 		entity.add(new SizeComponent(1, 1));
 		entity.add(new PositionComponent(x, y));
-		entity.add(new TextureComponent(Assets.wall_tile));
+		entity.add(new TextureComponent(Assets.stone));
 
 		// Add the tile entity to the engine.
 		engine.addEntity(entity);
