@@ -40,7 +40,7 @@ public class KeyboardSystem extends IteratingSystem {
 			if(Gdx.input.isKeyJustPressed(entry.getKey())) {
 				
 				// Perform the action.
-				entry.getValue().perform(entity);
+				entry.getValue().perform(deltaTime);
 			}
 		}
 	}

@@ -2,7 +2,7 @@ package com.itemshop.state;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.itemshop.factories.TestFactory;
+import com.itemshop.factories.MenuFactory;
 
 /**
  * The title screen state.
@@ -17,11 +17,7 @@ public class TitleState implements IState {
 	 */
 	public void beginState(Engine engine) {
 		
-		// Create the title screen entities.
-		System.out.println("Beginning Title state");
-		
-		// We only have a test entity so use that for now.
-		TestFactory.create(engine);
+		MenuFactory.create(engine);
 	}
 
 	/**
