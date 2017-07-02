@@ -1,10 +1,18 @@
-package com.itemshop.game;
+package com.itemshop.game.assets;
 
+import java.util.HashMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.itemshop.character.ISCharacter;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+/**
+ * Various game assets.
+ */
 public class Assets {
+	// Character resource map.
+	private static HashMap<ISCharacter, CharacterResources> characterResources = new HashMap<ISCharacter, CharacterResources>();
+
 	private static final int SPRITE_SIZE = 16;
 
 	private static final int BUTTON_WIDTH = 64;
@@ -67,6 +75,13 @@ public class Assets {
 	 * Load assets from disk.
 	 */
 	public static void load () {
+
+		// Character resources.
+		Texture characterSpritesheet = new Texture(Gdx.files.internal("images/sprites/2.png"));
+		for (ISCharacter character : ISCharacter.values()) {
+			characterResources.put(character, new CharacterResources(character, characterSpritesheet));
+		}
+
 		Texture mainSheet = getTexture("images/sprites/1.png");
 
 		wood_horizontal = getSpriteAt(mainSheet, 0, 0);
@@ -125,7 +140,7 @@ public class Assets {
 		play_hover = getButtonAt(menuSheet, 0, 1);
 		play_click = getButtonAt(menuSheet, 0, 2);
 	}
-	
+
 	/**
 	 * Loads a texture from disk.
 	 * @param file The texture location on disk.
@@ -142,7 +157,7 @@ public class Assets {
 	 * @param y The Y position of the sprite within the sheet.
 	 * @return The sprite texture.
 	 */
-	private static TextureRegion getSpriteAt(Texture spritesheet, int x, int y) {
+	public static TextureRegion getSpriteAt(Texture spritesheet, int x, int y) {
 		return new TextureRegion(
 			spritesheet,
 			x * SPRITE_SIZE,
@@ -150,6 +165,15 @@ public class Assets {
 			SPRITE_SIZE,
 			SPRITE_SIZE
 		);
+	}
+
+	/**
+	 * Get the character resources for a specific character.
+	 * @param character
+	 * @return character resources
+	 */
+	public static CharacterResources getCharacterResources(ISCharacter character) {
+		return characterResources.get(character);
 	}
 
 	/**

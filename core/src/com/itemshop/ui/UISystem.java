@@ -36,7 +36,7 @@ public class UISystem extends IteratingSystem {
 
 	/**
 	 * Updates the system.
-	 * @param Time since last update.
+	 * @param deltaTime since last update.
 	 */
     public void update(float deltaTime) {
     	
@@ -53,6 +53,6 @@ public class UISystem extends IteratingSystem {
     	ScreenPositionComponent screenPosition = screenPositionMapper.get(entity);
     	TextureComponent texture = textureMapper.get(entity);
     	
-    	spriteBatch.draw(texture.texture, screenPosition.x, screenPosition.y, screenPosition.width, screenPosition.height);
+    	spriteBatch.draw(texture.region, screenPosition.x, screenPosition.y, screenPosition.width, screenPosition.height);
     }
 }

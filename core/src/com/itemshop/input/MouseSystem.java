@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.itemshop.game.Assets;
+import com.itemshop.game.assets.Assets;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.ui.ScreenPositionComponent;
 
@@ -50,7 +50,7 @@ public class MouseSystem extends IteratingSystem {
 	
 	/**
 	 * Updates the system.
-	 * @param Time since last update.
+	 * @param deltaTime the delta time.
 	 */
     public void update(float deltaTime) {
     	Vector2 currentPosition = getPosition();
@@ -129,7 +129,7 @@ public class MouseSystem extends IteratingSystem {
 	/**
 	 * Triggers any relevant click handlers.
 	 * @param mouse The mouse component.
-	 * @param isOver Whether the mouse is over the component.
+	 * @param isClicking Whether the mouse is clicking the component.
 	 * @param deltaTime The amount of time that has passed.
 	 */
 	private void processClick(MouseComponent mouse, boolean isClicking, float deltaTime) {
