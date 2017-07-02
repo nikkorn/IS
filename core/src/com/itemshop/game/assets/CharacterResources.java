@@ -1,6 +1,5 @@
 package com.itemshop.game.assets;
 
-import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.graphics.Texture;
 import com.itemshop.character.ISCharacter;
 import com.itemshop.movement.Direction;
@@ -32,10 +31,10 @@ public class CharacterResources {
 		int regionYPositon = character.ordinal();
 
 		// Load the relevant assets.
-		stationary_down  = new TextureComponent(Assets.getTextureAt(spritesheet, 0, regionYPositon));
-		stationary_left  = new TextureComponent(Assets.getTextureAt(spritesheet, 1, regionYPositon));
-		stationary_up    = new TextureComponent(Assets.getTextureAt(spritesheet, 2, regionYPositon));
-		stationary_right = new TextureComponent(Assets.getTextureAt(spritesheet, 3, regionYPositon));
+		stationary_down  = new TextureComponent(Assets.getSpriteAt(spritesheet, 0, regionYPositon));
+		stationary_left  = new TextureComponent(Assets.getSpriteAt(spritesheet, 1, regionYPositon));
+		stationary_up    = new TextureComponent(Assets.getSpriteAt(spritesheet, 2, regionYPositon));
+		stationary_right = new TextureComponent(Assets.getSpriteAt(spritesheet, 3, regionYPositon));
 		
 		// TODO Initialise the animation components.
 	}

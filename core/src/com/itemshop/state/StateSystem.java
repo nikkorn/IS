@@ -2,6 +2,7 @@ package com.itemshop.state;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.EntitySystem;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 
 /**
  * Handles processing of each entity's render component.
@@ -17,10 +18,16 @@ public class StateSystem extends EntitySystem {
 	/** The current state. */
 	private IState currentState;
 	
+	private OrthographicCamera worldCamera;
+	
+	public StateSystem(OrthographicCamera worldCamera) {
+		this.worldCamera = worldCamera;
+	}
+	
 	@Override
 	public void addedToEngine(Engine engine) {
 		// Create the initial state.
-		currentState = new SplashState();
+		currentState = new TitleState();
 		
 		// Begin the new state.
 		currentState.beginState(engine);
@@ -44,14 +51,11 @@ public class StateSystem extends EntitySystem {
 		
 		// Create the new state.
 		switch(state) {
-			case Splash:
-				currentState = new SplashState();
-				break;
 			case Title:
 				currentState = new TitleState();
 				break;
 			case Game:
-				currentState = new GameState();
+				currentState = new GameState(worldCamera);
 				break;
 		}
 		
