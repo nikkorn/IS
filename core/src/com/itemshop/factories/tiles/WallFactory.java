@@ -6,7 +6,6 @@ import com.badlogic.ashley.core.Entity;
 import com.itemshop.game.Assets;
 import com.itemshop.movement.NonWalkableTileComponent;
 import com.itemshop.render.PositionComponent;
-import com.itemshop.render.SizeComponent;
 import com.itemshop.render.TextureComponent;
 
 /**
@@ -26,7 +25,6 @@ public class WallFactory implements TileFactory {
 		Entity entity = new Entity();
 
 		// Add the entities components.
-		entity.add(new SizeComponent(1, 1));
 		entity.add(new PositionComponent(x, y));
 		entity.add(new TextureComponent(Assets.stone));
 		entity.add(new NonWalkableTileComponent());
