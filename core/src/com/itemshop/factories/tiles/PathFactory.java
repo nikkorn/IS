@@ -6,9 +6,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.itemshop.game.Assets;
-import com.itemshop.input.MouseComponent;
 import com.itemshop.render.PositionComponent;
-import com.itemshop.render.SizeComponent;
 import com.itemshop.render.TextureComponent;
 import com.itemshop.utilities.lotto.Lotto;
 
@@ -29,7 +27,6 @@ public class PathFactory implements TileFactory {
 		Entity entity = new Entity();
 
 		// Add the entities components.
-		entity.add(new SizeComponent(1, 1));
 		entity.add(new PositionComponent(x, y));
 		entity.add(new TextureComponent(
 			new Lotto<TextureRegion>(random)
@@ -38,15 +35,6 @@ public class PathFactory implements TileFactory {
 				.add(Assets.slab_quad, 1)
 				.draw()
 		));
-		
-		MouseComponent mouseComponent = new MouseComponent();
-		mouseComponent.onBeginHover = (hoveredEntity) -> {
-			System.out.println("Hovering on path @ " + x + ", " + y);
-		};
-		mouseComponent.onBeginClick = (hoveredEntity) -> {
-			System.out.println("Clicking on path @ " + x + ", " + y);
-		};
-		entity.add(mouseComponent);
 
 		// Add the tile entity to the engine.
 		engine.addEntity(entity);

@@ -6,7 +6,6 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.itemshop.game.Assets;
 import com.itemshop.render.PositionComponent;
-import com.itemshop.render.SizeComponent;
 import com.itemshop.render.TextureComponent;
 import com.itemshop.utilities.lotto.Lotto;
 
@@ -28,7 +27,6 @@ public class GrassFactory implements TileFactory {
 		Entity entity = new Entity();
 
 		// Add the entities components.
-		entity.add(new SizeComponent(1, 1));
 		entity.add(new PositionComponent(x, y));
 		entity.add(new TextureComponent(
 				new Lotto<TextureRegion>(random)
