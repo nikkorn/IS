@@ -14,7 +14,6 @@ public class ItemFactoryMap {
 		put(ItemType.BERRY, new BerryFactory());
 		put(ItemType.CHEESE, new CheeseFactory());
 		put(ItemType.MUFFIN, new MuffinFactory());
-		put(ItemType.TABLE, new TableFactory());
 		put(ItemType.CHEST, new ChestFactory());
 	}};
 	

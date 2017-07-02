@@ -19,6 +19,8 @@ public class Assets {
 	public static TextureRegion stone_border_corner;
 	public static TextureRegion stone_border_side;
 	public static TextureRegion stone_stairs;
+	public static TextureRegion stone_cobble_wall;
+	public static TextureRegion stone_cobble;
 	
 	public static TextureRegion candle_wall;
 	public static TextureRegion candle_table;
@@ -35,8 +37,10 @@ public class Assets {
 	public static TextureRegion door_stone;
 	public static TextureRegion rock;
 	public static TextureRegion window;
-	
+
 	public static TextureRegion slab;
+	public static TextureRegion slab_round;
+	public static TextureRegion slab_quad;
 	public static TextureRegion sand;
 
 	public static TextureRegion roof_top;
@@ -51,6 +55,30 @@ public class Assets {
 	public static TextureRegion grass_long;
 	public static TextureRegion grass_edge_left;
 	public static TextureRegion grass_edge_right;
+
+	public static TextureRegion bookcase_0;
+	public static TextureRegion bookcase_1;
+	public static TextureRegion bookcase_2;
+	public static TextureRegion bookcase_3;
+	public static TextureRegion bookcase_4;
+	public static TextureRegion bookcase_5;
+	public static TextureRegion bookcase_6;
+	public static TextureRegion bookcase_7;
+	public static TextureRegion bookcase_8;
+	public static TextureRegion bookcase_9;
+	public static TextureRegion bookcase_10;
+	public static TextureRegion bookcase_11;
+	public static TextureRegion bookcase_12;
+	public static TextureRegion bookcase_13;
+	public static TextureRegion bookcase_14;
+
+	public static TextureRegion cabinet_wood;
+	public static TextureRegion table_wood;
+	public static TextureRegion display_wood;
+	public static TextureRegion cabinet_stone;
+	public static TextureRegion table_stone;
+	public static TextureRegion display_stone;
+	public static TextureRegion till;
 	
 	public static TextureRegion unknown;
 	
@@ -72,6 +100,8 @@ public class Assets {
 		stone_border_corner = getTextureAt(spritesheet, 4, 1);
 		stone_border_side = getTextureAt(spritesheet, 5, 1);
 		stone_stairs = getTextureAt(spritesheet, 6, 1);
+		stone_cobble_wall = getTextureAt(spritesheet, 7, 1);
+		stone_cobble = getTextureAt(spritesheet, 8, 1);
 
 		candle_wall = getTextureAt(spritesheet, 0, 2);
 		candle_table = getTextureAt(spritesheet, 1, 2);
@@ -90,7 +120,9 @@ public class Assets {
 		window = getTextureAt(spritesheet, 4, 4);
 
 		slab = getTextureAt(spritesheet, 0, 5);
-		sand = getTextureAt(spritesheet, 1, 5);
+		slab_round = getTextureAt(spritesheet, 1, 5);
+		slab_quad = getTextureAt(spritesheet, 2, 5);
+		sand = getTextureAt(spritesheet, 3, 5);
 
 		roof_top = getTextureAt(spritesheet, 0, 6);
 		roof = getTextureAt(spritesheet, 1, 6);
@@ -105,8 +137,33 @@ public class Assets {
 		grass_edge_left = getTextureAt(spritesheet, 6, 7);
 		grass_edge_right = getTextureAt(spritesheet, 7, 7);
 		
+		bookcase_0 = getTextureAt(spritesheet, 0, 8);
+		bookcase_1 = getTextureAt(spritesheet, 1, 8);
+		bookcase_2 = getTextureAt(spritesheet, 2, 8);
+		bookcase_3 = getTextureAt(spritesheet, 3, 8);
+		bookcase_4 = getTextureAt(spritesheet, 4, 8);
+		bookcase_5 = getTextureAt(spritesheet, 5, 8);
+		bookcase_6 = getTextureAt(spritesheet, 6, 8);
+		bookcase_7 = getTextureAt(spritesheet, 7, 8);
+		bookcase_8 = getTextureAt(spritesheet, 8, 8);
+		bookcase_9 = getTextureAt(spritesheet, 9, 8);
+		bookcase_10 = getTextureAt(spritesheet, 10, 8);
+		bookcase_11 = getTextureAt(spritesheet, 11, 8);
+		bookcase_12 = getTextureAt(spritesheet, 12, 8);
+		bookcase_13 = getTextureAt(spritesheet, 13, 8);
+		bookcase_14 = getTextureAt(spritesheet, 14, 8);
+
+		cabinet_wood = getTextureAt(spritesheet, 0, 9);
+		table_wood = getTextureAt(spritesheet, 1, 9);
+		display_wood = getTextureAt(spritesheet, 2, 9);
+		cabinet_stone = getTextureAt(spritesheet, 3, 9);
+		table_stone = getTextureAt(spritesheet, 4, 9);
+		display_stone = getTextureAt(spritesheet, 5, 9);
+		till = getTextureAt(spritesheet, 6, 9);
+
+		
 		// Use one of the empty question marks as a placeholder if we need it.
-		unknown = getTextureAt(spritesheet, 0, 7);
+		unknown = getTextureAt(spritesheet, 15, 0);
 	}
 	
 	private static TextureRegion getTextureAt(Texture spritesheet, int x, int y) {

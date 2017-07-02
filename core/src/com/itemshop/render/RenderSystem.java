@@ -57,8 +57,8 @@ public class RenderSystem extends IteratingSystem {
 		// Move to the middle of the map.
 		this.camera.translate(HALF_MAP_SIZE, HALF_MAP_SIZE);
 		
-		// Zoom so that the each sprite pixel is 2 screen pixels.
-		this.camera.zoom = ZOOM_SCALE / 2;
+		// Zoom so that the each sprite pixel is 1 screen pixel.
+		this.camera.zoom = ZOOM_SCALE;
 		
 		// Prepare the user interface for rendering.
 		userInterface = new UserInterface(batch);

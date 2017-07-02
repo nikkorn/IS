@@ -21,7 +21,7 @@ public class WoodFactory implements TileFactory {
 	 * @param x The x position.
 	 * @param y The y position.
 	 */
-	public void create(Engine engine, Random random, int x, int y) {
+	public void create(Engine engine, Random random, int x, int y, boolean sameAbove) {
 		// Create the tile entity.
 		Entity entity = new Entity();
 
