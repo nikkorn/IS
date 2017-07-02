@@ -1,9 +1,9 @@
 package com.itemshop.factories.characters;
 
 import com.badlogic.ashley.core.Entity;
-import com.itemshop.character.CharacterComponent;
 import com.itemshop.character.FacingDirectionComponent;
 import com.itemshop.character.ISCharacter;
+import com.itemshop.character.walking.WalkComponent;
 import com.itemshop.game.assets.Assets;
 import com.itemshop.movement.Direction;
 
@@ -19,7 +19,19 @@ public class PlayerFactory {
 	public static Entity create() {
 
 		Entity player = new Entity();
-		player.add(new CharacterComponent(ISCharacter.PLAYER));
+
+		// Handle walking changes.
+		WalkComponent walkingComponent = new WalkComponent();
+		walkingComponent.onStart = (direction) -> {
+			System.out.println("Walking started!");
+		};
+		walkingComponent.onDirectionChange = (direction) -> {
+			System.out.println("Direction changed!");
+		};
+		walkingComponent.onStop = (direction) -> {
+			System.out.println("Walking stopped!");
+		};
+		player.add(walkingComponent);
 		
 		// All characters will have a facing direction.
 		player.add(new FacingDirectionComponent(Direction.DOWN));

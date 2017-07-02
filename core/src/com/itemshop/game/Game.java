@@ -6,7 +6,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.itemshop.character.CharacterSystem;
 import com.itemshop.character.walking.WalkingSystem;
 import com.itemshop.game.assets.Assets;
 import com.itemshop.input.KeyboardSystem;
@@ -51,7 +50,6 @@ public class Game extends ApplicationAdapter {
 		
 		// Add the systems.
 		engine.addSystem(new StateSystem(worldCamera));
-		engine.addSystem(new CharacterSystem());
 		engine.addSystem(new WalkingSystem());
 		engine.addSystem(new KeyboardSystem());
 		engine.addSystem(new MouseSystem(worldCamera, uiCamera));
