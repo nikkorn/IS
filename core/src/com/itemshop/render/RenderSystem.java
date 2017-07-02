@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.SortedIteratingSystem;;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -30,6 +31,9 @@ public class RenderSystem extends SortedIteratingSystem {
     
     /** The game camera. */
     private OrthographicCamera camera;
+
+	/** The game time (required for animations). */
+	public float time = 0f;
 	
 	/**
 	 * Constructs the render system instance.
@@ -56,6 +60,9 @@ public class RenderSystem extends SortedIteratingSystem {
 		// Make sure we are observing the camera position.
 		camera.update();
 		spriteBatch.setProjectionMatrix(camera.combined);
+
+		// Update the game tme.
+		time += Gdx.graphics.getDeltaTime();
     	
 		// Draw the game.
 		super.update(deltaTime);
@@ -70,7 +77,7 @@ public class RenderSystem extends SortedIteratingSystem {
     	if (textureMapper.has(entity)) {
     		texture = textureMapper.get(entity).region;
     	} else {
-    		texture = animationMapper.get(entity).animation.getKeyFrame(deltaTime, true);
+			texture = animationMapper.get(entity).animation.getKeyFrame(time, true);
     	}
     	
     	// Determine whether this entity should be drawn with an offset

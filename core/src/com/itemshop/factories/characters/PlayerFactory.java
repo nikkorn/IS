@@ -6,6 +6,8 @@ import com.itemshop.character.ISCharacter;
 import com.itemshop.character.walking.WalkComponent;
 import com.itemshop.game.assets.Assets;
 import com.itemshop.movement.Direction;
+import com.itemshop.render.AnimationComponent;
+import com.itemshop.render.TextureComponent;
 
 /**
  * Creates the player entity.
@@ -23,13 +25,20 @@ public class PlayerFactory {
 		// Handle walking changes.
 		WalkComponent walkingComponent = new WalkComponent();
 		walkingComponent.onStart = (direction) -> {
-			System.out.println("Walking started!");
+			// Remove the players idle texture.
+			player.remove(TextureComponent.class);
+			// Set the players walking animation.
+			player.add(Assets.getCharacterResources(ISCharacter.PLAYER).getAnimationComponent(direction));
 		};
 		walkingComponent.onDirectionChange = (direction) -> {
-			System.out.println("Direction changed!");
+			// The player is just changing direction, so they need the correct walking animation to reflect this.
+			player.add(Assets.getCharacterResources(ISCharacter.PLAYER).getAnimationComponent(direction));
 		};
 		walkingComponent.onStop = (direction) -> {
-			System.out.println("Walking stopped!");
+			// Remove the players walking animation.
+			player.remove(AnimationComponent.class);
+			// Set the player's idle texture.
+			player.add(Assets.getCharacterResources(ISCharacter.PLAYER).getTextureComponent(direction));
 		};
 		player.add(walkingComponent);
 		
@@ -37,7 +46,7 @@ public class PlayerFactory {
 		player.add(new FacingDirectionComponent(Direction.DOWN));
 		
 		// Add the visual component for the player character.
-		player.add(Assets.getCharacterResources(ISCharacter.PLAYER).getTexture(Direction.DOWN));
+		player.add(Assets.getCharacterResources(ISCharacter.PLAYER).getTextureComponent(Direction.DOWN));
 		
 		return player;
 	}

@@ -23,10 +23,10 @@ public class WalkingSystem extends IntervalIteratingSystem {
 	private ComponentMapper<WalkComponent> walkMapper;
     
     /** The walking system family. */
-    private static Family family = Family.all(PositionComponent.class, 
-    		TargetPositionComponent.class, FacingDirectionComponent.class).get();
+    private static Family family = Family.all(PositionComponent.class, FacingDirectionComponent.class)
+			.one(TargetPositionComponent.class, MovementTileTransitionComponent.class).get();
 
-    /** The transition step to increment transition offsets by. */
+    /** The transition step to decrement transition offsets by. */
     private static float TRANSITION_STEP = 1f / 8f;
     
     /**
@@ -61,7 +61,7 @@ public class WalkingSystem extends IntervalIteratingSystem {
 			// Get the transition.
 			MovementTileTransitionComponent transition = tileTransitionMapper.get(entity);
 			
-			// If the transition is over then remove it, otherwise increase the offset.
+			// If the transition is over then remove it, otherwise reduce the offset.
 			if (transition.offset == TRANSITION_STEP) {
 				entity.remove(MovementTileTransitionComponent.class);
 			} else {
@@ -70,56 +70,62 @@ public class WalkingSystem extends IntervalIteratingSystem {
 			}
     	} else {
     		
-    		// If we have reached our target we no longer need it.
+    		// If we have reached our target we no longer need to walk.
+			// Otherwise, we need to change our position.
     		if (target.y == position.y && target.x == position.x) {
-    			target.x = new Random().nextInt(30) + 10;
-    			target.y = new Random().nextInt(30) + 10;
 
 				// We have stopped walking because we have reached our target position.
 				walk.onStop.perform(facingDirectionMapper.get(entity).direction);
 				walk.isWalking = false;
-    		}
 
-			// Get the facing direction of this entity.
-			Direction facingDirection = facingDirectionMapper.get(entity).direction;
-    		
-    		// For now, let us try to move towards our target, ignoring non-walkable tiles.
-    		Direction direction = Direction.DOWN;
-    		if(target.x > position.x) {
-    			position.x += 1;
-    			direction = Direction.RIGHT;
-    		}
-    		else if(target.x < position.x) {
-    			position.x -= 1;
-    			direction = Direction.LEFT;
-    		}
-    		else if(target.y > position.y) {
-    			position.y += 1;
-    			direction = Direction.UP;
-    		}
-    		else if(target.y < position.y) {
-    			position.y -= 1;
-    			direction = Direction.DOWN;
-    		}
-
-			// If we have not actually starting walking yet we should call onstart on the walk component.
-			if(!walk.isWalking) {
-				// We have started walking.
-				walk.onStart.perform(direction);
-				walk.isWalking = true;
+				// TODO Remove, only here to show constant walking and ...
+				target.x = new Random().nextInt(30) + 10;
+				target.y = new Random().nextInt(30) + 10;
+				// TODO ... add, we no longer need a target position component if we have reached it.
+				//entity.remove(TargetPositionComponent.class);
 			} else {
-				// We had already started walking, determine if the position we have moved to is
-				// different direction to the one we were walking in when moving to the last position.
-				if (facingDirection != direction) {
-					walk.onDirectionChange.perform(direction);
-				}
-			}
-    		
-    		// Set the new facing direction of this entity.
-    		facingDirectionMapper.get(entity).direction = direction;
 
-    		// The entity has started to move between tiles.
-    		entity.add(new MovementTileTransitionComponent(direction.opposite(), 1f - TRANSITION_STEP));
+				// Get the facing direction of this entity.
+				Direction facingDirection = facingDirectionMapper.get(entity).direction;
+
+				// For now, let us try to move towards our target, ignoring non-walkable tiles.
+				Direction direction = Direction.DOWN;
+				if(target.x > position.x) {
+					position.x += 1;
+					direction = Direction.RIGHT;
+				}
+				else if(target.x < position.x) {
+					position.x -= 1;
+					direction = Direction.LEFT;
+				}
+				else if(target.y > position.y) {
+					position.y += 1;
+					direction = Direction.UP;
+				}
+				else if(target.y < position.y) {
+					position.y -= 1;
+					direction = Direction.DOWN;
+				}
+
+				// If we have not actually starting walking yet we should call onstart() on the walk component.
+				if(!walk.isWalking) {
+					// We have started walking.
+					walk.onStart.perform(direction);
+					walk.isWalking = true;
+				} else {
+					// We had already started walking, determine if the position we have moved to is
+					// different direction to the one we were walking in when moving to the last position.
+					if (facingDirection != direction) {
+						walk.onDirectionChange.perform(direction);
+					}
+				}
+
+				// Set the new facing direction of this entity.
+				facingDirectionMapper.get(entity).direction = direction;
+
+				// The entity has started to move between tiles.
+				entity.add(new MovementTileTransitionComponent(direction.opposite(), 1f - TRANSITION_STEP));
+			}
     	}
 	}
 }

@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
  * A component describing the animation to use in drawing the component.
  */
 public class AnimationComponent implements Component {
-	
+
 	/** The animation to use in drawing the component. */
 	public Animation animation;
 	
