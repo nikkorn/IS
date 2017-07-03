@@ -4,8 +4,7 @@ import java.util.Random;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.itemshop.game.Assets;
-import com.itemshop.movement.NonWalkableTileComponent;
+import com.itemshop.game.assets.Assets;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.TextureComponent;
 import com.itemshop.utilities.lotto.Lotto;
@@ -36,7 +35,6 @@ public class DisplayCaseFactory implements TileFactory {
 			.add(Assets.cabinet_stone, 1)
 			.draw()
 		));
-		entity.add(new NonWalkableTileComponent());
 
 		// Add the tile entity to the engine.
 		engine.addEntity(entity);
