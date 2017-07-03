@@ -1,11 +1,11 @@
 package com.itemshop.factories.tiles;
 
 import java.util.Random;
-
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.itemshop.game.Assets;
+import com.itemshop.game.assets.Assets;
+import com.itemshop.movement.WalkableTileComponent;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.TextureComponent;
 import com.itemshop.utilities.lotto.Lotto;
@@ -35,6 +35,8 @@ public class PathFactory implements TileFactory {
 				.add(Assets.slab_quad, 1)
 				.draw()
 		));
+
+		entity.add(new WalkableTileComponent());
 
 		// Add the tile entity to the engine.
 		engine.addEntity(entity);

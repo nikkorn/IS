@@ -3,7 +3,7 @@ package com.itemshop.factories;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Input;
-import com.itemshop.game.Assets;
+import com.itemshop.game.assets.Assets;
 import com.itemshop.input.InputAction;
 import com.itemshop.input.KeyboardComponent;
 import com.itemshop.input.MouseComponent;

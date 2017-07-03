@@ -3,8 +3,9 @@ package com.itemshop.factories.tiles;
 import java.util.Random;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.itemshop.game.assets.Assets;
+import com.itemshop.movement.WalkableTileComponent;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.itemshop.game.Assets;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.TextureComponent;
 import com.itemshop.utilities.lotto.Lotto;
@@ -28,6 +29,7 @@ public class GrassFactory implements TileFactory {
 
 		// Add the entities components.
 		entity.add(new PositionComponent(x, y));
+		entity.add(new WalkableTileComponent());
 		entity.add(new TextureComponent(
 				new Lotto<TextureRegion>(random)
 					.add(Assets.grass, 4)
