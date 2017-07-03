@@ -1,18 +1,21 @@
 package com.itemshop.character.walking;
 
 import com.badlogic.ashley.core.ComponentMapper;
+import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IntervalIteratingSystem;
+import com.badlogic.ashley.utils.ImmutableArray;
 import com.itemshop.character.FacingDirectionComponent;
 import com.itemshop.movement.Direction;
 import com.itemshop.movement.MovementTileTransitionComponent;
+import com.itemshop.movement.WalkableTileComponent;
 import com.itemshop.render.PositionComponent;
 
 /**
  * Handles processing of entities which can walk.
  */
-public class PathfindingSystem extends IntervalIteratingSystem {
+public class PathingSystem extends IntervalIteratingSystem {
 	
 	/** Component mappers to get components from entities. */
     private ComponentMapper<PositionComponent> positionMapper;
@@ -24,14 +27,17 @@ public class PathfindingSystem extends IntervalIteratingSystem {
     /** The path finding system family. */
     private static Family family = Family.all(PositionComponent.class, FacingDirectionComponent.class)
 			.one(PathComponent.class, MovementTileTransitionComponent.class).get();
-
+    
     /** The transition step to decrement transition offsets by. */
     private static float TRANSITION_STEP = 1f / 8f;
     
+    /** The positioned walkable tile entities. We need to know these in order to carry our path finding. */
+    ImmutableArray<Entity> positionedWalkableTileEntities;
+    
     /**
-	 * Constructs the walking system instance.
+	 * Constructs the pathing system instance.
 	 */
-    public PathfindingSystem() {
+    public PathingSystem() {
 		super(family, TRANSITION_STEP / 2); // 16 times a second = 0.0625f
 		
 		// Create the componentMappers.
@@ -41,14 +47,22 @@ public class PathfindingSystem extends IntervalIteratingSystem {
 		tileTransitionMapper  = ComponentMapper.getFor(MovementTileTransitionComponent.class);
 		walkMapper            = ComponentMapper.getFor(WalkComponent.class);
 	}
+    
+    /**
+     * Called when this system is added to the engine.
+     */
+    public void addedToEngine(Engine engine) {
+    	super.addedToEngine(engine);
+    	positionedWalkableTileEntities = engine.getEntitiesFor(Family.all(PositionComponent.class, WalkableTileComponent.class).get());
+	}
 
 	@Override
 	protected void processEntity(Entity entity) {
 
 		// Get the required components via their mappers.
-		PathComponent path             = pathMapper.get(entity);
-		PositionComponent position     = positionMapper.get(entity);
-		WalkComponent walk             = walkMapper.get(entity);
+		PathComponent path         = pathMapper.get(entity);
+		PositionComponent position = positionMapper.get(entity);
+		WalkComponent walk         = walkMapper.get(entity);
 		
 		// If we have a tile transition component then we are walking between tiles.
 		boolean isTransitioning = tileTransitionMapper.has(entity);
