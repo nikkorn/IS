@@ -7,6 +7,8 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IntervalIteratingSystem;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.itemshop.character.FacingDirectionComponent;
+import com.itemshop.character.walking.astar.AStarNode;
+import com.itemshop.character.walking.astar.AStarPathfinder;
 import com.itemshop.movement.Direction;
 import com.itemshop.movement.MovementTileTransitionComponent;
 import com.itemshop.movement.WalkableTileComponent;
@@ -86,23 +88,16 @@ public class PathingSystem extends IntervalIteratingSystem {
     		// We may not have computed a path for the target position defined in the path component.
     		if (!path.isPathComputed) {
     			
-    			// TODO Use A* to compute path to position defined by path.targtex and path.targety
-    			path.movements.push(Direction.UP);
-    			path.movements.push(Direction.UP);
-    			path.movements.push(Direction.UP);
-    			path.movements.push(Direction.UP);
-    			path.movements.push(Direction.RIGHT);
-    			path.movements.push(Direction.RIGHT);
-    			path.movements.push(Direction.RIGHT);
-    			path.movements.push(Direction.RIGHT);
-    			path.movements.push(Direction.DOWN);
-    			path.movements.push(Direction.DOWN);
-    			path.movements.push(Direction.DOWN);
-    			path.movements.push(Direction.DOWN);
-    			path.movements.push(Direction.LEFT);
-    			path.movements.push(Direction.LEFT);
-    			path.movements.push(Direction.LEFT);
-    			path.movements.push(Direction.LEFT);
+    			// Use A* to compute path to position defined by path.targtex and path.targety
+    			AStarPathfinder pathfinder = new AStarPathfinder(positionedWalkableTileEntities, (tile) -> {
+    				// Get the tile entities position component.
+    				PositionComponent tilePosition = positionMapper.get(tile);
+    				// Create an A* node based on this walkable tiles position.
+    				return new AStarNode((int) tilePosition.x, (int) tilePosition.y);
+    			});
+    			
+    			// Compute the path we need to take.
+    			path.movements = pathfinder.getPath((int) position.x, (int) position.y, (int) path.targetx, (int) path.targety);
     			
     			// We have computed the movements for this path.
     			path.isPathComputed = true;

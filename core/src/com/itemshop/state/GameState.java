@@ -38,12 +38,12 @@ public class GameState implements IState {
 		// Add the player to the town.
 		Entity player = PlayerFactory.create();
 		player.add(new PositionComponent(25,28,1));
-		player.add(new PathComponent(30f,30f));
+		player.add(new PathComponent(25,37));
 		engine.addEntity(player);
 		
 		// Create a test item.
 		Entity apple = new AppleFactory().create();
-		apple.add(new PositionComponent(25,25,1));
+		apple.add(new PositionComponent(25,37,1));
 		
 		// Do something when the item is clicked on.
 		MouseComponent mouseComponent = new MouseComponent();
