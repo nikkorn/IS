@@ -45,14 +45,13 @@ public class AStarPathfinder {
 	 */
 	public Stack<Direction> getPath(int originPosX, int originPosY, int destinationPosX, int destinationPosY) {
 		
-		// Set the heuristic (h value) of the nodes based on the destination position. 
-		for (AStarNode node : nodes.values()) {
-			node.h = Math.abs(destinationPosX-node.x) + Math.abs(destinationPosY-node.y);
-		}
-		
 		// Get the origin and goal node.
 		AStarNode origin = nodes.get(originPosX + ":" + originPosY);
 		AStarNode goal   = nodes.get(destinationPosX + ":" + destinationPosY);
+		
+		// Set the heuristic for the origin and goal nodes.
+		setHeuristic(origin, destinationPosX, destinationPosY);
+		setHeuristic(goal, destinationPosX, destinationPosY);
 
 		// Firstly, add the origin node to the open node map.
 		openNodes.put(originPosX + ":" + originPosY, origin);
@@ -86,13 +85,15 @@ public class AStarPathfinder {
 				if (!openNodes.containsKey(adjacentNodeKey)) {
 					// ...Compute its score...
 					adjacentNode.g = current.g + 1;
+					// ...And compute its heuristic...
+					setHeuristic(adjacentNode, destinationPosX, destinationPosY);
 					// ...Set its parent...
 					adjacentNode.parent = current;
 					// ...And add it to the open map.
 					openNodes.put(adjacentNodeKey, adjacentNode);
 				} else {
 					// ...Test if using the current G score make the adjacentNode F score lower, 
-					// if yes update the parent because it means it iss a better path.
+					// if yes update the parent because it means it is a better path.
 					if (current.g + adjacentNode.h < adjacentNode.f()) {
 						adjacentNode.parent = current;
 					}
@@ -149,6 +150,16 @@ public class AStarPathfinder {
 		}
 		
 		return adjacentNodes;
+	}
+	
+	/**
+	 * Set a nodes heuristic value.
+	 * @param node
+	 * @param destinationPosX
+	 * @param destinationPosY
+	 */
+	private static void setHeuristic(AStarNode node, int destinationPosX, int destinationPosY) {
+		node.h = Math.abs(destinationPosX-node.x) + Math.abs(destinationPosY-node.y);
 	}
 
 	/**
