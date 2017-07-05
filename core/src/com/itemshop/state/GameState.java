@@ -38,7 +38,7 @@ public class GameState implements IState {
 		// Add the player to the town.
 		Entity player = PlayerFactory.create();
 		player.add(new PositionComponent(25,28,1));
-		player.add(new PathComponent(45,49));
+		player.add(new PathComponent(49,30));
 		engine.addEntity(player);
 		
 		// Create a test item.

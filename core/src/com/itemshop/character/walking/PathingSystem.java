@@ -25,6 +25,7 @@ public class PathingSystem extends IntervalIteratingSystem {
     private ComponentMapper<FacingDirectionComponent> facingDirectionMapper;
 	private ComponentMapper<MovementTileTransitionComponent> tileTransitionMapper;
 	private ComponentMapper<WalkComponent> walkMapper;
+	private ComponentMapper<WalkableTileComponent> walkableTileMapper;
     
     /** The path finding system family. */
     private static Family family = Family.all(PositionComponent.class, FacingDirectionComponent.class)
@@ -48,6 +49,7 @@ public class PathingSystem extends IntervalIteratingSystem {
 		facingDirectionMapper = ComponentMapper.getFor(FacingDirectionComponent.class);
 		tileTransitionMapper  = ComponentMapper.getFor(MovementTileTransitionComponent.class);
 		walkMapper            = ComponentMapper.getFor(WalkComponent.class);
+		walkableTileMapper    = ComponentMapper.getFor(WalkableTileComponent.class);
 	}
     
     /**
@@ -93,7 +95,11 @@ public class PathingSystem extends IntervalIteratingSystem {
     				// Get the tile entities position component.
     				PositionComponent tilePosition = positionMapper.get(tile);
     				// Create an A* node based on this walkable tiles position.
-    				return new AStarNode((int) tilePosition.x, (int) tilePosition.y);
+    				AStarNode node = new AStarNode((int) tilePosition.x, (int) tilePosition.y);
+    				// Set the movement cost for this node, this influences how favourable it is to walk on.
+    				node.movementCost = walkableTileMapper.get(tile).movementCost;
+    				// Return the node which represents the tile entity.
+    				return node;
     			});
     			
     			long start = System.currentTimeMillis();

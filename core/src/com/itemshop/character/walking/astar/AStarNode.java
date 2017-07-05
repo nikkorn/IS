@@ -17,6 +17,9 @@ public class AStarNode {
 	/** The estimated movement cost from the current square to the destination point */
 	public int h;
 	
+	/** The amount to increment the movement cost by. Default is 1. */
+	public int movementCost = 1;
+	
 	/**
 	 * The movement cost from the start node to this node. This will 
 	 * normally just be incremented by 1 per node, but this can be made higher
