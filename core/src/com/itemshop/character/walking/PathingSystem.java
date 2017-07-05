@@ -102,10 +102,8 @@ public class PathingSystem extends IntervalIteratingSystem {
     				return node;
     			});
     			
-    			long start = System.currentTimeMillis();
     			// Compute the path we need to take.
     			path.movements = pathfinder.getPath((int) position.x, (int) position.y, (int) path.targetx, (int) path.targety);
-    			System.out.println("time:" + (System.currentTimeMillis() - start));
     			
     			// We have computed the movements for this path.
     			path.isPathComputed = true;
