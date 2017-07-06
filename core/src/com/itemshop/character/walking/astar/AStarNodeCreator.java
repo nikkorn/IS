@@ -6,7 +6,7 @@ import com.badlogic.ashley.core.Entity;
  * Functional interface for creating A* nodes from entities.
  */
 public interface AStarNodeCreator {
-	
+
 	/**
 	 * Create an A* node from an entity.
 	 * @param entity
