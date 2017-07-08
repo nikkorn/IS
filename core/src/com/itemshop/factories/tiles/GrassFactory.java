@@ -29,7 +29,11 @@ public class GrassFactory implements TileFactory {
 
 		// Add the entities components.
 		entity.add(new PositionComponent(x, y));
-		entity.add(new WalkableTileComponent());
+		
+		// Grass is a little bit harder to walk on than other tiles.
+		entity.add(new WalkableTileComponent(3));
+		
+		// Randomly generate a texture component for this tile.
 		entity.add(new TextureComponent(
 				new Lotto<TextureRegion>(random)
 					.add(Assets.grass, 4)
