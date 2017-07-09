@@ -33,35 +33,35 @@ public class CharacterResources {
 		int regionYPositon = character.ordinal();
 
 		// Load the relevant assets.
-		stationary_up    = new TextureComponent(Assets.getSpriteAt(spritesheet, 0, regionYPositon));
-		stationary_down  = new TextureComponent(Assets.getSpriteAt(spritesheet, 4, regionYPositon));
-		stationary_right = new TextureComponent(Assets.getSpriteAt(spritesheet, 8, regionYPositon));
-		stationary_left  = new TextureComponent(Assets.getSpriteAt(spritesheet, 12, regionYPositon));
+		stationary_up    = new TextureComponent(Assets.getTileAt(spritesheet, 0, regionYPositon));
+		stationary_down  = new TextureComponent(Assets.getTileAt(spritesheet, 4, regionYPositon));
+		stationary_right = new TextureComponent(Assets.getTileAt(spritesheet, 8, regionYPositon));
+		stationary_left  = new TextureComponent(Assets.getTileAt(spritesheet, 12, regionYPositon));
 		
 		// Initialise the animation components.
 		walking_up = new AnimationComponent(new Animation(1f/4f, new TextureRegion[] {
-				Assets.getSpriteAt(spritesheet, 0, regionYPositon),
-				Assets.getSpriteAt(spritesheet, 1, regionYPositon),
-				Assets.getSpriteAt(spritesheet, 2, regionYPositon),
-				Assets.getSpriteAt(spritesheet, 3, regionYPositon)
+				Assets.getTileAt(spritesheet, 0, regionYPositon),
+				Assets.getTileAt(spritesheet, 1, regionYPositon),
+				Assets.getTileAt(spritesheet, 2, regionYPositon),
+				Assets.getTileAt(spritesheet, 3, regionYPositon)
 		}));
 		walking_down = new AnimationComponent(new Animation(1f/4f, new TextureRegion[] {
-				Assets.getSpriteAt(spritesheet, 4, regionYPositon),
-				Assets.getSpriteAt(spritesheet, 5, regionYPositon),
-				Assets.getSpriteAt(spritesheet, 6, regionYPositon),
-				Assets.getSpriteAt(spritesheet, 7, regionYPositon)
+				Assets.getTileAt(spritesheet, 4, regionYPositon),
+				Assets.getTileAt(spritesheet, 5, regionYPositon),
+				Assets.getTileAt(spritesheet, 6, regionYPositon),
+				Assets.getTileAt(spritesheet, 7, regionYPositon)
 		}));
 		walking_right = new AnimationComponent(new Animation(1f/4f, new TextureRegion[] {
-				Assets.getSpriteAt(spritesheet, 8, regionYPositon),
-				Assets.getSpriteAt(spritesheet, 9, regionYPositon),
-				Assets.getSpriteAt(spritesheet, 10, regionYPositon),
-				Assets.getSpriteAt(spritesheet, 11, regionYPositon)
+				Assets.getTileAt(spritesheet, 8, regionYPositon),
+				Assets.getTileAt(spritesheet, 9, regionYPositon),
+				Assets.getTileAt(spritesheet, 10, regionYPositon),
+				Assets.getTileAt(spritesheet, 11, regionYPositon)
 		}));
 		walking_left = new AnimationComponent(new Animation(1f/4f, new TextureRegion[] {
-				Assets.getSpriteAt(spritesheet, 12, regionYPositon),
-				Assets.getSpriteAt(spritesheet, 13, regionYPositon),
-				Assets.getSpriteAt(spritesheet, 14, regionYPositon),
-				Assets.getSpriteAt(spritesheet, 15, regionYPositon)
+				Assets.getTileAt(spritesheet, 12, regionYPositon),
+				Assets.getTileAt(spritesheet, 13, regionYPositon),
+				Assets.getTileAt(spritesheet, 14, regionYPositon),
+				Assets.getTileAt(spritesheet, 15, regionYPositon)
 		}));
 	}
 

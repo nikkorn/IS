@@ -4,6 +4,7 @@ import java.util.Random;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.itemshop.game.assets.Assets;
+import com.itemshop.movement.WalkableTileComponent;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.TextureComponent;
 
@@ -26,6 +27,9 @@ public class DoorFactory implements TileFactory {
 		// Add the entities components.
 		entity.add(new PositionComponent(x, y));
 		entity.add(new TextureComponent(Assets.door_stone));
+		
+		// Doors is a little bit harder to walk on than other tiles.
+		entity.add(new WalkableTileComponent(2));
 
 		// Add the tile entity to the engine.
 		engine.addEntity(entity);
