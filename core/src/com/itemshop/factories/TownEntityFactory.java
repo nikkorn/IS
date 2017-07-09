@@ -31,7 +31,7 @@ public class TownEntityFactory {
 	private static Random rng = new Random(12345);
 	
 	@SuppressWarnings("serial")
-	static Map<Integer, TileFactory> colorMap = new HashMap<Integer, TileFactory>() {{
+	private static Map<Integer, TileFactory> colorMap = new HashMap<Integer, TileFactory>() {{
 		put(-9590228, new GrassFactory());
 		put(-2436002, new PathFactory());
 		put(-9080479, new WallFactory());
@@ -46,7 +46,8 @@ public class TownEntityFactory {
 		put(-13618067, new TillFactory());
 	}};
 	
-	static TileFactory defaultFactory = new UnknownFactory();
+	/** Factory to use when it is not possible to determine what the sprite should be. */
+	private static TileFactory defaultFactory = new UnknownFactory();
 	
 	/**
 	 * Creates the town.
@@ -77,6 +78,11 @@ public class TownEntityFactory {
 		}
 	}
 	
+	/**
+	 * Gets the right tile factory for the specified colour, or the default if not found.
+	 * @param color The colour from the map.
+	 * @return The correct tile factory.
+	 */
 	private static TileFactory getFactory(int color) {
 		if (colorMap.containsKey(color)) {
 			return colorMap.get(color);

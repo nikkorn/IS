@@ -6,25 +6,66 @@ import java.util.List;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 
+/**
+ * A component that allows an entity to contain other entities.
+ */
 public class ContainerComponent implements Component {
+	
+	/** The maximum amount the container can hold. */
 	private int capacity;
+	
+	/** The list of items being contained. */
 	private ArrayList<Entity> contents = new ArrayList<Entity>();
+	
+	/**
+	 * Creates the container instance.
+	 * @param capacity The maximum capacity for the container.
+	 */
 	public ContainerComponent(int capacity) {
 		this.capacity = capacity;
 	}
+	
+	/**
+	 * Returns true if the container has space for additions.
+	 * @return Whether the container has space for additions.
+	 */
 	public boolean hasSpace() {
 		return contents.size() < capacity;
 	}
+	
+	/**
+	 * Adds the entity to the container.
+	 * @param entity The entity to add.
+	 * @throws Exception Container is at capacity.
+	 */
 	public void add(Entity entity) throws Exception {
 		if (!this.hasSpace()){
 			throw new Exception("Container is at capacity.");
 		}
 		contents.add(entity);
 	}
+	
+	/**
+	 * Removes the specified entity from the container.
+	 * @param entity
+	 */
 	public void remove(Entity entity) {
 		contents.remove(entity);
 	}
-	public List<Entity> get() {
+	
+	/**
+	 * Gets the current list of entities.
+	 * @return The current list of entities.
+	 */
+	public List<Entity> getContents() {
 		return (List<Entity>) contents.clone();
+	}
+	
+	/**
+	 * Gets the capacity.
+	 * @return The capacity.
+	 */
+	public int getCapacity() {
+		return capacity;
 	}
 }

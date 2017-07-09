@@ -10,8 +10,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.TextureComponent;
 
+/**
+ * Factory for creating a Bookcase tile.
+ */
 public class BookcaseFactory implements TileFactory {
 	
+	/** The maximum number of books that a bookcase can contain. */
 	private static int MAXIMUM_CAPACITY = 14;
 
 	/**
@@ -51,6 +55,11 @@ public class BookcaseFactory implements TileFactory {
 		engine.addEntity(entity);
 	}
 	
+	/**
+	 * Gets the correct texture for the specified number of books.
+	 * @param numberOfBooks The number of books in the bookcase.
+	 * @return The texture.
+	 */
 	private TextureRegion getTexture(int numberOfBooks) {
 		switch (numberOfBooks) {
 			case 0:

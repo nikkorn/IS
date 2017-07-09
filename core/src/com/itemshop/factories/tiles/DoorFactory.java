@@ -9,7 +9,7 @@ import com.itemshop.render.PositionComponent;
 import com.itemshop.render.TextureComponent;
 
 /**
- * Factory for creating a Wall tile.
+ * Factory for creating a Door tile.
  */
 public class DoorFactory implements TileFactory {
 
@@ -19,6 +19,7 @@ public class DoorFactory implements TileFactory {
 	 * @param random The random number generator to use.
 	 * @param x The x position.
 	 * @param y The y position.
+	 * @param sameAbove Whether the tile above is of the same type.
 	 */
 	public void create(Engine engine, Random random, int x, int y, boolean sameAbove) {
 		// Create the tile entity.

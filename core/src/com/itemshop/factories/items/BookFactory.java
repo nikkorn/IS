@@ -24,7 +24,8 @@ public class BookFactory implements ItemFactory {
 		
 		// Add the entities components.
 		item.add(new ItemTypeComponent(ItemType.BOOK, "Book"));
-		item.add(new TextureComponent(Assets.unknown)); // TODO
+		// TODO: Add book texture.
+		item.add(new TextureComponent(Assets.unknown));
 		item.add(new QualityComponent());
 		item.add(new ValueComponent(3));	
 		

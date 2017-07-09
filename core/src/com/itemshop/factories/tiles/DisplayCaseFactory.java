@@ -11,10 +11,17 @@ import com.itemshop.utilities.lotto.Lotto;
 import com.itemshop.container.ContainerComponent;
 import com.itemshop.factories.items.RandomItemFactory;
 
+/**
+ * Factory for creating a DisplayCase tile.
+ */
 public class DisplayCaseFactory implements TileFactory {
 	
+	/** Generator of random items in the display case. */
 	private RandomItemFactory itemGenerator;
 	
+	/**
+	 * Creates a DisplayCaseFactory instance.
+	 */
 	public DisplayCaseFactory() {
 		itemGenerator = new RandomItemFactory();
 	}

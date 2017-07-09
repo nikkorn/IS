@@ -6,12 +6,16 @@ import com.badlogic.ashley.core.Entity;
 import com.itemshop.utilities.lotto.Lotto;
 
 /**
- * Factory for creating a Muffin item.
+ * Factory for creating random items.
  */
 public class RandomItemFactory implements ItemFactory {
 	
+	/** Picker for selecting the factory type. */
 	private Lotto<ItemFactory> picker;
 	
+	/**
+	 * Creates a RandomItemFactory instance.
+	 */
 	public RandomItemFactory() {
 		Random random = new Random();
 		picker = new Lotto<ItemFactory>(random)

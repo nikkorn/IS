@@ -18,6 +18,7 @@ public class WaterFactory implements TileFactory {
 	 * @param random The random number generator to use.
 	 * @param x The x position.
 	 * @param y The y position.
+	 * @param sameAbove Whether the tile above is of the same type.
 	 */
 	public void create(Engine engine, Random random, int x, int y, boolean sameAbove) {
 		// Create the tile entity.

@@ -11,12 +11,20 @@ import com.itemshop.utilities.lotto.Lotto;
 import com.itemshop.container.ContainerComponent;
 import com.itemshop.factories.items.RandomItemFactory;
 
+/**
+ * Factory for creating a Table tile.
+ */
 public class TableFactory implements TileFactory {
 	
+	/** The maximum number of items a table can hold.*/
 	private static int MAXIMUM_CAPACITY = 2;
-	
+
+	/** Generator of random items in the table. */
 	private RandomItemFactory itemGenerator;
 	
+	/**
+	 * Creates a TableFactory instance.
+	 */
 	public TableFactory() {
 		itemGenerator = new RandomItemFactory();
 	}
