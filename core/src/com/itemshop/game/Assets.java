@@ -2,6 +2,7 @@ package com.itemshop.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets {
@@ -53,6 +54,8 @@ public class Assets {
 	public static TextureRegion grass_edge_right;
 	
 	public static TextureRegion unknown;
+
+	public static BitmapFont font;
 	
 	/**
 	 * Load assets from disk.
@@ -107,6 +110,8 @@ public class Assets {
 		
 		// Use one of the empty question marks as a placeholder if we need it.
 		unknown = getTextureAt(spritesheet, 0, 7);
+
+		font = new BitmapFont();
 	}
 	
 	private static TextureRegion getTextureAt(Texture spritesheet, int x, int y) {
