@@ -9,11 +9,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class TextureComponent implements Component {
 	
 	/** The texture to use in drawing the component. */
-	public TextureRegion texture;
+	public TextureRegion region;
 	
 	/**
 	 * Create a new instance of TextureComponent.
-	 * @param apple
+	 * @param region
 	 */
-	public TextureComponent(TextureRegion apple) { this.texture = apple; }
+	public TextureComponent(TextureRegion region) { this.region = region; }
 }

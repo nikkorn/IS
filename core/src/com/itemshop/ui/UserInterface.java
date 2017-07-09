@@ -4,8 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.itemshop.game.assets.Assets;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.itemshop.game.Assets;
 import com.itemshop.schedule.Clock;
 
 /**

@@ -3,10 +3,10 @@ package com.itemshop.factories.tiles;
 import java.util.Random;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.itemshop.game.assets.Assets;
+import com.itemshop.movement.WalkableTileComponent;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.itemshop.game.Assets;
 import com.itemshop.render.PositionComponent;
-import com.itemshop.render.SizeComponent;
 import com.itemshop.render.TextureComponent;
 import com.itemshop.utilities.lotto.Lotto;
 
@@ -27,8 +27,12 @@ public class GrassFactory implements TileFactory {
 		Entity entity = new Entity();
 
 		// Add the entities components.
-		entity.add(new SizeComponent(1, 1));
 		entity.add(new PositionComponent(x, y));
+		
+		// Grass is a little bit harder to walk on than other tiles.
+		entity.add(new WalkableTileComponent(3));
+		
+		// Randomly generate a texture component for this tile.
 		entity.add(new TextureComponent(
 				new Lotto<TextureRegion>(random)
 					.add(Assets.grass, 4)
