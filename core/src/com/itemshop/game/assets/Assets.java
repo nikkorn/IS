@@ -33,16 +33,6 @@ public class Assets {
 	public static TextureRegion stone_stairs;
 	public static TextureRegion stone_cobble_wall;
 	public static TextureRegion stone_cobble;
-	
-	public static TextureRegion candle_wall;
-	public static TextureRegion candle_table;
-	public static TextureRegion plate;
-	public static TextureRegion apple;
-	public static TextureRegion banana;
-	public static TextureRegion cherry;
-	public static TextureRegion muffin;
-	public static TextureRegion money_coins;
-	public static TextureRegion money_notes;
 
 	public static TextureRegion water;
 	public static TextureRegion water_top;
@@ -98,6 +88,15 @@ public class Assets {
 	public static TextureRegion chest;
 	
 	public static TextureRegion unknown;
+
+	public static TextureRegion banana;
+	public static TextureRegion candle;
+	public static TextureRegion cherry;
+	public static TextureRegion apple;
+	public static TextureRegion muffin;
+	public static TextureRegion flower;
+	public static TextureRegion money_coins;
+	public static TextureRegion money_notes;
 	
 	public static TextureRegion play;
 	public static TextureRegion play_hover;
@@ -133,73 +132,73 @@ public class Assets {
 		stone_cobble_wall = getTileAt(tileSheet, 7, 1);
 		stone_cobble = getTileAt(tileSheet, 8, 1);
 
-		water = getTileAt(tileSheet, 0, 3);
-		water_top = getTileAt(tileSheet, 1, 3);
-		water_falling = getTileAt(tileSheet, 2, 3);
+		water = getTileAt(tileSheet, 0, 2);
+		water_top = getTileAt(tileSheet, 1, 2);
+		water_falling = getTileAt(tileSheet, 2, 2);
 
-		door = getTileAt(tileSheet, 0, 4);
-		door_wood = getTileAt(tileSheet, 1, 4);
-		door_stone = getTileAt(tileSheet, 2, 4);
-		rock = getTileAt(tileSheet, 3, 4);
-		window = getTileAt(tileSheet, 4, 4);
+		door = getTileAt(tileSheet, 0, 3);
+		door_wood = getTileAt(tileSheet, 1, 3);
+		door_stone = getTileAt(tileSheet, 2, 3);
+		rock = getTileAt(tileSheet, 3, 3);
+		window = getTileAt(tileSheet, 4, 3);
 
-		slab = getTileAt(tileSheet, 0, 5);
-		slab_round = getTileAt(tileSheet, 1, 5);
-		slab_quad = getTileAt(tileSheet, 2, 5);
-		sand = getTileAt(tileSheet, 3, 5);
+		slab = getTileAt(tileSheet, 0, 4);
+		slab_round = getTileAt(tileSheet, 1, 4);
+		slab_quad = getTileAt(tileSheet, 2, 4);
+		sand = getTileAt(tileSheet, 3, 4);
 
-		roof_top = getTileAt(tileSheet, 0, 6);
-		roof = getTileAt(tileSheet, 1, 6);
-		roof_bottom = getTileAt(tileSheet, 2, 6);
+		roof_top = getTileAt(tileSheet, 0, 5);
+		roof = getTileAt(tileSheet, 1, 5);
+		roof_bottom = getTileAt(tileSheet, 2, 5);
 
-		grass = getTileAt(tileSheet, 0, 7);
-		grass_flower = getTileAt(tileSheet, 1, 7);
-		grass_mole = getTileAt(tileSheet, 2, 7);
-		grass_pebble = getTileAt(tileSheet, 3, 7);
-		grass_medium = getTileAt(tileSheet, 4, 7);
-		grass_long = getTileAt(tileSheet, 5, 7);
-		grass_edge_left = getTileAt(tileSheet, 6, 7);
-		grass_edge_right = getTileAt(tileSheet, 7, 7);
+		grass = getTileAt(tileSheet, 0, 6);
+		grass_flower = getTileAt(tileSheet, 1, 6);
+		grass_mole = getTileAt(tileSheet, 2, 6);
+		grass_pebble = getTileAt(tileSheet, 3, 6);
+		grass_medium = getTileAt(tileSheet, 4, 6);
+		grass_long = getTileAt(tileSheet, 5, 6);
+		grass_edge_left = getTileAt(tileSheet, 6, 6);
+		grass_edge_right = getTileAt(tileSheet, 7, 6);
 		
-		bookcase_0 = getTileAt(tileSheet, 0, 8);
-		bookcase_1 = getTileAt(tileSheet, 1, 8);
-		bookcase_2 = getTileAt(tileSheet, 2, 8);
-		bookcase_3 = getTileAt(tileSheet, 3, 8);
-		bookcase_4 = getTileAt(tileSheet, 4, 8);
-		bookcase_5 = getTileAt(tileSheet, 5, 8);
-		bookcase_6 = getTileAt(tileSheet, 6, 8);
-		bookcase_7 = getTileAt(tileSheet, 7, 8);
-		bookcase_8 = getTileAt(tileSheet, 8, 8);
-		bookcase_9 = getTileAt(tileSheet, 9, 8);
-		bookcase_10 = getTileAt(tileSheet, 10, 8);
-		bookcase_11 = getTileAt(tileSheet, 11, 8);
-		bookcase_12 = getTileAt(tileSheet, 12, 8);
-		bookcase_13 = getTileAt(tileSheet, 13, 8);
-		bookcase_14 = getTileAt(tileSheet, 14, 8);
+		bookcase_0 = getTileAt(tileSheet, 0, 7);
+		bookcase_1 = getTileAt(tileSheet, 1, 7);
+		bookcase_2 = getTileAt(tileSheet, 2, 7);
+		bookcase_3 = getTileAt(tileSheet, 3, 7);
+		bookcase_4 = getTileAt(tileSheet, 4, 7);
+		bookcase_5 = getTileAt(tileSheet, 5, 7);
+		bookcase_6 = getTileAt(tileSheet, 6, 7);
+		bookcase_7 = getTileAt(tileSheet, 7, 7);
+		bookcase_8 = getTileAt(tileSheet, 8, 7);
+		bookcase_9 = getTileAt(tileSheet, 9, 7);
+		bookcase_10 = getTileAt(tileSheet, 10, 7);
+		bookcase_11 = getTileAt(tileSheet, 11, 7);
+		bookcase_12 = getTileAt(tileSheet, 12, 7);
+		bookcase_13 = getTileAt(tileSheet, 13, 7);
+		bookcase_14 = getTileAt(tileSheet, 14, 7);
 
-		cabinet_wood = getTileAt(tileSheet, 0, 9);
-		table_wood = getTileAt(tileSheet, 1, 9);
-		display_wood = getTileAt(tileSheet, 2, 9);
-		cabinet_stone = getTileAt(tileSheet, 3, 9);
-		table_stone = getTileAt(tileSheet, 4, 9);
-		display_stone = getTileAt(tileSheet, 5, 9);
-		till = getTileAt(tileSheet, 6, 9);
-		chest = getTileAt(tileSheet, 7, 9);
+		cabinet_wood = getTileAt(tileSheet, 0, 8);
+		table_wood = getTileAt(tileSheet, 1, 8);
+		display_wood = getTileAt(tileSheet, 2, 8);
+		cabinet_stone = getTileAt(tileSheet, 3, 8);
+		table_stone = getTileAt(tileSheet, 4, 8);
+		display_stone = getTileAt(tileSheet, 5, 8);
+		till = getTileAt(tileSheet, 6, 8);
+		chest = getTileAt(tileSheet, 7, 8);
 
 		// Use one of the empty question marks as a placeholder if we need it.
 		unknown = getTileAt(tileSheet, 0, 15);
 		
+		// TODO: Add better support for 10x10 items.
 		Texture itemSheet = getTexture("images/sprites/items.png");
 		
-		candle_wall = getItemAt(itemSheet, 0, 2);
-		candle_table = getItemAt(itemSheet, 1, 2);
-		plate = getItemAt(itemSheet, 2, 2);
-		apple = getItemAt(itemSheet, 3, 2);
-		banana = getItemAt(itemSheet, 4, 2);
-		cherry = getItemAt(itemSheet, 4, 2);
-		muffin = getItemAt(itemSheet, 4, 2);
-		money_coins = getItemAt(itemSheet, 4, 2);
-		money_notes = getItemAt(itemSheet, 4, 2);
+		banana = getItemAt(itemSheet, 0, 0);
+		candle = getItemAt(itemSheet, 1, 0);
+		cherry = getItemAt(itemSheet, 2, 0);
+		apple = getItemAt(itemSheet, 3, 0);
+		muffin = getItemAt(itemSheet, 4, 0);
+		flower = getItemAt(itemSheet, 5, 0);
+		money_coins = getItemAt(itemSheet, 6, 0);
+		money_notes = getItemAt(itemSheet, 7, 0);
 
 		wood_horizontal = getTileAt(tileSheet, 0, 0);
 		
