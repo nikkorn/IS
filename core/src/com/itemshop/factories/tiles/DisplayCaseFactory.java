@@ -8,11 +8,23 @@ import com.itemshop.game.assets.Assets;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.TextureComponent;
 import com.itemshop.utilities.lotto.Lotto;
+import com.itemshop.container.ContainerComponent;
+import com.itemshop.factories.items.RandomItemFactory;
 
 /**
- * Factory for creating a Bookcase tile.
+ * Factory for creating a DisplayCase tile.
  */
 public class DisplayCaseFactory implements TileFactory {
+	
+	/** Generator of random items in the display case. */
+	private RandomItemFactory itemGenerator;
+	
+	/**
+	 * Creates a DisplayCaseFactory instance.
+	 */
+	public DisplayCaseFactory() {
+		itemGenerator = new RandomItemFactory();
+	}
 
 	/**
 	 * Creates the entity.
@@ -20,6 +32,7 @@ public class DisplayCaseFactory implements TileFactory {
 	 * @param random The random number generator to use.
 	 * @param x The x position.
 	 * @param y The y position.
+	 * @param sameAbove Whether the tile above is of the same type.
 	 */
 	public void create(Engine engine, Random random, int x, int y, boolean sameAbove) {
 		// Create the tile entity.
@@ -27,13 +40,25 @@ public class DisplayCaseFactory implements TileFactory {
 
 		// Add the entities components.
 		entity.add(new PositionComponent(x, y));
+		
+		// Populate the container component.
+		ContainerComponent containerComponent = new ContainerComponent(1);
+		if (random.nextBoolean()) {
+			try {
+				containerComponent.add(itemGenerator.create());
+			} catch (Exception exception) {
+			}			
+		}
+		entity.add(containerComponent);
+		
+		// Add the right texture.
 		entity.add(new TextureComponent(
 			new Lotto<TextureRegion>(random)
-			.add(Assets.display_wood, 1)
-			.add(Assets.display_stone, 1)
-			.add(Assets.cabinet_wood, 1)
-			.add(Assets.cabinet_stone, 1)
-			.draw()
+				.add(Assets.display_wood, 1)
+				.add(Assets.display_stone, 1)
+				.add(Assets.cabinet_wood, 1)
+				.add(Assets.cabinet_stone, 1)
+				.draw()
 		));
 
 		// Add the tile entity to the engine.

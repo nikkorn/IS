@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.itemshop.movement.MovementTileTransitionComponent;
-import com.itemshop.ui.UserInterface;
 
 /**
  * Handles processing of each entity's render component.
@@ -29,9 +28,6 @@ public class RenderSystem extends SortedIteratingSystem {
 		= ComponentMapper.getFor(AnimationComponent.class);
     private static ComponentMapper<MovementTileTransitionComponent> tileTransitionMapper
 		= ComponentMapper.getFor(MovementTileTransitionComponent.class);
-    
-    /** Stand alone user interface rendering logic. */
-    private UserInterface userInterface;
     
     /** The game camera. */
     private OrthographicCamera camera;
