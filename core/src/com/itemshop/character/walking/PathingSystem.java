@@ -108,6 +108,20 @@ public class PathingSystem extends IntervalIteratingSystem {
 
 				// We have computed the movements for this path.
 				path.isPathComputed = true;
+
+				// If we were unable to compute a path then we simply cannot reach our goal.
+				if (path.movements.isEmpty()) {
+					// We do not need the path component if we have no path to follow.
+					entity.remove(PathComponent.class);
+					// If we were walking before this path component was added to the current
+					// entity then we need to let the walk component know we have stopped.
+					if (walk.isWalking) {
+						walk.onStop.perform(facingDirectionMapper.get(entity).direction);
+						walk.isWalking = false;
+					}
+					// There is nothing to do now as we have no path to follow.
+					return;
+				}
 			}
 
 			// If we have no move movements to make in the path we have, we have reached our destination.

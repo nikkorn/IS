@@ -50,6 +50,11 @@ public class AStarPathfinder {
 		// Get the origin and goal node.
 		AStarNode origin = nodes.get(originPosX + ":" + originPosY);
 		AStarNode goal   = nodes.get(destinationPosX + ":" + destinationPosY);
+		
+		// If we did not get our goal node, then it is not reachable.
+		if (goal == null) {
+			return new Stack<Direction>();
+		}
 
 		// Set the heuristic for the origin and goal nodes.
 		setHeuristic(origin, destinationPosX, destinationPosY);
