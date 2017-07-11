@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.itemshop.game.assets.Assets;
 import com.itemshop.movement.WalkableTileComponent;
+import com.itemshop.movement.WalkableTileEvents;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.TextureComponent;
 
@@ -30,7 +31,20 @@ public class DoorFactory implements TileFactory {
 		entity.add(new TextureComponent(Assets.door_stone));
 		
 		// Doors is a little bit harder to walk on than other tiles.
-		entity.add(new WalkableTileComponent(2));
+		// Also, we should swap out our door texture as a character passes 
+		// through it to make it look like the door is opening and closing.
+		entity.add(new WalkableTileComponent(2, new WalkableTileEvents() {
+
+			@Override
+			public void onEntry() {
+				entity.add(new TextureComponent(Assets.slab));
+			}
+
+			@Override
+			public void onExit() {
+				entity.add(new TextureComponent(Assets.door_stone));
+			}
+		}));
 
 		// Add the tile entity to the engine.
 		engine.addEntity(entity);
