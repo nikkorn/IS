@@ -2,16 +2,16 @@ package com.itemshop.factories.items;
 
 import com.badlogic.ashley.core.Entity;
 import com.itemshop.game.assets.Assets;
-import com.itemshop.item.ContainerComponent;
 import com.itemshop.item.ItemType;
 import com.itemshop.item.ItemTypeComponent;
+import com.itemshop.item.QualityComponent;
 import com.itemshop.item.ValueComponent;
 import com.itemshop.render.TextureComponent;
 
 /**
- * Factory for creating a Table item.
+ * Factory for creating a Book item.
  */
-public class TableFactory implements ItemFactory {
+public class BookFactory implements ItemFactory {
 
 	/**
 	 * Creates the entity.
@@ -23,10 +23,11 @@ public class TableFactory implements ItemFactory {
 		Entity item = new Entity();
 		
 		// Add the entities components.
-		item.add(new ItemTypeComponent(ItemType.TABLE, "Table"));
-		item.add(new TextureComponent(Assets.wood_square));
-		item.add(new ValueComponent(100));
-		item.add(new ContainerComponent(1));
+		item.add(new ItemTypeComponent(ItemType.BOOK, "Book"));
+		// TODO: Add book texture.
+		item.add(new TextureComponent(Assets.unknown));
+		item.add(new QualityComponent());
+		item.add(new ValueComponent(3));	
 		
 		return item;
 	}

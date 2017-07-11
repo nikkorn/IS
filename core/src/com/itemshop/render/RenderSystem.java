@@ -20,10 +20,14 @@ public class RenderSystem extends SortedIteratingSystem {
 	private SpriteBatch spriteBatch;
 
 	/** Component mappers to get components from entities. */
-    private static ComponentMapper<PositionComponent> positionMapper;
-    private ComponentMapper<TextureComponent> textureMapper;
-    private ComponentMapper<AnimationComponent> animationMapper;
-    private ComponentMapper<MovementTileTransitionComponent> tileTransitionMapper;
+    private static ComponentMapper<PositionComponent> positionMapper
+		= ComponentMapper.getFor(PositionComponent.class);
+    private static ComponentMapper<TextureComponent> textureMapper
+		= ComponentMapper.getFor(TextureComponent.class);
+    private static ComponentMapper<AnimationComponent> animationMapper
+		= ComponentMapper.getFor(AnimationComponent.class);
+    private static ComponentMapper<MovementTileTransitionComponent> tileTransitionMapper
+		= ComponentMapper.getFor(MovementTileTransitionComponent.class);
     
     /** The game camera. */
     private OrthographicCamera camera;
@@ -36,13 +40,7 @@ public class RenderSystem extends SortedIteratingSystem {
 	 */
 	public RenderSystem(OrthographicCamera worldCamera, SpriteBatch spriteBatch) {
 		super(Family.all(PositionComponent.class).one(TextureComponent.class, AnimationComponent.class).get(), new ZComparator());
-		
-		// Create the componentMappers.
-		positionMapper       = ComponentMapper.getFor(PositionComponent.class);
-		textureMapper        = ComponentMapper.getFor(TextureComponent.class);
-		animationMapper      = ComponentMapper.getFor(AnimationComponent.class);
-		tileTransitionMapper = ComponentMapper.getFor(MovementTileTransitionComponent.class);
-		
+
 		this.spriteBatch = spriteBatch; 
 		camera = worldCamera;
 	}
