@@ -13,7 +13,8 @@ public class Assets {
 	// Character resource map.
 	private static HashMap<ISCharacter, CharacterResources> characterResources = new HashMap<ISCharacter, CharacterResources>();
 
-	private static final int SPRITE_SIZE = 16;
+	private static final int TILE_SIZE = 16;
+	private static final int ITEM_SIZE = 10;
 
 	private static final int BUTTON_WIDTH = 64;
 	private static final int BUTTON_HEIGHT = 16;
@@ -30,12 +31,8 @@ public class Assets {
 	public static TextureRegion stone_border_corner;
 	public static TextureRegion stone_border_side;
 	public static TextureRegion stone_stairs;
-	
-	public static TextureRegion candle_wall;
-	public static TextureRegion candle_table;
-	public static TextureRegion plate;
-	public static TextureRegion apple;
-	public static TextureRegion dollar;
+	public static TextureRegion stone_cobble_wall;
+	public static TextureRegion stone_cobble;
 
 	public static TextureRegion water;
 	public static TextureRegion water_top;
@@ -46,8 +43,10 @@ public class Assets {
 	public static TextureRegion door_stone;
 	public static TextureRegion rock;
 	public static TextureRegion window;
-	
+
 	public static TextureRegion slab;
+	public static TextureRegion slab_round;
+	public static TextureRegion slab_quad;
 	public static TextureRegion sand;
 
 	public static TextureRegion roof_top;
@@ -62,8 +61,42 @@ public class Assets {
 	public static TextureRegion grass_long;
 	public static TextureRegion grass_edge_left;
 	public static TextureRegion grass_edge_right;
+
+	public static TextureRegion bookcase_0;
+	public static TextureRegion bookcase_1;
+	public static TextureRegion bookcase_2;
+	public static TextureRegion bookcase_3;
+	public static TextureRegion bookcase_4;
+	public static TextureRegion bookcase_5;
+	public static TextureRegion bookcase_6;
+	public static TextureRegion bookcase_7;
+	public static TextureRegion bookcase_8;
+	public static TextureRegion bookcase_9;
+	public static TextureRegion bookcase_10;
+	public static TextureRegion bookcase_11;
+	public static TextureRegion bookcase_12;
+	public static TextureRegion bookcase_13;
+	public static TextureRegion bookcase_14;
+
+	public static TextureRegion cabinet_wood;
+	public static TextureRegion table_wood;
+	public static TextureRegion display_wood;
+	public static TextureRegion cabinet_stone;
+	public static TextureRegion table_stone;
+	public static TextureRegion display_stone;
+	public static TextureRegion till;
+	public static TextureRegion chest;
 	
 	public static TextureRegion unknown;
+
+	public static TextureRegion banana;
+	public static TextureRegion candle;
+	public static TextureRegion cherry;
+	public static TextureRegion apple;
+	public static TextureRegion muffin;
+	public static TextureRegion flower;
+	public static TextureRegion money_coins;
+	public static TextureRegion money_notes;
 	
 	public static TextureRegion play;
 	public static TextureRegion play_hover;
@@ -77,60 +110,97 @@ public class Assets {
 	public static void load () {
 
 		// Character resources.
-		Texture characterSpritesheet = new Texture(Gdx.files.internal("images/sprites/2.png"));
+		Texture characterSpritesheet = new Texture(Gdx.files.internal("images/sprites/characters.png"));
 		for (ISCharacter character : ISCharacter.values()) {
 			characterResources.put(character, new CharacterResources(character, characterSpritesheet));
 		}
 
-		Texture mainSheet = getTexture("images/sprites/1.png");
+		Texture tileSheet = getTexture("images/sprites/tiles.png");
 
-		wood_horizontal = getSpriteAt(mainSheet, 0, 0);
-		wood_vertical = getSpriteAt(mainSheet, 1, 0);
-		wood_thick = getSpriteAt(mainSheet, 2, 0);
-		wood_square = getSpriteAt(mainSheet, 3, 0);
+		wood_horizontal = getTileAt(tileSheet, 0, 0);
+		wood_vertical = getTileAt(tileSheet, 1, 0);
+		wood_thick = getTileAt(tileSheet, 2, 0);
+		wood_square = getTileAt(tileSheet, 3, 0);
 
-		stone = getSpriteAt(mainSheet, 0, 1);
-		stone_top = getSpriteAt(mainSheet, 1, 1);
-		stone_slope_nw = getSpriteAt(mainSheet, 2, 1);
-		stone_slope_se = getSpriteAt(mainSheet, 3, 1);
-		stone_border_corner = getSpriteAt(mainSheet, 4, 1);
-		stone_border_side = getSpriteAt(mainSheet, 5, 1);
-		stone_stairs = getSpriteAt(mainSheet, 6, 1);
+		stone = getTileAt(tileSheet, 0, 1);
+		stone_top = getTileAt(tileSheet, 1, 1);
+		stone_slope_nw = getTileAt(tileSheet, 2, 1);
+		stone_slope_se = getTileAt(tileSheet, 3, 1);
+		stone_border_corner = getTileAt(tileSheet, 4, 1);
+		stone_border_side = getTileAt(tileSheet, 5, 1);
+		stone_stairs = getTileAt(tileSheet, 6, 1);
+		stone_cobble_wall = getTileAt(tileSheet, 7, 1);
+		stone_cobble = getTileAt(tileSheet, 8, 1);
 
-		candle_wall = getSpriteAt(mainSheet, 0, 2);
-		candle_table = getSpriteAt(mainSheet, 1, 2);
-		plate = getSpriteAt(mainSheet, 2, 2);
-		apple = getSpriteAt(mainSheet, 3, 2);
-		dollar = getSpriteAt(mainSheet, 4, 2);
+		water = getTileAt(tileSheet, 0, 2);
+		water_top = getTileAt(tileSheet, 1, 2);
+		water_falling = getTileAt(tileSheet, 2, 2);
 
-		water = getSpriteAt(mainSheet, 0, 3);
-		water_top = getSpriteAt(mainSheet, 1, 3);
-		water_falling = getSpriteAt(mainSheet, 2, 3);
+		door = getTileAt(tileSheet, 0, 3);
+		door_wood = getTileAt(tileSheet, 1, 3);
+		door_stone = getTileAt(tileSheet, 2, 3);
+		rock = getTileAt(tileSheet, 3, 3);
+		window = getTileAt(tileSheet, 4, 3);
 
-		door = getSpriteAt(mainSheet, 0, 4);
-		door_wood = getSpriteAt(mainSheet, 1, 4);
-		door_stone = getSpriteAt(mainSheet, 2, 4);
-		rock = getSpriteAt(mainSheet, 3, 4);
-		window = getSpriteAt(mainSheet, 4, 4);
+		slab = getTileAt(tileSheet, 0, 4);
+		slab_round = getTileAt(tileSheet, 1, 4);
+		slab_quad = getTileAt(tileSheet, 2, 4);
+		sand = getTileAt(tileSheet, 3, 4);
 
-		slab = getSpriteAt(mainSheet, 0, 5);
-		sand = getSpriteAt(mainSheet, 1, 5);
+		roof_top = getTileAt(tileSheet, 0, 5);
+		roof = getTileAt(tileSheet, 1, 5);
+		roof_bottom = getTileAt(tileSheet, 2, 5);
 
-		roof_top = getSpriteAt(mainSheet, 0, 6);
-		roof = getSpriteAt(mainSheet, 1, 6);
-		roof_bottom = getSpriteAt(mainSheet, 2, 6);
-
-		grass = getSpriteAt(mainSheet, 0, 7);
-		grass_flower = getSpriteAt(mainSheet, 1, 7);
-		grass_mole = getSpriteAt(mainSheet, 2, 7);
-		grass_pebble = getSpriteAt(mainSheet, 3, 7);
-		grass_medium = getSpriteAt(mainSheet, 4, 7);
-		grass_long = getSpriteAt(mainSheet, 5, 7);
-		grass_edge_left = getSpriteAt(mainSheet, 6, 7);
-		grass_edge_right = getSpriteAt(mainSheet, 7, 7);
+		grass = getTileAt(tileSheet, 0, 6);
+		grass_flower = getTileAt(tileSheet, 1, 6);
+		grass_mole = getTileAt(tileSheet, 2, 6);
+		grass_pebble = getTileAt(tileSheet, 3, 6);
+		grass_medium = getTileAt(tileSheet, 4, 6);
+		grass_long = getTileAt(tileSheet, 5, 6);
+		grass_edge_left = getTileAt(tileSheet, 6, 6);
+		grass_edge_right = getTileAt(tileSheet, 7, 6);
 		
+		bookcase_0 = getTileAt(tileSheet, 0, 7);
+		bookcase_1 = getTileAt(tileSheet, 1, 7);
+		bookcase_2 = getTileAt(tileSheet, 2, 7);
+		bookcase_3 = getTileAt(tileSheet, 3, 7);
+		bookcase_4 = getTileAt(tileSheet, 4, 7);
+		bookcase_5 = getTileAt(tileSheet, 5, 7);
+		bookcase_6 = getTileAt(tileSheet, 6, 7);
+		bookcase_7 = getTileAt(tileSheet, 7, 7);
+		bookcase_8 = getTileAt(tileSheet, 8, 7);
+		bookcase_9 = getTileAt(tileSheet, 9, 7);
+		bookcase_10 = getTileAt(tileSheet, 10, 7);
+		bookcase_11 = getTileAt(tileSheet, 11, 7);
+		bookcase_12 = getTileAt(tileSheet, 12, 7);
+		bookcase_13 = getTileAt(tileSheet, 13, 7);
+		bookcase_14 = getTileAt(tileSheet, 14, 7);
+
+		cabinet_wood = getTileAt(tileSheet, 0, 8);
+		table_wood = getTileAt(tileSheet, 1, 8);
+		display_wood = getTileAt(tileSheet, 2, 8);
+		cabinet_stone = getTileAt(tileSheet, 3, 8);
+		table_stone = getTileAt(tileSheet, 4, 8);
+		display_stone = getTileAt(tileSheet, 5, 8);
+		till = getTileAt(tileSheet, 6, 8);
+		chest = getTileAt(tileSheet, 7, 8);
+
 		// Use one of the empty question marks as a placeholder if we need it.
-		unknown = getSpriteAt(mainSheet, 0, 7);
+		unknown = getTileAt(tileSheet, 0, 15);
+		
+		// TODO: Add better support for 10x10 items.
+		Texture itemSheet = getTexture("images/sprites/items.png");
+		
+		banana = getItemAt(itemSheet, 0, 0);
+		candle = getItemAt(itemSheet, 1, 0);
+		cherry = getItemAt(itemSheet, 2, 0);
+		apple = getItemAt(itemSheet, 3, 0);
+		muffin = getItemAt(itemSheet, 4, 0);
+		flower = getItemAt(itemSheet, 5, 0);
+		money_coins = getItemAt(itemSheet, 6, 0);
+		money_notes = getItemAt(itemSheet, 7, 0);
+
+		wood_horizontal = getTileAt(tileSheet, 0, 0);
 		
 		cursor = getTexture("images/sprites/cursor.png");
 
@@ -157,13 +227,13 @@ public class Assets {
 	 * @param y The Y position of the sprite within the sheet.
 	 * @return The sprite texture.
 	 */
-	public static TextureRegion getSpriteAt(Texture spritesheet, int x, int y) {
+	public static TextureRegion getTileAt(Texture spritesheet, int x, int y) {
 		return new TextureRegion(
 			spritesheet,
-			x * SPRITE_SIZE,
-			y * SPRITE_SIZE,
-			SPRITE_SIZE,
-			SPRITE_SIZE
+			x * TILE_SIZE,
+			y * TILE_SIZE,
+			TILE_SIZE,
+			TILE_SIZE
 		);
 	}
 
@@ -190,6 +260,23 @@ public class Assets {
 			y * BUTTON_HEIGHT,
 			BUTTON_WIDTH,
 			BUTTON_HEIGHT
+		);
+	}
+
+	/**
+	 * Extracts a button texture from a button sprite sheet.
+	 * @param spritesheet The sheet containing the button sprite.
+	 * @param x The X position of the button sprite within the sheet.
+	 * @param y The Y position of the button sprite within the sheet.
+	 * @return The button sprite texture.
+	 */
+	private static TextureRegion getItemAt(Texture spritesheet, int x, int y) {
+		return new TextureRegion(
+			spritesheet,
+			x * ITEM_SIZE,
+			y * ITEM_SIZE,
+			TILE_SIZE,
+			TILE_SIZE
 		);
 	}
 }

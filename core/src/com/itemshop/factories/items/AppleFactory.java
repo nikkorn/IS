@@ -28,7 +28,7 @@ public class AppleFactory implements ItemFactory {
 		item.add(new TextureComponent(Assets.apple));
 		item.add(new QualityComponent());
 		item.add(new ValueComponent(2));
-		item.add(new PerishableComponent(4));		
+		item.add(new PerishableComponent(4));
 		
 		return item;
 	}
