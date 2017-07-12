@@ -7,6 +7,7 @@ import com.itemshop.character.walking.WalkComponent;
 import com.itemshop.game.assets.Assets;
 import com.itemshop.movement.Direction;
 import com.itemshop.render.AnimationComponent;
+import com.itemshop.render.RenderOffsetComponent;
 import com.itemshop.render.TextureComponent;
 
 /**
@@ -41,6 +42,9 @@ public class PlayerFactory {
 			player.add(Assets.getCharacterResources(ISCharacter.PLAYER).getTextureComponent(direction));
 		};
 		player.add(walkingComponent);
+		
+		// All characters will have a render offset so they are drawn in the centre of a tile.
+		player.add(new RenderOffsetComponent(0f, 0.25f));
 		
 		// All characters will have a facing direction.
 		player.add(new FacingDirectionComponent(Direction.DOWN));

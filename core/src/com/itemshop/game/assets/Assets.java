@@ -275,8 +275,8 @@ public class Assets {
 			spritesheet,
 			x * ITEM_SIZE,
 			y * ITEM_SIZE,
-			TILE_SIZE,
-			TILE_SIZE
+			ITEM_SIZE,
+			ITEM_SIZE
 		);
 	}
 }

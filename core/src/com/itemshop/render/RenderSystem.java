@@ -28,6 +28,8 @@ public class RenderSystem extends SortedIteratingSystem {
 		= ComponentMapper.getFor(AnimationComponent.class);
     private static ComponentMapper<MovementTileTransitionComponent> tileTransitionMapper
 		= ComponentMapper.getFor(MovementTileTransitionComponent.class);
+    private static ComponentMapper<RenderOffsetComponent> renderOffsetMapper
+		= ComponentMapper.getFor(RenderOffsetComponent.class);
     
     /** The game camera. */
     private OrthographicCamera camera;
@@ -74,8 +76,10 @@ public class RenderSystem extends SortedIteratingSystem {
 			texture = animationMapper.get(entity).animation.getKeyFrame(time, true);
     	}
     	
-    	// Determine whether this entity should be drawn with an offset
+    	// The offsets to use when drawing this entity.
     	float offsetX = 0f, offsetY = 0f;
+    	
+    	// Apply an offset if the entity is transitioning between tiles.
     	if (tileTransitionMapper.has(entity)) {
     		// Apply the offset in the specified direction.
     		switch(tileTransitionMapper.get(entity).direction) {
@@ -92,6 +96,15 @@ public class RenderSystem extends SortedIteratingSystem {
 					offsetY += tileTransitionMapper.get(entity).offset;
 					break;
     		}
+    	}
+    	
+    	// Apply an offset if the entity has a render offset component.
+    	if (renderOffsetMapper.has(entity)) {
+    		// Get the render offset.
+    		RenderOffsetComponent renderOffset = renderOffsetMapper.get(entity);
+    		// Apply the offsets.
+    		offsetX += renderOffset.offsetX;
+    		offsetY += renderOffset.offsetY;
     	}
     	
     	// Draw the entity.
