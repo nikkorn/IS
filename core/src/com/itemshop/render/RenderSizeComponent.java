@@ -5,7 +5,7 @@ import com.badlogic.ashley.core.Component;
 /**
  * A size to to use when rendering the entity.
  */
-public class SizeComponent implements Component {
+public class RenderSizeComponent implements Component {
 
 	/** The width. */
 	public float width = 0f;
@@ -18,7 +18,7 @@ public class SizeComponent implements Component {
 	 * @param width
 	 * @param height
 	 */
-	public SizeComponent(float width, float height) {
+	public RenderSizeComponent(float width, float height) {
 		this.width  = width;
 		this.height = height;
 	}

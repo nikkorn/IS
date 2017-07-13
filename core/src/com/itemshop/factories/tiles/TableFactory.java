@@ -45,27 +45,48 @@ public class TableFactory implements TileFactory {
 		// Add the entities components.
 		entity.add(new PositionComponent(x, y));
 
-		// Determine the amount of books on display.
+		// Determine the amount of items on display.
 		int numberOfItems = random.nextInt(MAXIMUM_CAPACITY + 1);
 
-		// Populate the container component.
+		// Create the container component.
 		ContainerComponent containerComponent = new ContainerComponent(MAXIMUM_CAPACITY);
+		
+		// Add actions to perform when entities are added/removed from this container.
+		containerComponent.onEntityAdded = (item) -> {
+			// The item will have the same position as this table.
+			item.add(new PositionComponent(x, y, 2));
+			// This item is to be displayed on the table. It needs an offset based on its position in the container.
+			switch (containerComponent.getSize()) {
+				case 1:
+					// The item will be displayed in the top-left of the table.
+					item.add(new RenderOffsetComponent(0f, 0.75f));
+					break;
+				case 2:
+					// The item will be displayed in the bottom-right of the table.
+					item.add(new RenderOffsetComponent(0.375f, 0.3125f));
+					break;
+			}
+		};
+		containerComponent.onEntityRemoved = (item) -> {
+			// The item will no longer have the same position as this table.
+			item.remove(PositionComponent.class);
+			// The item will no need a render offset as it is no longer being displayed here.
+			item.remove(RenderOffsetComponent.class);
+		};
+		
 		for (int i = 0; i < numberOfItems; i++) {
 			try {
 				// Create a random item.
 				Entity item = itemGenerator.create();
-				// The item will have the same position as this table.
-				item.add(new PositionComponent(x, y, 2));
-				// The item will have a slight offset as to sit in the middle of the table.
-				item.add(new RenderOffsetComponent(0f, 0.5f));
-				// As we are randomly populating this table, we need to add these
-				// entities to the engine manually for now.
+				// As we are randomly populating this table, we need to add these entities to the engine manually for now.
 				engine.addEntity(item);
 				// Add this item to the table container.
 				containerComponent.add(item);
 			} catch (Exception exception) {
 			}
 		}
+		
+		// Add the container component to the table entity.
 		entity.add(containerComponent);
 		
 		// Add the right texture.

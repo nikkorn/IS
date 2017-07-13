@@ -30,8 +30,8 @@ public class RenderSystem extends SortedIteratingSystem {
 		= ComponentMapper.getFor(MovementTileTransitionComponent.class);
     private static ComponentMapper<RenderOffsetComponent> renderOffsetMapper
 		= ComponentMapper.getFor(RenderOffsetComponent.class);
-    private static ComponentMapper<SizeComponent> sizeMapper
-		= ComponentMapper.getFor(SizeComponent.class);
+    private static ComponentMapper<RenderSizeComponent> sizeMapper
+		= ComponentMapper.getFor(RenderSizeComponent.class);
     
     /** The game camera. */
     private OrthographicCamera camera;
@@ -112,7 +112,7 @@ public class RenderSystem extends SortedIteratingSystem {
     	// Determine the size at which we should render the entity.
     	if (sizeMapper.has(entity)) {
     		// Get the size component.
-    		SizeComponent sizeComponent = sizeMapper.get(entity);
+    		RenderSizeComponent sizeComponent = sizeMapper.get(entity);
     		// Apply the sizes.
     		width  = sizeComponent.width;
     		height = sizeComponent.height;

@@ -6,6 +6,7 @@ import com.itemshop.item.ItemType;
 import com.itemshop.item.ItemTypeComponent;
 import com.itemshop.item.QualityComponent;
 import com.itemshop.item.ValueComponent;
+import com.itemshop.render.RenderSizeComponent;
 import com.itemshop.render.TextureComponent;
 
 /**
@@ -28,6 +29,7 @@ public class BookFactory implements ItemFactory {
 		item.add(new TextureComponent(Assets.unknown));
 		item.add(new QualityComponent());
 		item.add(new ValueComponent(3));	
+		item.add(new RenderSizeComponent(0.625f, 0.625f));
 		
 		return item;
 	}
