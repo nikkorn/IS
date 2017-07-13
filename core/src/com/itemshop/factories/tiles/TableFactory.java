@@ -6,6 +6,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.itemshop.game.assets.Assets;
 import com.itemshop.render.PositionComponent;
+import com.itemshop.render.RenderOffsetComponent;
 import com.itemshop.render.TextureComponent;
 import com.itemshop.utilities.lotto.Lotto;
 import com.itemshop.container.ContainerComponent;
@@ -51,7 +52,17 @@ public class TableFactory implements TileFactory {
 		ContainerComponent containerComponent = new ContainerComponent(MAXIMUM_CAPACITY);
 		for (int i = 0; i < numberOfItems; i++) {
 			try {
-				containerComponent.add(itemGenerator.create());
+				// Create a random item.
+				Entity item = itemGenerator.create();
+				// The item will have the same position as this table.
+				item.add(new PositionComponent(x, y, 2));
+				// The item will have a slight offset as to sit in the middle of the table.
+				item.add(new RenderOffsetComponent(0f, 0.5f));
+				// As we are randomly populating this table, we need to add these
+				// entities to the engine manually for now.
+				engine.addEntity(item);
+				// Add this item to the table container.
+				containerComponent.add(item);
 			} catch (Exception exception) {
 			}
 		}

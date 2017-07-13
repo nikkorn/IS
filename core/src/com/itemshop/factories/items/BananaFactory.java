@@ -25,7 +25,7 @@ public class BananaFactory implements ItemFactory {
 		
 		// Add the entities components.
 		item.add(new ItemTypeComponent(ItemType.BANANA, "Banana"));
-		item.add(new TextureComponent(Assets.unknown));
+		item.add(new TextureComponent(Assets.banana));
 		item.add(new QualityComponent());
 		item.add(new ValueComponent(2));
 		item.add(new PerishableComponent(6));		
