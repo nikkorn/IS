@@ -30,6 +30,8 @@ public class RenderSystem extends SortedIteratingSystem {
 		= ComponentMapper.getFor(MovementTileTransitionComponent.class);
     private static ComponentMapper<RenderOffsetComponent> renderOffsetMapper
 		= ComponentMapper.getFor(RenderOffsetComponent.class);
+    private static ComponentMapper<SizeComponent> sizeMapper
+		= ComponentMapper.getFor(SizeComponent.class);
     
     /** The game camera. */
     private OrthographicCamera camera;
@@ -76,8 +78,8 @@ public class RenderSystem extends SortedIteratingSystem {
 			texture = animationMapper.get(entity).animation.getKeyFrame(time, true);
     	}
     	
-    	// The offsets to use when drawing this entity.
-    	float offsetX = 0f, offsetY = 0f;
+    	// The offsets and size to use when drawing this entity.
+    	float offsetX = 0f, offsetY = 0f, width = 1f, height = 1f;
     	
     	// Apply an offset if the entity is transitioning between tiles.
     	if (tileTransitionMapper.has(entity)) {
@@ -107,8 +109,17 @@ public class RenderSystem extends SortedIteratingSystem {
     		offsetY += renderOffset.offsetY;
     	}
     	
+    	// Determine the size at which we should render the entity.
+    	if (sizeMapper.has(entity)) {
+    		// Get the size component.
+    		SizeComponent sizeComponent = sizeMapper.get(entity);
+    		// Apply the sizes.
+    		width  = sizeComponent.width;
+    		height = sizeComponent.height;
+    	}
+    	
     	// Draw the entity.
-		spriteBatch.draw(texture, position.x + offsetX, position.y + offsetY, 1, 1);
+		spriteBatch.draw(texture, position.x + offsetX, position.y + offsetY, width, height);
     }
     
     /**

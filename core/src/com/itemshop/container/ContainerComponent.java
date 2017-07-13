@@ -2,7 +2,6 @@ package com.itemshop.container;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 
