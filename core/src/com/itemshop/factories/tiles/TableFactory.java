@@ -96,8 +96,6 @@ public class TableFactory implements TileFactory {
 				.add(Assets.table_stone, 1)
 				.draw()
 		));
-		
-		// TODO: Render container items above table.
 
 		// Add the tile entity to the engine.
 		engine.addEntity(entity);
