@@ -139,7 +139,7 @@ public class PathingSystem extends IntervalIteratingSystem {
 				Direction facingDirection = facingDirectionMapper.get(entity).direction;
 
 				// We are exiting the current walkable tile.
-				getWalkableTileComponentAtPosition(position.x, position.y).events.onExit();
+				getWalkableTileComponentAtPosition(position.x, position.y).onExit.perform();
 				
 				// Get the next movement we have to make in following the path.
 				Direction nextDirectionOfMovement = path.movements.pop();
@@ -179,7 +179,7 @@ public class PathingSystem extends IntervalIteratingSystem {
 				facingDirectionMapper.get(entity).direction = nextDirectionOfMovement;
 				
 				// We have officially entered the next walkable tile.
-				getWalkableTileComponentAtPosition(position.x, position.y).events.onEntry();
+				getWalkableTileComponentAtPosition(position.x, position.y).onEntry.perform();
 
 				// The entity has started to move between tiles.
 				entity.add(new MovementTileTransitionComponent(nextDirectionOfMovement.opposite(), 1f - TRANSITION_STEP));
