@@ -7,6 +7,7 @@ import com.itemshop.item.ItemTypeComponent;
 import com.itemshop.item.PerishableComponent;
 import com.itemshop.item.QualityComponent;
 import com.itemshop.item.ValueComponent;
+import com.itemshop.render.RenderSizeComponent;
 import com.itemshop.render.TextureComponent;
 
 /**
@@ -29,6 +30,7 @@ public class AppleFactory implements ItemFactory {
 		item.add(new QualityComponent());
 		item.add(new ValueComponent(2));
 		item.add(new PerishableComponent(4));
+		item.add(new RenderSizeComponent(0.625f, 0.625f));
 		
 		return item;
 	}
