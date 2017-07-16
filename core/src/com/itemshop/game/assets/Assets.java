@@ -3,6 +3,7 @@ package com.itemshop.game.assets;
 import java.util.HashMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.itemshop.character.ISCharacter;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -89,6 +90,7 @@ public class Assets {
 	public static TextureRegion bin;
 
 	public static TextureRegion town_info_board;
+	public static Animation fountain;
 	
 	public static TextureRegion unknown;
 
@@ -190,6 +192,8 @@ public class Assets {
 		bin = getTileAt(tileSheet, 8, 8);
 
 		town_info_board = getTileAt(tileSheet, 0, 9);
+		fountain = new Animation(1f/6f, Assets.getTileAt(tileSheet, 1, 9),
+				Assets.getTileAt(tileSheet, 2, 9), Assets.getTileAt(tileSheet, 3, 9));
 
 		// Use one of the empty question marks as a placeholder if we need it.
 		unknown = getTileAt(tileSheet, 0, 15);

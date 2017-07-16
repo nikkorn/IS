@@ -33,6 +33,7 @@ public class TownEntityFactory {
 		put(-13618067, new TillFactory());
 		put(-6075996, new BinFactory());
 		put(-8355840, new InfoBoardFactory());
+		put(-16711681, new FountainFactory());
 	}};
 	
 	/** Factory to use when it is not possible to determine what the sprite should be. */
