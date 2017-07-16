@@ -30,7 +30,16 @@ public class DoorFactory implements TileFactory {
 		entity.add(new TextureComponent(Assets.door_stone));
 		
 		// Doors is a little bit harder to walk on than other tiles.
-		entity.add(new WalkableTileComponent(2));
+		// Also, we should swap out our door texture as a character passes 
+		// through it to make it look like the door is opening and closing.
+		WalkableTileComponent walkableTileComponent = new WalkableTileComponent(2);
+		walkableTileComponent.onEntry = () -> {
+			entity.add(new TextureComponent(Assets.slab));
+		};
+		walkableTileComponent.onExit = () -> {
+			entity.add(new TextureComponent(Assets.door_stone));
+		};
+		entity.add(walkableTileComponent);
 
 		// Add the tile entity to the engine.
 		engine.addEntity(entity);
