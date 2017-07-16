@@ -87,6 +87,8 @@ public class Assets {
 	public static TextureRegion till;
 	public static TextureRegion chest;
 	public static TextureRegion bin;
+
+	public static TextureRegion town_info_board;
 	
 	public static TextureRegion unknown;
 
@@ -186,6 +188,8 @@ public class Assets {
 		till = getTileAt(tileSheet, 6, 8);
 		chest = getTileAt(tileSheet, 7, 8);
 		bin = getTileAt(tileSheet, 8, 8);
+
+		town_info_board = getTileAt(tileSheet, 0, 9);
 
 		// Use one of the empty question marks as a placeholder if we need it.
 		unknown = getTileAt(tileSheet, 0, 15);

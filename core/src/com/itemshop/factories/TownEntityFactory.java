@@ -8,21 +8,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.Gdx;
-import com.itemshop.factories.tiles.BinFactory;
-import com.itemshop.factories.tiles.BookcaseFactory;
-import com.itemshop.factories.tiles.CobbleWallFactory;
-import com.itemshop.factories.tiles.DisplayCaseFactory;
-import com.itemshop.factories.tiles.DoorFactory;
-import com.itemshop.factories.tiles.GrassFactory;
-import com.itemshop.factories.tiles.PathFactory;
-import com.itemshop.factories.tiles.TableFactory;
-import com.itemshop.factories.tiles.TileFactory;
-import com.itemshop.factories.tiles.TillFactory;
-import com.itemshop.factories.tiles.UnknownFactory;
-import com.itemshop.factories.tiles.WallFactory;
-import com.itemshop.factories.tiles.WaterFactory;
-import com.itemshop.factories.tiles.WaterfallFactory;
-import com.itemshop.factories.tiles.WoodFactory;
+import com.itemshop.factories.tiles.*;
 
 /**
  * Factory for producing entities specific to the game town. 
@@ -46,6 +32,7 @@ public class TownEntityFactory {
 		put(-2167082, new TableFactory());
 		put(-13618067, new TillFactory());
 		put(-6075996, new BinFactory());
+		put(-8355840, new InfoBoardFactory());
 	}};
 	
 	/** Factory to use when it is not possible to determine what the sprite should be. */
