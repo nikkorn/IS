@@ -3,17 +3,28 @@ package com.itemshop.factories.tiles;
 import java.util.Random;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.itemshop.game.assets.Assets;
-import com.itemshop.movement.WalkableTileComponent;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.itemshop.game.assets.Assets;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.TextureComponent;
 import com.itemshop.utilities.lotto.Lotto;
+import com.itemshop.container.ContainerComponent;
+import com.itemshop.factories.items.RandomItemFactory;
 
 /**
- * Factory for creating a Grass tile.
+ * Factory for creating a DisplayCase tile.
  */
-public class GrassFactory implements TileFactory {
+public class DisplayCaseFactory implements TileFactory {
+	
+	/** Generator of random items in the display case. */
+	private RandomItemFactory itemGenerator;
+	
+	/**
+	 * Creates a DisplayCaseFactory instance.
+	 */
+	public DisplayCaseFactory() {
+		itemGenerator = new RandomItemFactory();
+	}
 
 	/**
 	 * Creates the entity.
@@ -30,18 +41,23 @@ public class GrassFactory implements TileFactory {
 		// Add the entities components.
 		entity.add(new PositionComponent(x, y));
 		
-		// Grass is a little bit harder to walk on than other tiles.
-		entity.add(new WalkableTileComponent(3));
+		// Populate the container component.
+		ContainerComponent containerComponent = new ContainerComponent(1);
+		if (random.nextBoolean()) {
+			try {
+				containerComponent.add(itemGenerator.create());
+			} catch (Exception exception) {
+			}			
+		}
+		entity.add(containerComponent);
 		
-		// Randomly generate a texture component for this tile.
+		// Add the right texture.
 		entity.add(new TextureComponent(
 			new Lotto<TextureRegion>(random)
-				.add(Assets.grass, 4)
-				.add(Assets.grass_flower, 2)
-				.add(Assets.grass_mole, 1)
-				.add(Assets.grass_pebble, 4)
-				.add(Assets.grass_medium, 8)
-				.add(Assets.grass_long, 8)
+				.add(Assets.display_wood, 1)
+				.add(Assets.display_stone, 1)
+				.add(Assets.cabinet_wood, 1)
+				.add(Assets.cabinet_stone, 1)
 				.draw()
 		));
 

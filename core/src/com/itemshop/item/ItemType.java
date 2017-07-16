@@ -12,7 +12,6 @@ public enum ItemType {
 	MUFFIN,
 	CHEESE,
 	
-	// Furniture
-	TABLE,
-	CHEST
+	// Other
+	BOOK,
 }

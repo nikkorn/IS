@@ -4,16 +4,17 @@ import java.util.Random;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.itemshop.game.assets.Assets;
-import com.itemshop.movement.WalkableTileComponent;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.TextureComponent;
-import com.itemshop.utilities.lotto.Lotto;
+import com.itemshop.container.ContainerComponent;
 
 /**
- * Factory for creating a Grass tile.
+ * Factory for creating a Bin tile.
  */
-public class GrassFactory implements TileFactory {
+public class BinFactory implements TileFactory {
+	
+	/** The maximum number of items a bin can hold.*/
+	private static int MAXIMUM_CAPACITY = 1;
 
 	/**
 	 * Creates the entity.
@@ -29,21 +30,22 @@ public class GrassFactory implements TileFactory {
 
 		// Add the entities components.
 		entity.add(new PositionComponent(x, y));
+
+		// Create the container component.
+		ContainerComponent containerComponent = new ContainerComponent(MAXIMUM_CAPACITY);
 		
-		// Grass is a little bit harder to walk on than other tiles.
-		entity.add(new WalkableTileComponent(3));
+		// Add actions to perform when entities are added to this container.
+		containerComponent.onEntityAdded = (item) -> {
+			// This item is being put in the bin! We don't want it!
+			containerComponent.remove(item);
+			engine.removeEntity(item);
+		};
 		
-		// Randomly generate a texture component for this tile.
-		entity.add(new TextureComponent(
-			new Lotto<TextureRegion>(random)
-				.add(Assets.grass, 4)
-				.add(Assets.grass_flower, 2)
-				.add(Assets.grass_mole, 1)
-				.add(Assets.grass_pebble, 4)
-				.add(Assets.grass_medium, 8)
-				.add(Assets.grass_long, 8)
-				.draw()
-		));
+		// Add the container component to the bin entity.
+		entity.add(containerComponent);
+		
+		// Add the bin texture.
+		entity.add(new TextureComponent(Assets.bin));
 
 		// Add the tile entity to the engine.
 		engine.addEntity(entity);
