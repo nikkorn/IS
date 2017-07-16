@@ -11,10 +11,10 @@ public class WalkableTileComponent implements Component {
 	public int movementCost;
 
 	/** Triggered when an entity walks onto the tile. */
-	public WalkableTileAction onEntry = () -> {};
+	public WalkableTileAction onEntry = null;
 
 	/** Triggered when an entity walks off of the tile. */
-	public WalkableTileAction onExit = () -> {};
+	public WalkableTileAction onExit = null;
 	
 	/**
 	 * Create a new instance of MovementTileTransition.
