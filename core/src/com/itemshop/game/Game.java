@@ -11,6 +11,7 @@ import com.itemshop.game.assets.Assets;
 import com.itemshop.input.KeyboardSystem;
 import com.itemshop.input.MouseSystem;
 import com.itemshop.render.RenderSystem;
+import com.itemshop.schedule.TimeSystem;
 import com.itemshop.state.StateSystem;
 import com.itemshop.ui.UISystem;
 
@@ -50,6 +51,7 @@ public class Game extends ApplicationAdapter {
 		
 		// Add the systems.
 		engine.addSystem(new StateSystem(worldCamera));
+		engine.addSystem(new TimeSystem());
 		engine.addSystem(new PathingSystem());
 		engine.addSystem(new KeyboardSystem());
 		engine.addSystem(new MouseSystem(worldCamera, uiCamera));

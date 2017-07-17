@@ -53,7 +53,7 @@ public class UISystem extends IteratingSystem {
 		spriteBatch.setProjectionMatrix(camera.combined);
 
 		font.draw(spriteBatch, Clock.getClock().getFormattedClock(), 100, 100);
-		System.out.println(Clock.getClock().getFormattedClock());
+		//System.out.println(Clock.getClock().getFormattedClock());
 
 		// Draw the game.
 		super.update(deltaTime);
