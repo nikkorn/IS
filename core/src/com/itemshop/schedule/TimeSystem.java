@@ -3,7 +3,7 @@ package com.itemshop.schedule;
 import com.badlogic.ashley.systems.IntervalSystem;
 
 /**
- * Handles processing of entities which can walk.
+ * Handles processing of game time.
  */
 public class TimeSystem extends IntervalSystem {
 
@@ -22,8 +22,7 @@ public class TimeSystem extends IntervalSystem {
 	}
 
 	/**
-	 * Get the time.
-	 * 
+	 * Get the time. 
 	 * @return time
 	 */
 	public Time getTime() {
