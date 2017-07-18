@@ -32,6 +32,5 @@ public class TimeSystem extends IntervalSystem {
 	@Override
 	protected void updateInterval() {
 		time.tick();
-		System.out.println("time: " + time.getFormattedTime());
 	}
 }
