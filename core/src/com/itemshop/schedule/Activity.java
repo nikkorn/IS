@@ -26,6 +26,14 @@ public abstract class Activity {
 	}
 	
 	/**
+	 * Reset this activity.
+	 */
+	public void reset() {
+		this.hasBegun    = false;
+		this.hasFinished = false;
+	}
+	
+	/**
 	 * Finish this activity.
 	 */
 	public void finish() {

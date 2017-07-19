@@ -97,7 +97,7 @@ public class GameState implements IState {
 		// Give the delivery guy an initial position.
 		deliveryGuy.add(new PositionComponent(0, 27, 1));
 		
-		// Create the delivery guy a schedule.
+		// Create a schedule for the delivery guy.
 		ScheduleComponent schedule = new ScheduleComponent();
 		
 		// Create the list of activities required to carry out a delivery.
@@ -106,6 +106,7 @@ public class GameState implements IState {
 			// Add an activity to walk to the shop.
 			add(new Activity() {
 				
+				// The path to follow for this activity.
 				PathComponent path = new PathComponent(25, 28);
 				
 				@Override
@@ -119,14 +120,17 @@ public class GameState implements IState {
 					}
 				}
 				@Override
-				public void onPreempt() {}
+				public void onEnd() {
+					path = new PathComponent(25, 28);
+				} 
 				@Override
-				public void onEnd() {} 
+				public void onPreempt() {}
 			});
 		
 			// Add an activity to walk out of town.
 			add(new Activity() {
 				
+				// The path to follow for this activity.
 				PathComponent path = new PathComponent(0, 27);
 				
 				@Override
@@ -140,19 +144,20 @@ public class GameState implements IState {
 					}
 				}
 				@Override
-				public void onPreempt() {}
+				public void onEnd() {
+					path = new PathComponent(0, 27);
+				} 
 				@Override
-				public void onEnd() {} 
+				public void onPreempt() {}
 			});
 		}};
 		
 		// Schedule an appointment for the delivery man to walk to the shop and back every now and then.
-		schedule.appointments.add(new Appointment(9, 35, true, deliveryActivities));
-		schedule.appointments.add(new Appointment(11, 00, true, deliveryActivities));
-		schedule.appointments.add(new Appointment(12, 00, true, deliveryActivities));
-		schedule.appointments.add(new Appointment(13, 00, true, deliveryActivities));
+		schedule.appointments.add(new Appointment(6, 00, true, deliveryActivities));
+		schedule.appointments.add(new Appointment(8, 00, true, deliveryActivities));
+		schedule.appointments.add(new Appointment(10, 00, true, deliveryActivities));
+		schedule.appointments.add(new Appointment(12, 30, true, deliveryActivities));
 		schedule.appointments.add(new Appointment(14, 00, true, deliveryActivities));
-		schedule.appointments.add(new Appointment(15, 00, true, deliveryActivities));
 		schedule.appointments.add(new Appointment(16, 00, true, deliveryActivities));
 		
 		// Give the delivery guy the schedule

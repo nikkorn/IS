@@ -86,8 +86,11 @@ public class ScheduleSystem extends IteratingSystem {
 						// TODO Will eventually have to work out how to handle whether activities stay or go.
 						scheduleComponent.activities.clear();
 						
-						// ... And add the appointment activities to the schedule.
+						// ... And for every appointment activity ...
 						for (Activity activity : appointment.getActivities()) {
+							//  ... Reset it, just in case it has already been processed ... 
+							activity.reset();
+							// ... And add it to the schedule activities.
 							scheduleComponent.activities.add(activity);
 						}
 					}
