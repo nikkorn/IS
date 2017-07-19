@@ -42,6 +42,14 @@ public abstract class Activity {
 	}
 	
 	/**
+	 * Return whether this activity has begun.
+	 * @return begun
+	 */
+	public boolean hasBegun() {
+		return this.hasBegun;
+	}
+	
+	/**
 	 * Called when the activity is begun.
 	 */
 	public abstract void onBegin();

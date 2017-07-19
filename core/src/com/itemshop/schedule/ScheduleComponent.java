@@ -3,6 +3,9 @@ package com.itemshop.schedule;
 import java.util.ArrayList;
 import com.badlogic.ashley.core.Component;
 
+/**
+ * A component that defines a character schedule.
+ */
 public class ScheduleComponent implements Component {
 	
 	/** 
@@ -11,10 +14,16 @@ public class ScheduleComponent implements Component {
 	 */
 	public ArrayList<Activity> activities;
 	
+	/** 
+	 * The list of appointments to be met.
+	 */
+	public ArrayList<Appointment> appointments;
+	
 	/**
 	 * Create a new instance of the ScheduleComponent class.
 	 */
 	public ScheduleComponent() {
-		activities = new ArrayList<Activity>();
+		activities   = new ArrayList<Activity>();
+		appointments = new ArrayList<Appointment>();
 	}
 }

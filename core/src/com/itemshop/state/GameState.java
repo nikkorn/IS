@@ -1,5 +1,7 @@
 package com.itemshop.state;
 
+import java.util.ArrayList;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -14,6 +16,8 @@ import com.itemshop.factories.characters.PlayerFactory;
 import com.itemshop.input.MouseComponent;
 import com.itemshop.movement.WalkableTileComponent;
 import com.itemshop.render.PositionComponent;
+import com.itemshop.schedule.Activity;
+import com.itemshop.schedule.Appointment;
 import com.itemshop.schedule.ScheduleComponent;
 
 /**
@@ -93,8 +97,66 @@ public class GameState implements IState {
 		// Give the delivery guy an initial position.
 		deliveryGuy.add(new PositionComponent(0, 27, 1));
 		
-		// Give the delivery guy a schedule.
-		deliveryGuy.add(new ScheduleComponent());
+		// Create the delivery guy a schedule.
+		ScheduleComponent schedule = new ScheduleComponent();
+		
+		// Create the list of activities required to carry out a delivery.
+		ArrayList<Activity> deliveryActivities = new ArrayList<Activity>() {{
+		
+			// Add an activity to walk to the shop.
+			add(new Activity() {
+				
+				PathComponent path = new PathComponent(25, 28);
+				
+				@Override
+				public void onBegin() {
+					deliveryGuy.add(path);
+				}
+				@Override
+				public void perform() {
+					if (path.isPathComputed && path.movements.size() == 0) {
+						this.finish();
+					}
+				}
+				@Override
+				public void onPreempt() {}
+				@Override
+				public void onEnd() {} 
+			});
+		
+			// Add an activity to walk out of town.
+			add(new Activity() {
+				
+				PathComponent path = new PathComponent(0, 27);
+				
+				@Override
+				public void onBegin() {
+					deliveryGuy.add(path);
+				}
+				@Override
+				public void perform() {
+					if (path.isPathComputed && path.movements.size() == 0) {
+						this.finish();
+					}
+				}
+				@Override
+				public void onPreempt() {}
+				@Override
+				public void onEnd() {} 
+			});
+		}};
+		
+		// Schedule an appointment for the delivery man to walk to the shop and back every now and then.
+		schedule.appointments.add(new Appointment(9, 35, true, deliveryActivities));
+		schedule.appointments.add(new Appointment(11, 00, true, deliveryActivities));
+		schedule.appointments.add(new Appointment(12, 00, true, deliveryActivities));
+		schedule.appointments.add(new Appointment(13, 00, true, deliveryActivities));
+		schedule.appointments.add(new Appointment(14, 00, true, deliveryActivities));
+		schedule.appointments.add(new Appointment(15, 00, true, deliveryActivities));
+		schedule.appointments.add(new Appointment(16, 00, true, deliveryActivities));
+		
+		// Give the delivery guy the schedule
+		deliveryGuy.add(schedule);
 		
 		engine.addEntity(deliveryGuy);
 	}
