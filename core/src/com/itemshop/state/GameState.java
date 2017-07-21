@@ -19,6 +19,7 @@ import com.itemshop.render.PositionComponent;
 import com.itemshop.schedule.Activity;
 import com.itemshop.schedule.Appointment;
 import com.itemshop.schedule.ScheduleComponent;
+import com.itemshop.schedule.activities.WaitActivity;
 import com.itemshop.schedule.activities.WalkActivity;
 
 /**
@@ -105,6 +106,8 @@ public class GameState implements IState {
 		ArrayList<Activity> deliveryActivities = new ArrayList<Activity>() {{
 			// Add an activity to walk to the shop.
 			add(new WalkActivity(deliveryGuy, 25, 28));
+			// Add an activity to wait there for a couple of seconds.
+			add(new WaitActivity(2000));
 			// Add an activity to walk out of town.
 			add(new WalkActivity(deliveryGuy, 0, 27));
 		}};

@@ -55,6 +55,7 @@ public class ScheduleSystem extends IteratingSystem {
 
 	@Override
 	protected void processEntity(Entity entity, float deltaTime) {
+		
 		// Get the entity schedule component.
 		ScheduleComponent scheduleComponent = scheduleMapper.get(entity);
 		
