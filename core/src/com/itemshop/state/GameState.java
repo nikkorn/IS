@@ -19,6 +19,7 @@ import com.itemshop.render.PositionComponent;
 import com.itemshop.schedule.Activity;
 import com.itemshop.schedule.Appointment;
 import com.itemshop.schedule.ScheduleComponent;
+import com.itemshop.schedule.activities.WalkActivity;
 
 /**
  * The game state in which the player is in town.
@@ -102,54 +103,10 @@ public class GameState implements IState {
 		
 		// Create the list of activities required to carry out a delivery.
 		ArrayList<Activity> deliveryActivities = new ArrayList<Activity>() {{
-		
 			// Add an activity to walk to the shop.
-			add(new Activity() {
-				
-				// The path to follow for this activity.
-				PathComponent path = new PathComponent(25, 28);
-				
-				@Override
-				public void onBegin() {
-					deliveryGuy.add(path);
-				}
-				@Override
-				public void perform() {
-					if (path.isPathComputed && path.movements.size() == 0) {
-						this.finish();
-					}
-				}
-				@Override
-				public void onEnd() {
-					path = new PathComponent(25, 28);
-				} 
-				@Override
-				public void onPreempt() {}
-			});
-		
+			add(new WalkActivity(deliveryGuy, 25, 28));
 			// Add an activity to walk out of town.
-			add(new Activity() {
-				
-				// The path to follow for this activity.
-				PathComponent path = new PathComponent(0, 27);
-				
-				@Override
-				public void onBegin() {
-					deliveryGuy.add(path);
-				}
-				@Override
-				public void perform() {
-					if (path.isPathComputed && path.movements.size() == 0) {
-						this.finish();
-					}
-				}
-				@Override
-				public void onEnd() {
-					path = new PathComponent(0, 27);
-				} 
-				@Override
-				public void onPreempt() {}
-			});
+			add(new WalkActivity(deliveryGuy, 0, 27));
 		}};
 		
 		// Schedule an appointment for the delivery man to walk to the shop and back every now and then.
