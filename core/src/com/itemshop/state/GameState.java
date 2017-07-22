@@ -14,11 +14,13 @@ import com.itemshop.factories.TownEntityFactory;
 import com.itemshop.factories.characters.DeliveryGuyFactory;
 import com.itemshop.factories.characters.PlayerFactory;
 import com.itemshop.input.MouseComponent;
+import com.itemshop.movement.Direction;
 import com.itemshop.movement.WalkableTileComponent;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.schedule.Activity;
 import com.itemshop.schedule.Appointment;
 import com.itemshop.schedule.ScheduleComponent;
+import com.itemshop.schedule.activities.FaceDirectionAction;
 import com.itemshop.schedule.activities.WaitActivity;
 import com.itemshop.schedule.activities.WalkActivity;
 
@@ -105,7 +107,9 @@ public class GameState implements IState {
 		// Create the list of activities required to carry out a delivery.
 		ArrayList<Activity> deliveryActivities = new ArrayList<Activity>() {{
 			// Add an activity to walk to the shop.
-			add(new WalkActivity(deliveryGuy, 25, 28));
+			add(new WalkActivity(deliveryGuy, 25, 31));
+			// Turn to face a container.
+			add(new FaceDirectionAction(deliveryGuy, Direction.RIGHT));
 			// Add an activity to wait there for a couple of seconds.
 			add(new WaitActivity(2000));
 			// Add an activity to walk out of town.

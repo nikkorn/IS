@@ -18,7 +18,7 @@ public class WalkActivity extends Activity {
 	/** The target y position for the path component. */
 	private int targetPositionY;
 	
-	/** The path to follow for this activity. */
+	/** The entity. */
 	private Entity entity;
 	
 	/**
