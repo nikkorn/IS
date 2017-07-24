@@ -90,6 +90,7 @@ public class Assets {
 	public static TextureRegion bin;
 
 	public static TextureRegion town_info_board;
+	public static TextureRegion mail_box;
 	public static Animation fountain;
 	
 	public static TextureRegion unknown;
@@ -192,6 +193,7 @@ public class Assets {
 		bin = getTileAt(tileSheet, 8, 8);
 
 		town_info_board = getTileAt(tileSheet, 0, 9);
+		mail_box = getTileAt(tileSheet, 4, 9);
 		fountain = new Animation(1f/6f, Assets.getTileAt(tileSheet, 1, 9),
 				Assets.getTileAt(tileSheet, 2, 9), Assets.getTileAt(tileSheet, 3, 9));
 
