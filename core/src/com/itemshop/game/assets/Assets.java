@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 public class Assets {
 	// Character resource map.
-	private static HashMap<ISCharacter, CharacterResources> characterResources = new HashMap<ISCharacter, CharacterResources>();
+	private static HashMap<ISCharacter, CharacterSprites> characterResources = new HashMap<ISCharacter, CharacterSprites>();
 
 	private static final int TILE_SIZE = 16;
 	private static final int ITEM_SIZE = 10;
@@ -117,7 +117,7 @@ public class Assets {
 		// Character resources.
 		Texture characterSpritesheet = new Texture(Gdx.files.internal("images/sprites/characters.png"));
 		for (ISCharacter character : ISCharacter.values()) {
-			characterResources.put(character, new CharacterResources(character, characterSpritesheet));
+			characterResources.put(character, new CharacterSprites(character, characterSpritesheet));
 		}
 
 		Texture tileSheet = getTexture("images/sprites/tiles.png");
@@ -252,7 +252,7 @@ public class Assets {
 	 * @param character
 	 * @return character resources
 	 */
-	public static CharacterResources getCharacterResources(ISCharacter character) {
+	public static CharacterSprites getCharacterResources(ISCharacter character) {
 		return characterResources.get(character);
 	}
 

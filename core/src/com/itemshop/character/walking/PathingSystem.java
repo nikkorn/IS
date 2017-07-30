@@ -210,4 +210,8 @@ public class PathingSystem extends IntervalIteratingSystem {
 		// Could not find the tile at the position.
 		return null;
 	}
+	
+	public boolean isWalkable(float x, float y) {
+		return this.getWalkableTileComponentAtPosition(x, y) == null;
+	}
 }
