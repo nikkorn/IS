@@ -2,7 +2,6 @@ package com.itemshop.container;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 
@@ -43,6 +42,7 @@ public class ContainerComponent implements Component {
 			throw new Exception("Container is at capacity.");
 		}
 		contents.add(entity);
+		this.onEntityAdded.perform(entity);
 	}
 	
 	/**
@@ -50,7 +50,10 @@ public class ContainerComponent implements Component {
 	 * @param entity
 	 */
 	public void remove(Entity entity) {
-		contents.remove(entity);
+		boolean removed = contents.remove(entity);
+		if (removed) {
+			this.onEntityRemoved.perform(entity);
+		}
 	}
 	
 	/**
@@ -68,4 +71,18 @@ public class ContainerComponent implements Component {
 	public int getCapacity() {
 		return capacity;
 	}
+	
+	/**
+	 * Gets the size.
+	 * @return The size.
+	 */
+	public int getSize() {
+		return contents.size();
+	}
+	
+	/** Triggered when an entity is added to this container. */
+	public ContainerAction onEntityAdded = (entity) -> {};
+
+	/** Triggered when an entity is removed from this container. */
+	public ContainerAction onEntityRemoved = (entity) -> {};
 }

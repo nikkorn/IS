@@ -1,7 +1,6 @@
 package com.itemshop.factories.items;
 
 import java.util.Random;
-
 import com.badlogic.ashley.core.Entity;
 import com.itemshop.utilities.lotto.Lotto;
 
@@ -19,12 +18,12 @@ public class RandomItemFactory implements ItemFactory {
 	public RandomItemFactory() {
 		Random random = new Random();
 		picker = new Lotto<ItemFactory>(random)
-			.add(new AppleFactory(), 8)   
-			.add(new BananaFactory(), 6)
-			.add(new BookFactory(), 5)
-			.add(new BerryFactory(), 4)
-			.add(new CheeseFactory(), 2)
-			.add(new MuffinFactory(), 1);
+			.add(new AppleFactory(), 2)   
+			.add(new BananaFactory(), 2)
+			.add(new BookFactory(), 1)
+			.add(new BerryFactory(), 2)
+			.add(new CheeseFactory(), 1)
+			.add(new MuffinFactory(), 2);
 	}
 	
 	/**

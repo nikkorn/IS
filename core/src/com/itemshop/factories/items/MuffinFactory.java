@@ -7,6 +7,7 @@ import com.itemshop.item.ItemTypeComponent;
 import com.itemshop.item.PerishableComponent;
 import com.itemshop.item.QualityComponent;
 import com.itemshop.item.ValueComponent;
+import com.itemshop.render.RenderSizeComponent;
 import com.itemshop.render.TextureComponent;
 
 /**
@@ -25,10 +26,11 @@ public class MuffinFactory implements ItemFactory {
 		
 		// Add the entities components.
 		item.add(new ItemTypeComponent(ItemType.MUFFIN, "Muffin"));
-		item.add(new TextureComponent(Assets.unknown));
+		item.add(new TextureComponent(Assets.muffin));
 		item.add(new QualityComponent());
 		item.add(new ValueComponent(15));
 		item.add(new PerishableComponent(2));
+		item.add(new RenderSizeComponent(0.625f, 0.625f));
 		
 		return item;
 	}

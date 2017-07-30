@@ -138,6 +138,12 @@ public class PathingSystem extends IntervalIteratingSystem {
 				// Get the facing direction of this entity.
 				Direction facingDirection = facingDirectionMapper.get(entity).direction;
 
+				// We are exiting the current walkable tile.
+				WalkableTileComponent currentWalkableTile = getWalkableTileComponentAtPosition(position.x, position.y);
+				if (currentWalkableTile != null && currentWalkableTile.onExit != null) {
+					currentWalkableTile.onExit.perform();
+				}
+				
 				// Get the next movement we have to make in following the path.
 				Direction nextDirectionOfMovement = path.movements.pop();
 
@@ -174,10 +180,34 @@ public class PathingSystem extends IntervalIteratingSystem {
 
 				// Set the new facing direction of this entity.
 				facingDirectionMapper.get(entity).direction = nextDirectionOfMovement;
+				
+				// We have officially entered the next walkable tile.
+				currentWalkableTile = getWalkableTileComponentAtPosition(position.x, position.y);
+				if (currentWalkableTile != null && currentWalkableTile.onEntry != null) {
+					currentWalkableTile.onEntry.perform();
+				}
 
 				// The entity has started to move between tiles.
 				entity.add(new MovementTileTransitionComponent(nextDirectionOfMovement.opposite(), 1f - TRANSITION_STEP));
 			}
 		}
+	}
+	
+	/**
+	 * Get the walkable tile component at the specified position.
+	 * @param x
+	 * @param y
+	 * @return walkable tile component
+	 */
+	private WalkableTileComponent getWalkableTileComponentAtPosition(float x, float y) {
+		for (Entity tile : positionedWalkableTileEntities) {
+			// Get the tile entities position component.
+			PositionComponent tilePosition = positionMapper.get(tile);
+			if (tilePosition.x == x && tilePosition.y == y) {
+				return walkableTileMapper.get(tile);
+			}
+		}
+		// Could not find the tile at the position.
+		return null;
 	}
 }

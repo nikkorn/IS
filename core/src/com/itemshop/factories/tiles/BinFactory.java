@@ -4,14 +4,17 @@ import java.util.Random;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.itemshop.game.assets.Assets;
-import com.itemshop.movement.WalkableTileComponent;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.TextureComponent;
+import com.itemshop.container.ContainerComponent;
 
 /**
- * Factory for creating a Door tile.
+ * Factory for creating a Bin tile.
  */
-public class DoorFactory implements TileFactory {
+public class BinFactory implements TileFactory {
+	
+	/** The maximum number of items a bin can hold.*/
+	private static int MAXIMUM_CAPACITY = 1;
 
 	/**
 	 * Creates the entity.
@@ -27,19 +30,22 @@ public class DoorFactory implements TileFactory {
 
 		// Add the entities components.
 		entity.add(new PositionComponent(x, y));
-		entity.add(new TextureComponent(Assets.door_stone));
+
+		// Create the container component.
+		ContainerComponent containerComponent = new ContainerComponent(MAXIMUM_CAPACITY);
 		
-		// Doors is a little bit harder to walk on than other tiles.
-		// Also, we should swap out our door texture as a character passes 
-		// through it to make it look like the door is opening and closing.
-		WalkableTileComponent walkableTileComponent = new WalkableTileComponent(2);
-		walkableTileComponent.onEntry = () -> {
-			entity.add(new TextureComponent(Assets.slab));
+		// Add actions to perform when entities are added to this container.
+		containerComponent.onEntityAdded = (item) -> {
+			// This item is being put in the bin! We don't want it!
+			containerComponent.remove(item);
+			engine.removeEntity(item);
 		};
-		walkableTileComponent.onExit = () -> {
-			entity.add(new TextureComponent(Assets.door_stone));
-		};
-		entity.add(walkableTileComponent);
+		
+		// Add the container component to the bin entity.
+		entity.add(containerComponent);
+		
+		// Add the bin texture.
+		entity.add(new TextureComponent(Assets.bin));
 
 		// Add the tile entity to the engine.
 		engine.addEntity(entity);

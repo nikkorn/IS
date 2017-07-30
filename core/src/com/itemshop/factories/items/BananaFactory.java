@@ -7,6 +7,7 @@ import com.itemshop.item.ItemTypeComponent;
 import com.itemshop.item.PerishableComponent;
 import com.itemshop.item.QualityComponent;
 import com.itemshop.item.ValueComponent;
+import com.itemshop.render.RenderSizeComponent;
 import com.itemshop.render.TextureComponent;
 
 /**
@@ -25,10 +26,11 @@ public class BananaFactory implements ItemFactory {
 		
 		// Add the entities components.
 		item.add(new ItemTypeComponent(ItemType.BANANA, "Banana"));
-		item.add(new TextureComponent(Assets.unknown));
+		item.add(new TextureComponent(Assets.banana));
 		item.add(new QualityComponent());
 		item.add(new ValueComponent(2));
-		item.add(new PerishableComponent(6));		
+		item.add(new PerishableComponent(6));
+		item.add(new RenderSizeComponent(0.625f, 0.625f));
 		 
 		return item;
 	}
