@@ -9,7 +9,7 @@ import com.itemshop.schedule.Activity;
 /**
  * An activity which changes a characters facing direction.
  */
-public class FaceDirectionAction extends Activity {
+public class FaceDirectionActivity extends Activity {
 
     /** The facing direction component mapper. */
     private static ComponentMapper<FacingDirectionComponent> facingDirectionMapper
@@ -22,11 +22,11 @@ public class FaceDirectionAction extends Activity {
     private Entity entity;
 
     /**
-     * Create a new instance of the FaceDirectionAction class.
+     * Create a new instance of the FaceDirectionActivity class.
      * @param entity the entity the action applies to
      * @param direction the direction to face
      */
-    public FaceDirectionAction(Entity entity, Direction direction) {
+    public FaceDirectionActivity(Entity entity, Direction direction) {
         this.entity    = entity;
         this.direction = direction;
     }
@@ -48,6 +48,6 @@ public class FaceDirectionAction extends Activity {
     public void onEnd() {}
 
     @Override
-    public void onPreempt() {}
+    public void onInterrupt() {}
 }
 

@@ -39,5 +39,5 @@ public class WaitActivity extends Activity {
 	public void onEnd() {}
 
 	@Override
-	public void onPreempt() {}
+	public void onInterrupt() {}
 }

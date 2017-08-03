@@ -20,7 +20,7 @@ import com.itemshop.render.PositionComponent;
 import com.itemshop.schedule.Activity;
 import com.itemshop.schedule.Appointment;
 import com.itemshop.schedule.ScheduleComponent;
-import com.itemshop.schedule.activities.FaceDirectionAction;
+import com.itemshop.schedule.activities.FaceDirectionActivity;
 import com.itemshop.schedule.activities.WaitActivity;
 import com.itemshop.schedule.activities.WalkActivity;
 
@@ -109,7 +109,7 @@ public class GameState implements IState {
 			// Add an activity to walk to the shop.
 			add(new WalkActivity(deliveryGuy, 25, 31));
 			// Turn to face a container.
-			add(new FaceDirectionAction(deliveryGuy, Direction.RIGHT));
+			add(new FaceDirectionActivity(deliveryGuy, Direction.RIGHT));
 			// Add an activity to wait there for a couple of seconds.
 			add(new WaitActivity(2000));
 			// Add an activity to walk out of town.
@@ -117,7 +117,7 @@ public class GameState implements IState {
 		}};
 		
 		// Schedule an appointment for the delivery man to walk to the shop and back every now and then.
-		schedule.appointments.add(new Appointment(6, 00, true, deliveryActivities));
+		schedule.appointments.add(new Appointment(9, 35, true, deliveryActivities));
 		schedule.appointments.add(new Appointment(8, 00, true, deliveryActivities));
 		schedule.appointments.add(new Appointment(10, 00, true, deliveryActivities));
 		schedule.appointments.add(new Appointment(12, 30, true, deliveryActivities));

@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.itemshop.render.TextureComponent;
-import com.itemshop.schedule.Clock;
 
 /**
  * Stand alone render system for drawing the in-game UI.
@@ -51,9 +50,6 @@ public class UISystem extends IteratingSystem {
 		// Make sure we are observing the camera position.
 		camera.update();
 		spriteBatch.setProjectionMatrix(camera.combined);
-
-		font.draw(spriteBatch, Clock.getClock().getFormattedClock(), 100, 100);
-		//System.out.println(Clock.getClock().getFormattedClock());
 
 		// Draw the game.
 		super.update(deltaTime);

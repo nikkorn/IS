@@ -68,10 +68,10 @@ public abstract class Activity {
 	public abstract void perform();
 	
 	/**
-	 * Called when the activity is Preempted.
+	 * Called when the activity is interrupted.
 	 * This will be followed by a call to finish().
 	 */
-	public abstract void onPreempt();
+	public abstract void onInterrupt();
 	
 	/**
 	 * Called when the activity is ended.
