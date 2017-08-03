@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.itemshop.render.TextureComponent;
 
@@ -23,6 +24,9 @@ public class UISystem extends IteratingSystem {
 	/** Camera for UI scaling. */
 	OrthographicCamera camera;
 
+	/** The font used in the UI. */
+	BitmapFont font;
+
 	public UISystem(OrthographicCamera camera, SpriteBatch spriteBatch) {
 		super(Family.all(ScreenPositionComponent.class, TextureComponent.class).get());
 		
@@ -32,6 +36,9 @@ public class UISystem extends IteratingSystem {
 		
 		this.spriteBatch = spriteBatch;
 		this.camera = camera;
+
+		font = new BitmapFont();
+		font.setColor(1.0f, 0f, 0f, 1.0f);
 	}
 
 	/**
@@ -43,7 +50,7 @@ public class UISystem extends IteratingSystem {
 		// Make sure we are observing the camera position.
 		camera.update();
 		spriteBatch.setProjectionMatrix(camera.combined);
-    	
+
 		// Draw the game.
 		super.update(deltaTime);
 	}
