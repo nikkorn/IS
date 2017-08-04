@@ -35,6 +35,25 @@ public class AStarPathfinder {
 			nodes.put(node.x + ":" + node.y, creator.create(entity));
 		}
 	}
+	
+	/**
+	 * Add or replace a node at a particular position.
+	 * @param node
+	 */
+	public void addOrReplaceNode(AStarNode node) {
+		// Create the key for a node at this position.
+		String nodeKey = node.x + ":" + node.y;
+		// Are we adding or replacing a node?
+		if (nodes.containsKey(nodeKey)) {
+			// Remove the existing node at this position ...
+			nodes.remove(nodeKey);
+			// ... And add the new one.
+			nodes.put(nodeKey, node);
+		} else {
+			// There is no existing node at this position, just add it.
+			nodes.put(nodeKey, node);
+		}
+	}
 
 	/**
 	 * Takes an origin position and a destination position and produces a

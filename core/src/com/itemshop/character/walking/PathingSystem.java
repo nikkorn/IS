@@ -1,5 +1,7 @@
 package com.itemshop.character.walking;
 
+import java.util.Stack;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -91,23 +93,8 @@ public class PathingSystem extends IntervalIteratingSystem {
 			// We may not have computed a path for the target position defined in the path component.
 			if (!path.isPathComputed) {
 
-				// Use A* to compute path to position defined by path.targtex and path.targety
-				AStarPathfinder pathfinder = new AStarPathfinder(positionedWalkableTileEntities, (tile) -> {
-					// Get the tile entities position component.
-					PositionComponent tilePosition = positionMapper.get(tile);
-					// Create an A* node based on this walkable tiles position.
-					AStarNode node = new AStarNode((int) tilePosition.x, (int) tilePosition.y);
-					// Set the movement cost for this node, this influences how favourable it is to walk on.
-					node.movementCost = walkableTileMapper.get(tile).movementCost;
-					// Return the node which represents the tile entity.
-					return node;
-				});
-
-				// Compute the path we need to take.
-				path.movements = pathfinder.getPath((int) position.x, (int) position.y, (int) path.targetx, (int) path.targety);
-
-				// We have computed the movements for this path.
-				path.isPathComputed = true;
+				// Compute a path for this path component
+				this.computePath(path, position, walk);
 
 				// If we were unable to compute a path then we simply cannot reach our goal.
 				if (path.movements.isEmpty()) {
@@ -127,6 +114,8 @@ public class PathingSystem extends IntervalIteratingSystem {
 			// If we have no move movements to make in the path we have, we have reached our destination.
 			if (path.movements.isEmpty()) {
 
+				// TODO If the target position is not walkable then we need to change our facing direction now.
+				
 				// We have stopped walking because we have reached our target position.
 				walk.onStop.perform(facingDirectionMapper.get(entity).direction);
 				walk.isWalking = false;
@@ -209,5 +198,66 @@ public class PathingSystem extends IntervalIteratingSystem {
 		}
 		// Could not find the tile at the position.
 		return null;
+	}
+	
+	/**
+	 * Computes a path for a path component.
+	 * @param path component
+	 * @param position component
+	 * @param walk component
+	 */
+	private void computePath(PathComponent path, PositionComponent position, WalkComponent walk) {
+		
+		// Use A* to compute path to position defined by path.targtex and path.targety
+		AStarPathfinder pathfinder = new AStarPathfinder(positionedWalkableTileEntities, (tile) -> {
+			// Get the tile entities position component.
+			PositionComponent tilePosition = positionMapper.get(tile);
+			// Create an A* node based on this walkable tiles position.
+			AStarNode node = new AStarNode((int) tilePosition.x, (int) tilePosition.y);
+			// Set the movement cost for this node, this influences how favourable it is to walk on.
+			node.movementCost = walkableTileMapper.get(tile).movementCost;
+			// Return the node which represents the tile entity.
+			return node;
+		});
+		
+		// If the target position is not walkable the aim will be for the entity 
+		// to move to the closest adjacent non-diagonal position. To calculate
+		// a path for this we will have to include the target position as a walkable 
+		// node when we calculate a path.
+		if (!path.isTargetWalkable) {
+			// Add a node to our pathfinder which represents our target position.
+			pathfinder.addOrReplaceNode(new AStarNode((int) path.targetx, (int) path.targety));
+			// Compute the path we need to take.
+			path.movements = pathfinder.getPath((int) position.x, (int) position.y, (int) path.targetx, (int) path.targety);
+			//  We need to remove the last direction from our movements.
+			removeLastMovementFromStack(path.movements);
+		} else {
+			// Compute the path we need to take.
+			path.movements = pathfinder.getPath((int) position.x, (int) position.y, (int) path.targetx, (int) path.targety);
+		}
+
+		// We have computed the movements for this path.
+		path.isPathComputed = true;
+	}
+	
+	/**
+	 * Remove the last directional movement from a movement stack.
+	 * @param stack
+	 */
+	private void removeLastMovementFromStack(Stack<Direction> stack) {
+		// Don't do anything if the stack is empty.
+		if (!stack.isEmpty()) {
+			Stack<Direction> temp = new Stack<Direction>();
+			
+			for (int i = 0; i < stack.size() - 1; i++) {
+				temp.push(stack.pop());
+			}
+			
+			stack.clear();
+				
+			while (!temp.isEmpty()) {
+				stack.push(temp.pop());
+			}
+		}
 	}
 }
