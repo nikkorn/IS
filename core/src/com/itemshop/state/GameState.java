@@ -1,18 +1,18 @@
 package com.itemshop.state;
 
-<<<<<<< HEAD
-=======
 import java.util.ArrayList;
 
 import com.badlogic.ashley.core.ComponentMapper;
->>>>>>> master
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.EntityListener;
+import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.itemshop.character.walking.PathComponent;
 import com.itemshop.factories.CameraFactory;
 import com.itemshop.factories.TownEntityFactory;
 import com.itemshop.factories.characters.DeliveryGuyFactory;
-import com.itemshop.factories.characters.PlayerFactory;
+import com.itemshop.factories.characters.ShopkeeperFactory;
 import com.itemshop.input.MouseComponent;
 import com.itemshop.movement.Direction;
 import com.itemshop.movement.WalkableTileComponent;
@@ -64,7 +64,7 @@ public class GameState implements IState {
 	 */
 	private void createPlayer(Engine engine) {
 		// Add the player to the town.
-		Entity player = PlayerFactory.create();
+		Entity player = ShopkeeperFactory.create(engine);
 		player.add(new PositionComponent(25, 28, 1));
 		engine.addEntity(player);
 
@@ -96,7 +96,7 @@ public class GameState implements IState {
 	 */
 	private void createDeliveryGuy(Engine engine) {
 		// Add the the delivery guy to the town.
-		Entity deliveryGuy = DeliveryGuyFactory.create();
+		Entity deliveryGuy = DeliveryGuyFactory.create(engine);
 		
 		// Give the delivery guy an initial position.
 		deliveryGuy.add(new PositionComponent(0, 27, 1));

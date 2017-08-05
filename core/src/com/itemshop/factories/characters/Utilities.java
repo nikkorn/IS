@@ -36,14 +36,8 @@ public class Utilities {
 			character.remove(AnimationComponent.class);
 			// Set the player's idle texture.
 			character.add(sprites.getTextureComponent(direction));
-
-			// TEMP: Random walk for now.
-			character.add(getRandomDestination(engine));
 		};
 		character.add(walkingComponent);
-
-		// TEMP: Random walk for now.
-		character.add(getRandomDestination(engine));
 		
 		// Add the visual component for the player character.
 		character.add(sprites.getTextureComponent(Direction.DOWN));

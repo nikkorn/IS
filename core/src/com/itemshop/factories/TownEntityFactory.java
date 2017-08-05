@@ -7,9 +7,7 @@ import java.util.Map;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import com.badlogic.ashley.core.Engine;
-import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
-import com.itemshop.factories.characters.ShopkeeperFactory;
 import com.itemshop.factories.tiles.*;
 
 /**
@@ -69,8 +67,6 @@ public class TownEntityFactory {
 				colorAbove = color;
 			}
 		}
-		
-		addPeople(engine);
 	}
 	
 	/**
@@ -84,14 +80,6 @@ public class TownEntityFactory {
 		} else {
 			System.out.println("Unknown color in map: " + color);
 			return defaultFactory;
-		}
-	}
-	
-	private static void addPeople(Engine engine) {
-		for (int i = 0; i < 20; i++) {
-			// Add the player to the town.
-			Entity player = ShopkeeperFactory.create(engine);
-			engine.addEntity(player);
 		}
 	}
 }

@@ -7,17 +7,17 @@ import com.badlogic.ashley.core.Entity;
 import com.itemshop.character.ISCharacter;
 import com.itemshop.game.assets.Assets;
 import com.itemshop.game.assets.CharacterSprites;
-import com.itemshop.render.PositionComponent;
 import com.itemshop.utilities.lotto.Lotto;
 
 /**
- * Creates the player entity.
+ * Creates the shopkeeper entity.
  */
 public class ShopkeeperFactory {
 	
 	/**
-	 * Creates the player entity.
-	 * @returns The player entity.
+	 * Creates a shopkeeper entity.
+	 * @param engine The game engine.
+	 * @returns The shopkeeper entity.
 	 */
 	public static Entity create(Engine engine) {
 
