@@ -4,7 +4,7 @@ import java.util.HashMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.itemshop.character.ISCharacter;
+import com.itemshop.character.Character;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 public class Assets {
 	// Character resource map.
-	private static HashMap<ISCharacter, CharacterSprites> characterResources = new HashMap<ISCharacter, CharacterSprites>();
+	private static HashMap<Character, CharacterSprites> characterResources = new HashMap<Character, CharacterSprites>();
 
 	private static final int TILE_SIZE = 16;
 	private static final int ITEM_SIZE = 10;
@@ -117,7 +117,7 @@ public class Assets {
 
 		// Character resources.
 		Texture characterSpritesheet = new Texture(Gdx.files.internal("images/sprites/characters.png"));
-		for (ISCharacter character : ISCharacter.values()) {
+		for (Character character : Character.values()) {
 			characterResources.put(character, new CharacterSprites(character, characterSpritesheet));
 		}
 
@@ -254,7 +254,7 @@ public class Assets {
 	 * @param character
 	 * @return character resources
 	 */
-	public static CharacterSprites getCharacterResources(ISCharacter character) {
+	public static CharacterSprites getCharacterResources(Character character) {
 		return characterResources.get(character);
 	}
 

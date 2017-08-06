@@ -3,7 +3,7 @@ package com.itemshop.character;
 /**
  * Default game characters
  */
-public enum ISCharacter {
+public enum Character {
 	Shopkeeper1,
 	Shopkeeper2,
 	Shopkeeper3,
