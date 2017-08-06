@@ -16,7 +16,7 @@ import com.itemshop.schedule.activities.WaitActivity;
 import com.itemshop.schedule.activities.WalkActivity;
 
 /**
- * Creates the shopkeeper entity.
+ * Creates the delivery guy entity.
  */
 public class DeliveryGuyFactory {
 	

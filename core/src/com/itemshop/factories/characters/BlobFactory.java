@@ -6,12 +6,12 @@ import com.itemshop.character.Character;
 import com.itemshop.game.assets.Assets;
 
 /**
- * Creates the shopkeeper entity.
+ * Creates the blob entity.
  */
 public class BlobFactory {
 	
 	/**
-	 * Creates a shopkeeper entity.
+	 * Creates a blob entity.
 	 * @param engine The game engine.
 	 * @returns The shopkeeper entity.
 	 */

@@ -7,11 +7,9 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
 import com.itemshop.character.FacingDirectionComponent;
-import com.itemshop.character.walking.PathingSystem;
 import com.itemshop.character.walking.WalkComponent;
 import com.itemshop.game.assets.CharacterSprites;
 import com.itemshop.movement.Direction;
-import com.itemshop.movement.WalkableTileComponent;
 import com.itemshop.render.AnimationComponent;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.RenderOffsetComponent;
@@ -24,9 +22,15 @@ import com.itemshop.schedule.activities.WalkActivity;
 import com.itemshop.utilities.lotto.Lotto;
 
 public class Utilities {
+	/**
+	 * Random number generator.
+	 */
 	private static Random random = new Random();
 
-	private static Lotto<Vector2> safeLocations = new Lotto<Vector2>()
+	/**
+	 * Big list of safe walkable places that characters can walk to.
+	 */
+	private static Lotto<Vector2> safeLocations = new Lotto<Vector2>(random)
 			.add(new Vector2(27, 2))
 			.add(new Vector2(38, 5))
 			.add(new Vector2(36, 7))
@@ -79,6 +83,12 @@ public class Utilities {
 			.add(new Vector2(29, 27))
 			.add(new Vector2(30, 25));
 
+	/**
+	 * Assigns the textures and walk logic necessary to allow a character entity to walk around.
+	 * @param engine The game engine.
+	 * @param character The player in the game.
+	 * @param sprites The set of sprites for the walking character to use.
+	 */
 	public static void setUpWalkingCharacter(Engine engine, Entity character, CharacterSprites sprites) {
 		// Handle walking changes.
 		WalkComponent walkingComponent = new WalkComponent();
@@ -114,15 +124,12 @@ public class Utilities {
 
 	/**
 	 * Sets up a character with a random wandering schedule.
-	 * 
-	 * @param engine
-	 *            The game engine.
-	 * @param character
-	 *            The character to wander randomly.
+	 * @param engine The game engine.
+	 * @param character The character to wander randomly.
 	 */
 	public static void setUpRandomWandering(Engine engine, Entity character) {
 		// Give the delivery guy an initial position.
-		character.add(getRandomPosition(engine));
+		character.add(getRandomPosition());
 
 		// Create a schedule for the delivery guy.
 		ScheduleComponent schedule = new ScheduleComponent();
@@ -131,11 +138,11 @@ public class Utilities {
 		ArrayList<Activity> deliveryActivities = new ArrayList<Activity>() {
 			{
 				// Walk somewhere.
-				add(getRandomWalk(engine, character));
+				add(getRandomWalk(character));
 				// Wait for a while.
 				add(new WaitActivity(2000));
 				// Walk somewhere else.
-				add(getRandomWalk(engine, character));
+				add(getRandomWalk(character));
 			}
 		};
 
@@ -149,12 +156,21 @@ public class Utilities {
 		character.add(schedule);
 	}
 
-	private static PositionComponent getRandomPosition(Engine engine) {
+	/**
+	 * Gets a random (walkable) position.
+	 * @return The random position.
+	 */
+	private static PositionComponent getRandomPosition() {
 		Vector2 location = safeLocations.draw();
 		return new PositionComponent(location.x, location.y, 1);
 	}
 
-	private static WalkActivity getRandomWalk(Engine engine, Entity character) {
+	/**
+	 * Creates a walk activity to a random (walkable) location.
+	 * @param character The character that is walking.
+	 * @return The walk activity.
+	 */
+	private static WalkActivity getRandomWalk(Entity character) {
 		Vector2 location = safeLocations.draw();
 		return new WalkActivity(character, (int)location.x, (int)location.y);
 	}

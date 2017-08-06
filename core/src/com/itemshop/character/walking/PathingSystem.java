@@ -33,6 +33,9 @@ public class PathingSystem extends IntervalIteratingSystem {
 
 	/** The transition step to decrement transition offsets by. */
 	private static float TRANSITION_STEP = 1f / 8f;
+	
+	/** The positioned walkable tile entities. We need to know these in order to carry our path finding. */		
+	ImmutableArray<Entity> positionedWalkableTileEntities;
 
 	/**
 	 * Constructs the pathing system instance.
@@ -47,6 +50,15 @@ public class PathingSystem extends IntervalIteratingSystem {
 		tileTransitionMapper  = ComponentMapper.getFor(MovementTileTransitionComponent.class);
 		walkMapper            = ComponentMapper.getFor(WalkComponent.class);
 		walkableTileMapper    = ComponentMapper.getFor(WalkableTileComponent.class);
+	}
+	
+	/**		
+	 * Called when this system is added to the engine.		
+	 * @param engine the engine		
+	 */		
+	public void addedToEngine(Engine engine) {		
+		super.addedToEngine(engine);		
+		positionedWalkableTileEntities = engine.getEntitiesFor(Family.all(PositionComponent.class, WalkableTileComponent.class).get());		
 	}
 
 	@Override
@@ -80,7 +92,7 @@ public class PathingSystem extends IntervalIteratingSystem {
 			if (!path.isPathComputed) {
 
 				// Use A* to compute path to position defined by path.targtex and path.targety
-				AStarPathfinder pathfinder = new AStarPathfinder(getWalkablesTiles(), (tile) -> {
+				AStarPathfinder pathfinder = new AStarPathfinder(positionedWalkableTileEntities, (tile) -> {
 					// Get the tile entities position component.
 					PositionComponent tilePosition = positionMapper.get(tile);
 					// Create an A* node based on this walkable tiles position.
@@ -181,18 +193,14 @@ public class PathingSystem extends IntervalIteratingSystem {
 		}
 	}
 	
-	private ImmutableArray<Entity> getWalkablesTiles() {
-		return this.getEngine().getEntitiesFor(Family.all(PositionComponent.class, WalkableTileComponent.class).get());
-	}
-	
 	/**
 	 * Get the walkable tile component at the specified position.
 	 * @param x
 	 * @param y
 	 * @return walkable tile component
 	 */
-	public WalkableTileComponent getWalkableTileComponentAtPosition(float x, float y) {
-		for (Entity tile : getWalkablesTiles()) {
+	private WalkableTileComponent getWalkableTileComponentAtPosition(float x, float y) {
+		for (Entity tile : positionedWalkableTileEntities) {
 			// Get the tile entities position component.
 			PositionComponent tilePosition = positionMapper.get(tile);
 			if (tilePosition.x == x && tilePosition.y == y) {

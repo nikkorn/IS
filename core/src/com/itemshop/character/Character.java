@@ -1,7 +1,7 @@
 package com.itemshop.character;
 
 /**
- * Default game characters
+ * Game characters
  */
 public enum Character {
 	Shopkeeper1,
