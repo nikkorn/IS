@@ -11,6 +11,9 @@ public class PathComponent implements Component {
 
 	/** Flag defining whether the path has been calculated for this component. */
 	public boolean isPathComputed = false;
+	
+	/** Flag defining whether the path can be followed. */
+	public boolean isPathBlocked = false;
 
 	/** The target x position. */
 	public float targetx;

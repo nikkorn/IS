@@ -1,7 +1,6 @@
 package com.itemshop.character.walking;
 
 import java.util.Stack;
-
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -11,6 +10,7 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.itemshop.character.FacingDirectionComponent;
 import com.itemshop.character.walking.astar.AStarNode;
 import com.itemshop.character.walking.astar.AStarPathfinder;
+import com.itemshop.character.walking.astar.AStarResult;
 import com.itemshop.movement.Direction;
 import com.itemshop.movement.MovementTileTransitionComponent;
 import com.itemshop.movement.WalkableTileComponent;
@@ -74,20 +74,12 @@ public class PathingSystem extends IntervalIteratingSystem {
 		// If we have a tile transition component then we are walking between tiles.
 		boolean isTransitioning = tileTransitionMapper.has(entity);
 
-		// If we are in transition between tiles we need to increase the position
-		// offset or remove the transition if it has been completed.
+		// If we are in transition between tiles we need to increase the position offset or remove the transition if it has been completed.
 		if (isTransitioning) {
 
-			// Get the transition.
-			MovementTileTransitionComponent transition = tileTransitionMapper.get(entity);
-
-			// If the transition is over then remove it, otherwise reduce the offset.
-			if (transition.offset == TRANSITION_STEP) {
-				entity.remove(MovementTileTransitionComponent.class);
-			} else {
-				// Decrease the transition offset.
-				transition.offset -= TRANSITION_STEP;
-			}
+			// Modify the entities transition offset.
+			modifyTransitionOffset(entity);
+			
 		} else {
 
 			// We may not have computed a path for the target position defined in the path component.
@@ -95,8 +87,8 @@ public class PathingSystem extends IntervalIteratingSystem {
 
 				// Compute a path for this path component
 				this.computePath(path, position, walk);
-
-				// If we were unable to compute a path then we simply cannot reach our goal.
+				
+				// If we were unable to compute a path and we are not atually next to our t
 				if (path.movements.isEmpty()) {
 					// We do not need the path component if we have no path to follow.
 					entity.remove(PathComponent.class);
@@ -124,64 +116,96 @@ public class PathingSystem extends IntervalIteratingSystem {
 				entity.remove(PathComponent.class);
 			} else {
 
-				// Get the facing direction of this entity.
-				Direction facingDirection = facingDirectionMapper.get(entity).direction;
-
-				// We are exiting the current walkable tile.
-				WalkableTileComponent currentWalkableTile = getWalkableTileComponentAtPosition(position.x, position.y);
-				if (currentWalkableTile != null && currentWalkableTile.onExit != null) {
-					currentWalkableTile.onExit.perform();
-				}
-				
-				// Get the next movement we have to make in following the path.
-				Direction nextDirectionOfMovement = path.movements.pop();
-
-				// Alter the entities position based on this direction of movement.
-				switch (nextDirectionOfMovement) {
-					case DOWN:
-						position.y -= 1;
-						break;
-					case LEFT:
-						position.x -= 1;
-						break;
-					case RIGHT:
-						position.x += 1;
-						break;
-					case UP:
-						position.y += 1;
-						break;
-					default:
-						break;
-				}
-
-				// If we have not actually starting walking yet we should call onstart() on the walk component.
-				if (!walk.isWalking) {
-					// We have started walking.
-					walk.onStart.perform(nextDirectionOfMovement);
-					walk.isWalking = true;
-				} else {
-					// We had already started walking, determine if the position we have moved to is
-					// different direction to the one we were walking in when moving to the last position.
-					if (facingDirection != nextDirectionOfMovement) {
-						walk.onDirectionChange.perform(nextDirectionOfMovement);
-					}
-				}
-
-				// Set the new facing direction of this entity.
-				facingDirectionMapper.get(entity).direction = nextDirectionOfMovement;
-				
-				// We have officially entered the next walkable tile.
-				currentWalkableTile = getWalkableTileComponentAtPosition(position.x, position.y);
-				if (currentWalkableTile != null && currentWalkableTile.onEntry != null) {
-					currentWalkableTile.onEntry.perform();
-				}
-
-				// The entity has started to move between tiles.
-				entity.add(new MovementTileTransitionComponent(nextDirectionOfMovement.opposite(), 1f - TRANSITION_STEP));
+				// Change position to the next tile in the path.
+				moveToNextTileInPath(entity, path, position, walk);
 			}
 		}
 	}
 	
+	/**
+	 * For any entity which is transitioning between tiles we need to increase
+	 * the position offset or remove the transition if it has been completed.
+	 * @param entity
+	 */
+	private void modifyTransitionOffset(Entity entity) {
+		
+		// Get the transition.
+		MovementTileTransitionComponent transition = tileTransitionMapper.get(entity);
+
+		// If the transition is over then remove it, otherwise reduce the offset.
+		if (transition.offset == TRANSITION_STEP) {
+			entity.remove(MovementTileTransitionComponent.class);
+		} else {
+			// Decrease the transition offset.
+			transition.offset -= TRANSITION_STEP;
+		}
+	}
+	
+	/**
+	 * Move from one tile position to another.
+	 * @param entity
+	 * @param path
+	 * @param position
+	 * @param walk
+	 */
+	private void moveToNextTileInPath(Entity entity, PathComponent path, PositionComponent position, WalkComponent walk) {
+		
+		// Get the facing direction of this entity.
+		Direction facingDirection = facingDirectionMapper.get(entity).direction;
+
+		// We are exiting the current walkable tile.
+		WalkableTileComponent currentWalkableTile = getWalkableTileComponentAtPosition(position.x, position.y);
+		if (currentWalkableTile != null && currentWalkableTile.onExit != null) {
+			currentWalkableTile.onExit.perform();
+		}
+		
+		// Get the next movement we have to make in following the path.
+		Direction nextDirectionOfMovement = path.movements.pop();
+
+		// Alter the entities position based on this direction of movement.
+		switch (nextDirectionOfMovement) {
+			case DOWN:
+				position.y -= 1;
+				break;
+			case LEFT:
+				position.x -= 1;
+				break;
+			case RIGHT:
+				position.x += 1;
+				break;
+			case UP:
+				position.y += 1;
+				break;
+			default:
+				break;
+		}
+
+		// If we have not actually starting walking yet we should call onstart() on the walk component.
+		if (!walk.isWalking) {
+			// We have started walking.
+			walk.onStart.perform(nextDirectionOfMovement);
+			walk.isWalking = true;
+		} else {
+			// We had already started walking, determine if the position we have moved to is
+			// different direction to the one we were walking in when moving to the last position.
+			if (facingDirection != nextDirectionOfMovement) {
+				walk.onDirectionChange.perform(nextDirectionOfMovement);
+			}
+		}
+
+		// Set the new facing direction of this entity.
+		facingDirectionMapper.get(entity).direction = nextDirectionOfMovement;
+		
+		// We have officially entered the next walkable tile.
+		currentWalkableTile = getWalkableTileComponentAtPosition(position.x, position.y);
+		if (currentWalkableTile != null && currentWalkableTile.onEntry != null) {
+			currentWalkableTile.onEntry.perform();
+		}
+		
+		// The entity has started to move between tiles.
+		entity.add(new MovementTileTransitionComponent(nextDirectionOfMovement.opposite(), 1f - TRANSITION_STEP));
+	}
+
 	/**
 	 * Get the walkable tile component at the specified position.
 	 * @param x
@@ -228,12 +252,20 @@ public class PathingSystem extends IntervalIteratingSystem {
 			// Add a node to our pathfinder which represents our target position.
 			pathfinder.addOrReplaceNode(new AStarNode((int) path.targetx, (int) path.targety));
 			// Compute the path we need to take.
-			path.movements = pathfinder.getPath((int) position.x, (int) position.y, (int) path.targetx, (int) path.targety);
-			//  We need to remove the last direction from our movements.
+			AStarResult result = pathfinder.getPath((int) position.x, (int) position.y, (int) path.targetx, (int) path.targety);
+			// Set the path movements on the path component.
+			path.movements = result.movements;
+			// We need to remove the last direction from our movements.
 			removeLastMovementFromStack(path.movements);
+			// Set a flag on the path component which defines whether the path was blocked. 
+			path.isPathBlocked = result.isPathBlocked;
 		} else {
 			// Compute the path we need to take.
-			path.movements = pathfinder.getPath((int) position.x, (int) position.y, (int) path.targetx, (int) path.targety);
+			AStarResult result = pathfinder.getPath((int) position.x, (int) position.y, (int) path.targetx, (int) path.targety);
+			// Set the path movements on the path component.
+			path.movements = result.movements;
+			// Set a flag on the path component which defines whether the path was blocked. 
+			path.isPathBlocked = result.isPathBlocked;
 		}
 
 		// We have computed the movements for this path.
