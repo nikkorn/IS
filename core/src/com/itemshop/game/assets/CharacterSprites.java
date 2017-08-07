@@ -3,7 +3,7 @@ package com.itemshop.game.assets;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.itemshop.character.ISCharacter;
+import com.itemshop.character.Character;
 import com.itemshop.movement.Direction;
 import com.itemshop.render.AnimationComponent;
 import com.itemshop.render.TextureComponent;
@@ -11,7 +11,7 @@ import com.itemshop.render.TextureComponent;
 /**
  * Assets for a specific character type.
  */
-public class CharacterResources {
+public class CharacterSprites {
 	
 	private TextureComponent stationary_up;
 	private TextureComponent stationary_down;
@@ -27,7 +27,7 @@ public class CharacterResources {
 	 * Creates a new instance of the CharacterResources class.
 	 * @param character
 	 */
-	public CharacterResources(ISCharacter character, Texture spritesheet) {
+	public CharacterSprites(Character character, Texture spritesheet) {
 		
 		// The oridinal of the character enum defines its vertical position in the character spritesheet.
 		int regionYPositon = character.ordinal();

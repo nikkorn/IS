@@ -42,6 +42,11 @@ public class ScheduleSystem extends IteratingSystem {
 
 		// Determine whether the time has changed since this system last updated.
 		timeChanged = !lastUpdateTime.equals(formattedTime);
+		
+		if (timeChanged) {
+			// Print the current time to the console.
+			System.out.println("Time: " + time.getFormattedTime());
+		}
 
 		lastUpdateTime = formattedTime;
 
@@ -60,8 +65,6 @@ public class ScheduleSystem extends IteratingSystem {
 
 		// If the time has changed since the last update, some activities may be scheduled to start.
 		if (timeChanged) {
-			// Print the current time to the console.
-			System.out.println("TIME: " + time.getFormattedTime());
 
 			// Check for pending appointments.
 			for (Iterator<Appointment> appointmentIterator = scheduleComponent.appointments.iterator(); appointmentIterator.hasNext();) {

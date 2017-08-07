@@ -33,8 +33,8 @@ public class PathingSystem extends IntervalIteratingSystem {
 
 	/** The transition step to decrement transition offsets by. */
 	private static float TRANSITION_STEP = 1f / 8f;
-
-	/** The positioned walkable tile entities. We need to know these in order to carry our path finding. */
+	
+	/** The positioned walkable tile entities. We need to know these in order to carry our path finding. */		
 	ImmutableArray<Entity> positionedWalkableTileEntities;
 
 	/**
@@ -51,14 +51,14 @@ public class PathingSystem extends IntervalIteratingSystem {
 		walkMapper            = ComponentMapper.getFor(WalkComponent.class);
 		walkableTileMapper    = ComponentMapper.getFor(WalkableTileComponent.class);
 	}
-
-	/**
-	 * Called when this system is added to the engine.
-	 * @param engine the engine
-	 */
-	public void addedToEngine(Engine engine) {
-		super.addedToEngine(engine);
-		positionedWalkableTileEntities = engine.getEntitiesFor(Family.all(PositionComponent.class, WalkableTileComponent.class).get());
+	
+	/**		
+	 * Called when this system is added to the engine.		
+	 * @param engine the engine		
+	 */		
+	public void addedToEngine(Engine engine) {		
+		super.addedToEngine(engine);		
+		positionedWalkableTileEntities = engine.getEntitiesFor(Family.all(PositionComponent.class, WalkableTileComponent.class).get());		
 	}
 
 	@Override
