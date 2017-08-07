@@ -1,14 +1,19 @@
 package com.itemshop.factories.characters;
 
+import java.util.ArrayList;
+
+import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.itemshop.character.FacingDirectionComponent;
-import com.itemshop.character.ISCharacter;
-import com.itemshop.character.walking.WalkComponent;
+import com.itemshop.character.Character;
 import com.itemshop.game.assets.Assets;
 import com.itemshop.movement.Direction;
-import com.itemshop.render.AnimationComponent;
-import com.itemshop.render.RenderOffsetComponent;
-import com.itemshop.render.TextureComponent;
+import com.itemshop.render.PositionComponent;
+import com.itemshop.schedule.Activity;
+import com.itemshop.schedule.Appointment;
+import com.itemshop.schedule.ScheduleComponent;
+import com.itemshop.schedule.activities.FaceDirectionActivity;
+import com.itemshop.schedule.activities.WaitActivity;
+import com.itemshop.schedule.activities.WalkActivity;
 
 /**
  * Creates the delivery guy entity.
@@ -16,41 +21,46 @@ import com.itemshop.render.TextureComponent;
 public class DeliveryGuyFactory {
 	
 	/**
-	 * Creates the delivery guy entity.
-	 * @returns The delivery guy entity.
+	 * Creates a shopkeeper entity.
+	 * @param engine The game engine.
+	 * @returns The shopkeeper entity.
 	 */
-	public static Entity create() {
+	public static Entity create(Engine engine) {
 
 		Entity character = new Entity();
 
-		// Handle walking changes.
-		WalkComponent walkingComponent = new WalkComponent();
-		walkingComponent.onStart = (direction) -> {
-			// Remove the characters idle texture.
-			character.remove(TextureComponent.class);
-			// Set the characters walking animation.
-			character.add(Assets.getCharacterResources(ISCharacter.DELIVER_GUY).getAnimationComponent(direction));
-		};
-		walkingComponent.onDirectionChange = (direction) -> {
-			// The character is just changing direction, so they need the correct walking animation to reflect this.
-			character.add(Assets.getCharacterResources(ISCharacter.DELIVER_GUY).getAnimationComponent(direction));
-		};
-		walkingComponent.onStop = (direction) -> {
-			// Remove the characters walking animation.
-			character.remove(AnimationComponent.class);
-			// Set the characters's idle texture.
-			character.add(Assets.getCharacterResources(ISCharacter.DELIVER_GUY).getTextureComponent(direction));
-		};
-		character.add(walkingComponent);
+		Utilities.setUpWalkingCharacter(engine, character, Assets.getCharacterResources(Character.DeliveryMan));
 		
-		// All characters will have a render offset so they are drawn in the centre of a tile.
-		character.add(new RenderOffsetComponent(0f, 0.25f));
+		// Give the delivery guy an initial position.
+		character.add(new PositionComponent(0, 27, 1));
 		
-		// All characters will have a facing direction.
-		character.add(new FacingDirectionComponent(Direction.DOWN));
+		// Create a schedule for the delivery guy.
+		ScheduleComponent schedule = new ScheduleComponent();
 		
-		// Add the visual component for the player character.
-		character.add(Assets.getCharacterResources(ISCharacter.DELIVER_GUY).getTextureComponent(Direction.DOWN));
+		// Create the list of activities required to carry out a delivery.
+		ArrayList<Activity> deliveryActivities = new ArrayList<Activity>() {{
+			// Add an activity to walk to the shop.
+			add(new WalkActivity(character, 25, 31));
+			// Turn to face a container.
+			add(new FaceDirectionActivity(character, Direction.RIGHT));
+			// Add an activity to wait there for a couple of seconds.
+			add(new WaitActivity(2000));
+			// Add an activity to walk out of town.
+			add(new WalkActivity(character, 0, 27));
+		}};
+		
+		// Schedule an appointment for the delivery man to walk to the shop and back every now and then.
+		schedule.appointments.add(new Appointment(9, 35, true, deliveryActivities));
+		schedule.appointments.add(new Appointment(8, 00, true, deliveryActivities));
+		schedule.appointments.add(new Appointment(10, 00, true, deliveryActivities));
+		schedule.appointments.add(new Appointment(12, 30, true, deliveryActivities));
+		schedule.appointments.add(new Appointment(14, 00, true, deliveryActivities));
+		schedule.appointments.add(new Appointment(16, 00, true, deliveryActivities));
+		
+		// Give the delivery guy the schedule
+		character.add(schedule);
+		
+		engine.addEntity(character);
 		
 		return character;
 	}
