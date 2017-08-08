@@ -14,37 +14,26 @@ public class PathComponent implements Component {
 	
 	/** Flag defining whether the path can be followed. */
 	public boolean isPathBlocked = false;
+	
+	/** Flag indicating whether the target position is actually walkable. */
+	public boolean isTargetWalkable = true;
 
 	/** The target x position. */
 	public float targetx;
 
 	/** The target y position. */
 	public float targety;
-	
-	/** Flag indicating whether the target tile is actually walkable. */
-	public boolean isTargetWalkable;
 
 	/** Stack of directions which define a path to follow. */
 	public Stack<Direction> movements = new Stack<Direction>();
-
+	
 	/**
 	 * Create a new instance of PathComponent.
 	 * @param targetx
 	 * @param targety
 	 */
 	public PathComponent(float targetx, float targety) {
-		this(targetx, targety, true);
-	}
-	
-	/**
-	 * Create a new instance of PathComponent.
-	 * @param targetx
-	 * @param targety
-	 * @param isTargetWalkable
-	 */
-	public PathComponent(float targetx, float targety, boolean isTargetWalkable) {
-		this.targetx          = targetx;
-		this.targety          = targety;
-		this.isTargetWalkable = isTargetWalkable;
+		this.targetx = targetx;
+		this.targety = targety;
 	}
 }

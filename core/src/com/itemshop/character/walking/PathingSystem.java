@@ -1,6 +1,5 @@
 package com.itemshop.character.walking;
 
-import java.util.Stack;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -268,52 +267,19 @@ public class PathingSystem extends IntervalIteratingSystem {
 			return node;
 		});
 		
-		// If the target position is not walkable the aim will be for the entity 
-		// to move to the closest adjacent non-diagonal position. To calculate
-		// a path for this we will have to include the target position as a walkable 
-		// node when we calculate a path.
-		if (!path.isTargetWalkable) {
-			// Add a node to our pathfinder which represents our target position.
-			pathfinder.addOrReplaceNode(new AStarNode((int) path.targetx, (int) path.targety));
-			// Compute the path we need to take.
-			AStarResult result = pathfinder.getPath((int) position.x, (int) position.y, (int) path.targetx, (int) path.targety);
-			// Set the path movements on the path component.
-			path.movements = result.movements;
-			// We need to remove the last direction from our movements.
-			removeLastMovementFromStack(path.movements);
-			// Set a flag on the path component which defines whether the path was blocked. 
-			path.isPathBlocked = result.isPathBlocked;
-		} else {
-			// Compute the path we need to take.
-			AStarResult result = pathfinder.getPath((int) position.x, (int) position.y, (int) path.targetx, (int) path.targety);
-			// Set the path movements on the path component.
-			path.movements = result.movements;
-			// Set a flag on the path component which defines whether the path was blocked. 
-			path.isPathBlocked = result.isPathBlocked;
-		}
-
+		// Compute the path we need to take.
+		AStarResult result = pathfinder.getPath((int) position.x, (int) position.y, (int) path.targetx, (int) path.targety);
+		
+		// Set the path movements on the path component.
+		path.movements = result.movements;
+		
+		// Set a flag on the path component which defines whether the path was blocked. 
+		path.isPathBlocked = result.isPathBlocked;
+		
+		// Set a flag on the path component which defines whether the target position is walkable.
+		path.isTargetWalkable = result.isTargetWalkable;
+		
 		// We have computed the movements for this path.
 		path.isPathComputed = true;
-	}
-	
-	/**
-	 * Remove the last directional movement from a movement stack.
-	 * @param stack
-	 */
-	private void removeLastMovementFromStack(Stack<Direction> stack) {
-		// Don't do anything if the stack is empty.
-		if (!stack.isEmpty()) {
-			Stack<Direction> temp = new Stack<Direction>();
-			
-			for (int i = 0; i < stack.size() - 1; i++) {
-				temp.push(stack.pop());
-			}
-			
-			stack.clear();
-				
-			while (!temp.isEmpty()) {
-				stack.push(temp.pop());
-			}
-		}
 	}
 }

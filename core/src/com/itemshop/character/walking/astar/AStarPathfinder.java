@@ -34,25 +34,6 @@ public class AStarPathfinder {
 			nodes.put(node.x + ":" + node.y, creator.create(entity));
 		}
 	}
-	
-	/**
-	 * Add or replace a node at a particular position.
-	 * @param node
-	 */
-	public void addOrReplaceNode(AStarNode node) {
-		// Create the key for a node at this position.
-		String nodeKey = node.x + ":" + node.y;
-		// Are we adding or replacing a node?
-		if (nodes.containsKey(nodeKey)) {
-			// Remove the existing node at this position ...
-			nodes.remove(nodeKey);
-			// ... And add the new one.
-			nodes.put(nodeKey, node);
-		} else {
-			// There is no existing node at this position, just add it.
-			nodes.put(nodeKey, node);
-		}
-	}
 
 	/**
 	 * Takes an origin position and a destination position and produces a stack of movement directions needed to reach the destination.
@@ -71,9 +52,15 @@ public class AStarPathfinder {
 		AStarNode origin = nodes.get(originPosX + ":" + originPosY);
 		AStarNode goal   = nodes.get(destinationPosX + ":" + destinationPosY);
 		
-		// If we did not get our goal node, then it is not reachable.
+		// If we did not get our goal node, then we will add one, but keep note that
+		// if there is a valid path to it, that the target itself is not walkable.
 		if (goal == null) {
-			return result;
+			// The target is not walkable.
+			result.isTargetWalkable = false;
+			// Create a node for the target ...
+			goal = new AStarNode(destinationPosX, destinationPosY);
+			// ... and add it the node list.
+			nodes.put(destinationPosX + ":" + destinationPosY, goal);
 		}
 
 		// Set the heuristic for the origin and goal nodes.
@@ -134,6 +121,12 @@ public class AStarPathfinder {
 		// Work backwards from the goal node to work out the sequence of directional
 		// movements required to reach the goal from the original position.
 		AStarNode current = goal;
+		// If the target is not itself walkable, we need to omit the last
+		// directional movement which would move the entity onto it.
+		if (!result.isTargetWalkable) {
+			current = current.parent;
+		}
+		// Collect the directional movements that the path is composed of.
 		while (current.parent != null) {
 			if (current.x < current.parent.x) {
 				result.movements.push(Direction.LEFT);

@@ -37,7 +37,7 @@ public class DeliveryGuyFactory {
 		// Create the list of activities required to carry out a delivery.
 		ArrayList<Activity> deliveryActivities = new ArrayList<Activity>() {{
 			// Add an activity to walk to the shop.
-			add(new WalkActivity(character, 25, 31, false));
+			add(new WalkActivity(character, 26, 29));
 			// Add an activity to wait there for a couple of seconds.
 			add(new WaitActivity(2000));
 			// Add an activity to walk out of town.

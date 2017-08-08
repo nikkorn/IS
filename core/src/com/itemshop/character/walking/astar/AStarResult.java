@@ -11,6 +11,9 @@ public class AStarResult {
 	/** Whether the path is blocked */
 	public boolean isPathBlocked = true;
 	
+	/** Whether the target is walkable */
+	public boolean isTargetWalkable = true;
+	
 	/** The movements which the path are composed of. */
 	public Stack<Direction> movements = new Stack<Direction>();
 }
