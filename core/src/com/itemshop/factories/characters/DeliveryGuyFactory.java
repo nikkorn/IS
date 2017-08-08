@@ -1,17 +1,14 @@
 package com.itemshop.factories.characters;
 
 import java.util.ArrayList;
-
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.itemshop.character.Character;
 import com.itemshop.game.assets.Assets;
-import com.itemshop.movement.Direction;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.schedule.Activity;
 import com.itemshop.schedule.Appointment;
 import com.itemshop.schedule.ScheduleComponent;
-import com.itemshop.schedule.activities.FaceDirectionActivity;
 import com.itemshop.schedule.activities.WaitActivity;
 import com.itemshop.schedule.activities.WalkActivity;
 
@@ -40,9 +37,7 @@ public class DeliveryGuyFactory {
 		// Create the list of activities required to carry out a delivery.
 		ArrayList<Activity> deliveryActivities = new ArrayList<Activity>() {{
 			// Add an activity to walk to the shop.
-			add(new WalkActivity(character, 25, 31));
-			// Turn to face a container.
-			add(new FaceDirectionActivity(character, Direction.RIGHT));
+			add(new WalkActivity(character, 25, 31, false));
 			// Add an activity to wait there for a couple of seconds.
 			add(new WaitActivity(2000));
 			// Add an activity to walk out of town.

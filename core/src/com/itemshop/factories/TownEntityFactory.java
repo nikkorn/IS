@@ -35,6 +35,7 @@ public class TownEntityFactory {
 		put(-8355840, new InfoBoardFactory());
 		put(-16711681, new FountainFactory());
 		put(-32985, new MailBoxFactory());
+		put(-9048, new ChestFactory());
 	}};
 	
 	/** Factory to use when it is not possible to determine what the sprite should be. */

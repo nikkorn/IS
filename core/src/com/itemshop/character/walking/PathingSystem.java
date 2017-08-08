@@ -88,8 +88,8 @@ public class PathingSystem extends IntervalIteratingSystem {
 				// Compute a path for this path component
 				this.computePath(path, position, walk);
 				
-				// If we were unable to compute a path and we are not atually next to our t
-				if (path.movements.isEmpty()) {
+				// If we were unable to compute a path then the path component is useless.
+				if (path.isPathBlocked) {
 					// We do not need the path component if we have no path to follow.
 					entity.remove(PathComponent.class);
 					// If we were walking before this path component was added to the current
@@ -106,10 +106,17 @@ public class PathingSystem extends IntervalIteratingSystem {
 			// If we have no move movements to make in the path we have, we have reached our destination.
 			if (path.movements.isEmpty()) {
 
-				// TODO If the target position is not walkable then we need to change our facing direction now.
+				// Get the facing direction of this entity.
+				FacingDirectionComponent facingDirectionComponent = facingDirectionMapper.get(entity);
+						
+				// If the target position is not walkable then we need to change our facing direction now.
+				// This is so that we are facing the target non-walkable tile.
+				if (!path.isTargetWalkable) {
+					facingDirectionComponent.direction = getAdjacentTileDirection(position, path);
+				}
 				
 				// We have stopped walking because we have reached our target position.
-				walk.onStop.perform(facingDirectionMapper.get(entity).direction);
+				walk.onStop.perform(facingDirectionComponent.direction);
 				walk.isWalking = false;
 
 				// We no longer need a path component if we have carried out all of the movements.
@@ -138,6 +145,23 @@ public class PathingSystem extends IntervalIteratingSystem {
 		} else {
 			// Decrease the transition offset.
 			transition.offset -= TRANSITION_STEP;
+		}
+	}
+	
+	/**
+	 * Get the direction of an adjacent tile from the current position.
+	 * @param position
+	 * @param path
+	 */
+	private Direction getAdjacentTileDirection(PositionComponent position, PathComponent path) {
+		if(position.x < path.targetx) {
+			return Direction.RIGHT;
+		} else if (position.x > path.targetx) {
+			return Direction.LEFT;
+		} else if (position.y < path.targety) {
+			return Direction.UP;
+		} else {
+			return Direction.DOWN;
 		}
 	}
 	
