@@ -1,6 +1,5 @@
 package com.itemshop.factories.characters;
 
-import java.util.ArrayList;
 import java.util.Random;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -13,7 +12,7 @@ import com.itemshop.render.AnimationComponent;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.RenderOffsetComponent;
 import com.itemshop.render.TextureComponent;
-import com.itemshop.schedule.Activity;
+import com.itemshop.schedule.ActivityPlanner;
 import com.itemshop.schedule.Appointment;
 import com.itemshop.schedule.ScheduleComponent;
 import com.itemshop.schedule.activities.WaitActivity;
@@ -134,21 +133,21 @@ public class Utilities {
 		ScheduleComponent schedule = new ScheduleComponent();
 
 		// Create the list of activities required to carry out a delivery.
-		ArrayList<Activity> deliveryActivities = new ArrayList<Activity>() {
-			{
-				// Walk somewhere.
-				add(getRandomWalk(character));
-				// Wait for a while.
-				add(new WaitActivity(2000));
-				// Walk somewhere else.
-				add(getRandomWalk(character));
-			}
+		ActivityPlanner wanderingPlan = (current) -> {
+			// Clear the current activities.
+			current.clear();
+			// Walk somewhere.
+			current.add(getRandomWalk(character));
+			// Wait for a while.
+			current.add(new WaitActivity(2000));
+			// Walk somewhere else.
+			current.add(getRandomWalk(character));
 		};
 
 		int offset = random.nextInt(60);
 
 		for (int hour = 0; hour < 24; hour++) {
-			schedule.appointments.add(new Appointment(hour, offset, true, deliveryActivities));
+			schedule.appointments.add(new Appointment(hour, offset, true, wanderingPlan));
 		}
 
 		// Give the delivery guy the schedule

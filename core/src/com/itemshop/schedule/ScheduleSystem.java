@@ -68,38 +68,17 @@ public class ScheduleSystem extends IteratingSystem {
 
 			// Check for pending appointments.
 			for (Iterator<Appointment> appointmentIterator = scheduleComponent.appointments.iterator(); appointmentIterator.hasNext();) {
+				
 				// Get the current appointment.
 				Appointment appointment = appointmentIterator.next();
 
-				// Check to see whether this appointment is scheduled for now
-				// and ...
+				// Check to see whether this appointment is scheduled for now and ...
 				if (appointment.getHour() == time.getHour() && appointment.getMinute() == time.getMinute()) {
-					// ... add the appointment activities to the schedule appointments. This will preempt the current activity
-					// (if there is one and it has already started to be processed) and remove any other unprocessed ones.
+					
+					// ... add the appointment activities to the schedule appointments.
+					appointment.getPlanner().update(scheduleComponent.activities);
 
-					// If there are activities scheduled for this appointment ...
-					if (!appointment.getActivities().isEmpty()) {
-						// If we have an currently processing activity ...
-						if (scheduleComponent.activities.size() > 0 && scheduleComponent.activities.get(0).hasBegun()) {
-							// ... then interrupt it.
-							scheduleComponent.activities.get(0).onInterrupt();
-						}
-
-						// ... Get rid of all unprocessed and preempted activities currently in the schedule ...
-						// TODO Will eventually have to work out how to handle whether activities stay or go.
-						scheduleComponent.activities.clear();
-
-						// ... And for every appointment activity ...
-						for (Activity activity : appointment.getActivities()) {
-							// ... Reset it, just in case it has already been processed ...
-							activity.reset();
-							// ... And add it to the schedule activities.
-							scheduleComponent.activities.add(activity);
-						}
-					}
-
-					// If this appointment is to not be repeated, then remove it
-					// from the schedule.
+					// If this appointment is to not be repeated, then remove it from the schedule.
 					if (!appointment.isRepeated()) {
 						appointmentIterator.remove();
 					}
@@ -109,8 +88,10 @@ public class ScheduleSystem extends IteratingSystem {
 
 		// Process any pending activities.
 		if (scheduleComponent.activities.size() > 0) {
+			
 			// Get the current activity.
 			Activity currentActivity = scheduleComponent.activities.get(0);
+			
 			// If the current activity has finished...
 			if (currentActivity.hasFinished()) {
 				// ... remove it, otherwise ...
