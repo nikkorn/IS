@@ -117,6 +117,9 @@ public class PathingSystem extends IntervalIteratingSystem {
 				// We have stopped walking because we have reached our target position.
 				walk.onStop.perform(facingDirectionComponent.direction);
 				walk.isWalking = false;
+				
+				// Set a flag on the path component to say that the path is complete.
+				path.isComplete = true;
 
 				// We no longer need a path component if we have carried out all of the movements.
 				entity.remove(PathComponent.class);

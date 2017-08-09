@@ -17,6 +17,9 @@ public class PathComponent implements Component {
 	
 	/** Flag indicating whether the target position is actually walkable. */
 	public boolean isTargetWalkable = true;
+	
+	/** Flag indicating whether the path has been followed to the target. */
+	public boolean isComplete = false;
 
 	/** The target x position. */
 	public float targetx;

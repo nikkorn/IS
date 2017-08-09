@@ -34,6 +34,14 @@ public class WalkActivity extends Activity {
 		this.targetPositionY  = targetPositionY;
 	}
 	
+	/**
+	 * Get the path component for this activity.
+	 * @return path
+	 */
+	public PathComponent getPath() {
+		return this.path;
+	}
+	
 	@Override
 	public void onBegin() {
 		// We will need a new path component for every walk action.
