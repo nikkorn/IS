@@ -23,7 +23,7 @@ public class GrassFactory implements TileFactory {
 	 * @param y The y position.
 	 * @param sameAbove Whether the tile above is of the same type.
 	 */
-	public void create(Engine engine, Random random, int x, int y, boolean sameAbove) {
+	public Entity create(Engine engine, Random random, int x, int y, boolean sameAbove) {
 		// Create the tile entity.
 		Entity entity = new Entity();
 
@@ -47,5 +47,7 @@ public class GrassFactory implements TileFactory {
 
 		// Add the tile entity to the engine.
 		engine.addEntity(entity);
+		
+		return entity;
 	}
 }

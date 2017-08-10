@@ -7,8 +7,11 @@ import java.util.Map;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.itemshop.factories.tiles.*;
+import com.itemshop.tiles.Area;
+import com.itemshop.tiles.AreaComponent;
 
 /**
  * Factory for producing entities specific to the game town. 
@@ -18,7 +21,7 @@ public class TownEntityFactory {
 	private static Random rng = new Random(12345);
 	
 	@SuppressWarnings("serial")
-	private static Map<Integer, TileFactory> colorMap = new HashMap<Integer, TileFactory>() {{
+	private static Map<Integer, TileFactory> tileColorMap = new HashMap<Integer, TileFactory>() {{
 		put(-9590228, new GrassFactory());
 		put(-2436002, new PathFactory());
 		put(-9080479, new WallFactory());
@@ -38,6 +41,20 @@ public class TownEntityFactory {
 		put(-9048, new ChestFactory());
 	}};
 	
+	@SuppressWarnings("serial")
+	private static Map<Integer, Area> areaColorMap = new HashMap<Integer, Area>() {{
+		put(-9590228, Area.SHOP);
+		put(-2436002, Area.STOREROOM);
+		put(-2436002, Area.SHOP_HOUSE);
+		put(-2436002, Area.TOWN_SQUARE);
+		put(-2436002, Area.BUILDING_1);
+		put(-2436002, Area.BUILDING_2);
+		put(-2436002, Area.BUILDING_3);
+		put(-2436002, Area.BUILDING_4);
+		put(-2436002, Area.BUILDING_5);
+		put(-2436002, Area.BUILDING_6);
+	}};
+	
 	/** Factory to use when it is not possible to determine what the sprite should be. */
 	private static TileFactory defaultFactory = new UnknownFactory();
 	
@@ -47,25 +64,34 @@ public class TownEntityFactory {
 	 */
 	public static void createTown(Engine engine) {
 
-		// For now, the town map is stored as a .png image where a pixel maps to a tile.
-		BufferedImage map = null;
+		// For now, the town and area maps are stored as a .png image where a pixel maps to a tile.
+		BufferedImage tileMap = null, areaMap = null;
 		try {
-			map = ImageIO.read(Gdx.files.internal("images/map/town_map.png").file());
+			tileMap = ImageIO.read(Gdx.files.internal("images/map/town_map.png").file());
+			areaMap = ImageIO.read(Gdx.files.internal("images/map/town_area_map.png").file());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 		// Map the pixels to tile entities.
-		for (int x = 0; x < map.getWidth(); x++) {
+		for (int x = 0; x < tileMap.getWidth(); x++) {
+			
 			int colorAbove = 0;
-			for (int y = 0; y < map.getHeight(); y++) {
-				int color = map.getRGB(x, map.getHeight() - (1 + y));
+			
+			for (int y = 0; y < tileMap.getHeight(); y++) {
+				
+				// Get the pixel colours which represent the tile type and area.
+				int tileColor = tileMap.getRGB(x, tileMap.getHeight() - (1 + y));
+				int areaColor = areaMap.getRGB(x, tileMap.getHeight() - (1 + y));
 				
 				// Add tile entity characteristics based on type.
-				TileFactory factory = getFactory(color);
-				factory.create(engine, rng, x, y, colorAbove == color);
+				TileFactory factory = getFactory(tileColor);
+				Entity tile         = factory.create(engine, rng, x, y, colorAbove == tileColor);
 				
-				colorAbove = color;
+				// Every tile should have an area component.
+				tile.add(new AreaComponent(getArea(areaColor)));
+				
+				colorAbove = tileColor;
 			}
 		}
 	}
@@ -76,11 +102,25 @@ public class TownEntityFactory {
 	 * @return The correct tile factory.
 	 */
 	private static TileFactory getFactory(int color) {
-		if (colorMap.containsKey(color)) {
-			return colorMap.get(color);
+		if (tileColorMap.containsKey(color)) {
+			return tileColorMap.get(color);
 		} else {
-			System.out.println("Unknown color in map: " + color);
+			System.out.println("Unknown tile color in map: " + color);
 			return defaultFactory;
+		}
+	}
+	
+	/**
+	 * Gets the right area for the specified colour, or the default if not found.
+	 * @param color The colour from the map.
+	 * @return The correct area.
+	 */
+	private static Area getArea(int color) {
+		if (areaColorMap.containsKey(color)) {
+			return areaColorMap.get(color);
+		} else {
+			System.out.println("Unknown area color in map: " + color);
+			return Area.UNKNOWN;
 		}
 	}
 }
