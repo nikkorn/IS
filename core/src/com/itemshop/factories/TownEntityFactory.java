@@ -11,8 +11,8 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.itemshop.factories.tiles.*;
-import com.itemshop.tiles.Area;
-import com.itemshop.tiles.AreaComponent;
+import com.itemshop.town.Area;
+import com.itemshop.town.AreaComponent;
 
 /**
  * Factory for producing entities specific to the game town. 

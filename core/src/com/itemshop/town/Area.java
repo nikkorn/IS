@@ -1,4 +1,4 @@
-package com.itemshop.tiles;
+package com.itemshop.town;
 
 /**
  * The areas in town.
