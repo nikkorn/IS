@@ -1,5 +1,6 @@
 package com.itemshop.factories;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
@@ -43,16 +44,17 @@ public class TownEntityFactory {
 	
 	@SuppressWarnings("serial")
 	private static Map<Integer, Area> areaColorMap = new HashMap<Integer, Area>() {{
-		put(-9590228, Area.SHOP);
-		put(-2436002, Area.STOREROOM);
-		put(-2436002, Area.SHOP_HOUSE);
-		put(-2436002, Area.TOWN_SQUARE);
-		put(-2436002, Area.BUILDING_1);
-		put(-2436002, Area.BUILDING_2);
-		put(-2436002, Area.BUILDING_3);
-		put(-2436002, Area.BUILDING_4);
-		put(-2436002, Area.BUILDING_5);
-		put(-2436002, Area.BUILDING_6);
+		put(-9399618, Area.SHOP);
+		put(-14066, Area.STOREROOM);
+		put(-20791, Area.SHOP_HOUSE);
+		put(-6694422, Area.TOWN_SQUARE);
+		put(-4621737, Area.BUILDING_1);
+		put(-3620889, Area.BUILDING_2);
+		put(-4856291, Area.BUILDING_3);
+		put(-32985, Area.BUILDING_4);
+		put(-6075996, Area.BUILDING_5);
+		put(-3164279, Area.BUILDING_6);
+		put(-16777216, Area.UNKNOWN);
 	}};
 	
 	/** Factory to use when it is not possible to determine what the sprite should be. */
@@ -105,7 +107,8 @@ public class TownEntityFactory {
 		if (tileColorMap.containsKey(color)) {
 			return tileColorMap.get(color);
 		} else {
-			System.out.println("Unknown tile color in map: " + color);
+			System.out.print("Unknown tile color in map: " + color + " - ");
+			printColourRGB(color);
 			return defaultFactory;
 		}
 	}
@@ -119,8 +122,18 @@ public class TownEntityFactory {
 		if (areaColorMap.containsKey(color)) {
 			return areaColorMap.get(color);
 		} else {
-			System.out.println("Unknown area color in map: " + color);
+			System.out.print("Unknown area color in map: " + color + " - ");
+			printColourRGB(color);
 			return Area.UNKNOWN;
 		}
+	}
+	
+	/**
+	 * Print the individual RGBvalues of a colour. 
+	 * @param rgb The colour rgb value.
+	 */
+	private static void printColourRGB(int rgb) {
+		Color color = new Color(rgb);
+		System.out.println("R: " + color.getRed() + " G: " + color.getGreen() + " B: " + color.getBlue());
 	}
 }
