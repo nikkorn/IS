@@ -12,5 +12,9 @@ public enum Character {
 	Shopkeeper6,
 	Shopkeeper7,
 	DeliveryMan,
-	Blob
+	GreenBlob,
+	OrangeBlob,
+	MoleKing,
+	Mole,
+	
 }

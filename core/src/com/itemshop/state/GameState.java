@@ -5,7 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.itemshop.factories.CameraFactory;
 import com.itemshop.factories.TownEntityFactory;
-import com.itemshop.factories.characters.BlobFactory;
+import com.itemshop.factories.characters.NpcFactory;
 import com.itemshop.factories.characters.DeliveryGuyFactory;
 import com.itemshop.factories.characters.ShopkeeperFactory;
 
@@ -43,7 +43,7 @@ public class GameState implements IState {
 
 		// Create a test player.
 		for (int i = 0; i < 25; i++) {
-			engine.addEntity(BlobFactory.create(engine));
+			engine.addEntity(NpcFactory.create(engine));
 		}
 
 		// Create the delivery guy.
