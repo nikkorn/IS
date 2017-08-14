@@ -3,6 +3,8 @@ ItemShop
 
 Sup playas.
 
+Utilities/ItemShop.txt contains a Paint.Net colour palette.
+
 Useful Links
 ------------
 - [Ashley Guide](https://github.com/libgdx/ashley/wiki/How-to-use-Ashley)
