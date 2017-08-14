@@ -38,9 +38,9 @@ public class AreaSystem extends EntitySystem {
 	/**
 	 * Get the tiles which make up an area in the town.
 	 * @param area
-	 * @return
+	 * @return tiles
 	 */
-	public static ArrayList<Entity> getTilesInArea(Area area) {
+	public ArrayList<Entity> getTilesInArea(Area area) {
 		// Create a new list to store the tiles.
 		ArrayList<Entity> areaTiles = new ArrayList<Entity>();
 		// Go over every tile in the town ...
@@ -60,7 +60,7 @@ public class AreaSystem extends EntitySystem {
 	 * @param type
 	 * @return tiles
 	 */
-	public static ArrayList<Entity> getTilesOfType(TileType type) {
+	public ArrayList<Entity> getTilesOfType(TileType type) {
 		return getTilesOfType(type, null);
 	}
 	
@@ -70,7 +70,7 @@ public class AreaSystem extends EntitySystem {
 	 * @param area
 	 * @return tiles
 	 */
-	public static ArrayList<Entity> getTilesOfType(TileType type, Area area) {
+	public ArrayList<Entity> getTilesOfType(TileType type, Area area) {
 		// Create a new list to store the tiles.
 		ArrayList<Entity> matchingTiles = new ArrayList<Entity>();
 		// Go over every tile in the specified area ...
@@ -90,7 +90,7 @@ public class AreaSystem extends EntitySystem {
 	 * @param y
 	 * @return tile
 	 */
-	public static Entity getTileAt(int x, int y) {
+	public Entity getTileAt(int x, int y) {
 		// Go over every tile in the town ...
 		for (Entity tile : tiles) {
 			// Get the tile position component ...
