@@ -6,6 +6,8 @@ import com.badlogic.ashley.core.Entity;
 import com.itemshop.game.assets.Assets;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.TextureComponent;
+import com.itemshop.area.TileType;
+import com.itemshop.area.TileTypeComponent;
 import com.itemshop.container.ContainerComponent;
 
 /**
@@ -39,6 +41,8 @@ public class ChestFactory implements TileFactory {
 		
 		// Add the right texture.
 		entity.add(new TextureComponent(Assets.chest));
+		
+		entity.add(new TileTypeComponent(TileType.CHEST));
 
 		// Add the tile entity to the engine.
 		engine.addEntity(entity);

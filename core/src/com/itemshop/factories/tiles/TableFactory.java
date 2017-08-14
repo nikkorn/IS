@@ -9,6 +9,8 @@ import com.itemshop.render.PositionComponent;
 import com.itemshop.render.RenderOffsetComponent;
 import com.itemshop.render.TextureComponent;
 import com.itemshop.utilities.lotto.Lotto;
+import com.itemshop.area.TileType;
+import com.itemshop.area.TileTypeComponent;
 import com.itemshop.container.ContainerComponent;
 import com.itemshop.factories.items.RandomItemFactory;
 
@@ -96,6 +98,8 @@ public class TableFactory implements TileFactory {
 				.add(Assets.table_stone, 1)
 				.draw()
 		));
+		
+		entity.add(new TileTypeComponent(TileType.TABLE));
 
 		// Add the tile entity to the engine.
 		engine.addEntity(entity);

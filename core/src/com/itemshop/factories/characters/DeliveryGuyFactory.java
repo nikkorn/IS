@@ -1,7 +1,13 @@
 package com.itemshop.factories.characters;
 
+import java.util.ArrayList;
+import java.util.Random;
+import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.itemshop.area.Area;
+import com.itemshop.area.AreaSystem;
+import com.itemshop.area.TileType;
 import com.itemshop.character.Character;
 import com.itemshop.game.assets.Assets;
 import com.itemshop.render.PositionComponent;
@@ -37,12 +43,21 @@ public class DeliveryGuyFactory {
 		ActivityPlanner deliveryPlan = (current) -> {
 			// All other activities should be disposed of.
 			current.clear();
-			// Add an activity to walk to the shop.
-			current.add(new WalkActivity(character, 26, 29));
-			// Add an activity to wait there for a couple of seconds.
-			current.add(new WaitActivity(2000));
-			// Add an activity to walk out of town.
-			current.add(new WalkActivity(character, 0, 27));
+			// Get the a chest in the shop store room.
+			ArrayList<Entity> chests = engine.getSystem(AreaSystem.class).getTilesOfType(TileType.CHEST, Area.STOREROOM);
+			// We can't make a delivery if there are no chests in the store room.
+			if (!chests.isEmpty()) {
+				// Just pick any of the chests for now.
+				Entity chest = chests.get(new Random().nextInt(chests.size()));
+				// Get the position of this chest.
+				PositionComponent chestPosition = ComponentMapper.getFor(PositionComponent.class).get(chest);
+				// Add an activity to walk to the shop.
+				current.add(new WalkActivity(character, (int) chestPosition.x, (int) chestPosition.y));
+				// Add an activity to wait there for a couple of seconds.
+				current.add(new WaitActivity(2000));
+				// Add an activity to walk out of town.
+				current.add(new WalkActivity(character, 0, 27));
+			}
 		};
 		
 		// Schedule an appointment for the delivery man to walk to the shop and back every now and then.

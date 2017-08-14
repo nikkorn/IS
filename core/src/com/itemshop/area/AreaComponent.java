@@ -1,4 +1,4 @@
-package com.itemshop.town;
+package com.itemshop.area;
 
 import com.badlogic.ashley.core.Component;
 

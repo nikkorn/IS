@@ -10,9 +10,9 @@ import javax.imageio.ImageIO;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
+import com.itemshop.area.Area;
+import com.itemshop.area.AreaComponent;
 import com.itemshop.factories.tiles.*;
-import com.itemshop.town.Area;
-import com.itemshop.town.AreaComponent;
 
 /**
  * Factory for producing entities specific to the game town. 
