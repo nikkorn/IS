@@ -45,7 +45,7 @@ public class DeliveryGuyFactory {
 			// All other activities should be disposed of.
 			current.clear();
 			// Get the chests in the shop store room.
-			ArrayList<Entity> chests = engine.getSystem(AreaSystem.class).getTilesOfType(TileType.CHEST, Area.STOREROOM);
+			ArrayList<Entity> chests = engine.getSystem(AreaSystem.class).getTilesOfType(TileType.TABLE, Area.SHOP);
 			// We can't make a delivery if there are no chests in the store room.
 			if (!chests.isEmpty()) {
 				// Just pick any of the chests for now.
