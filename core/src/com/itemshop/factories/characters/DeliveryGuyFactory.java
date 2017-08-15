@@ -14,7 +14,7 @@ import com.itemshop.render.PositionComponent;
 import com.itemshop.schedule.ActivityPlanner;
 import com.itemshop.schedule.Appointment;
 import com.itemshop.schedule.ScheduleComponent;
-import com.itemshop.schedule.activities.AddItemToContainerActivity;
+import com.itemshop.schedule.activities.PlaceItemActivity;
 import com.itemshop.schedule.activities.WaitActivity;
 import com.itemshop.schedule.activities.WalkActivity;
 
@@ -54,7 +54,7 @@ public class DeliveryGuyFactory {
 				Entity itemToDeliver = new RandomItemFactory().create();
 				engine.addEntity(itemToDeliver);
 				// Add an activity drop off an item to the shop.
-				current.add(new AddItemToContainerActivity(character, chest, itemToDeliver));
+				current.add(new PlaceItemActivity(character, chest, itemToDeliver));
 				// Add an activity to wait there for a second.
 				current.add(new WaitActivity(1000));
 				// Add an activity to walk out of town.
