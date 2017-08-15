@@ -14,9 +14,6 @@ public class AddItemToContainerActivity extends WalkActivity {
     private static ComponentMapper<PositionComponent> positionMapper   = ComponentMapper.getFor(PositionComponent.class);
     private static ComponentMapper<ContainerComponent> containerMapper = ComponentMapper.getFor(ContainerComponent.class);
     
-    /** The character entity doing the transfer. */
-    private Entity character;
-    
     /** The target container. */
     private Entity container;
     
@@ -32,7 +29,6 @@ public class AddItemToContainerActivity extends WalkActivity {
 	public AddItemToContainerActivity(Entity character, Entity container, Entity item) {
 		// Call through to the walk activity to set our target location to match that of the target container.
 		super(character, (int) positionMapper.get(container).x, (int) positionMapper.get(container).y);
-		this.character = character;
 		this.container = container;
 		this.item      = item;
 	}
@@ -41,7 +37,11 @@ public class AddItemToContainerActivity extends WalkActivity {
 	 * Add the item to the container.
 	 */
 	public void addItemToContainer() {
-		System.out.println("Adding Item!");
+		try {
+			containerMapper.get(container).add(item);
+		} catch (Exception e) {
+			// If an exception was thrown it was because there is no room for this item. Do nothing.
+		}
 	}
 
 	@Override

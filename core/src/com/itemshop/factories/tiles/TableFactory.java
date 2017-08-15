@@ -12,7 +12,6 @@ import com.itemshop.utilities.lotto.Lotto;
 import com.itemshop.area.TileType;
 import com.itemshop.area.TileTypeComponent;
 import com.itemshop.container.ContainerComponent;
-import com.itemshop.factories.items.RandomItemFactory;
 
 /**
  * Factory for creating a Table tile.
@@ -21,16 +20,6 @@ public class TableFactory implements TileFactory {
 	
 	/** The maximum number of items a table can hold.*/
 	private static int MAXIMUM_CAPACITY = 2;
-
-	/** Generator of random items in the table. */
-	private RandomItemFactory itemGenerator;
-	
-	/**
-	 * Creates a TableFactory instance.
-	 */
-	public TableFactory() {
-		itemGenerator = new RandomItemFactory();
-	}
 
 	/**
 	 * Creates the entity.
@@ -46,9 +35,6 @@ public class TableFactory implements TileFactory {
 
 		// Add the entities components.
 		entity.add(new PositionComponent(x, y));
-
-		// Determine the amount of items on display.
-		int numberOfItems = random.nextInt(MAXIMUM_CAPACITY + 1);
 
 		// Create the container component.
 		ContainerComponent containerComponent = new ContainerComponent(MAXIMUM_CAPACITY);
@@ -75,18 +61,6 @@ public class TableFactory implements TileFactory {
 			// The item will no need a render offset as it is no longer being displayed here.
 			item.remove(RenderOffsetComponent.class);
 		};
-		
-		for (int i = 0; i < numberOfItems; i++) {
-			try {
-				// Create a random item.
-				Entity item = itemGenerator.create();
-				// As we are randomly populating this table, we need to add these entities to the engine manually for now.
-				engine.addEntity(item);
-				// Add this item to the table container.
-				containerComponent.add(item);
-			} catch (Exception exception) {
-			}
-		}
 		
 		// Add the container component to the table entity.
 		entity.add(containerComponent);
