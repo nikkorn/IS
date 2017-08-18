@@ -6,6 +6,8 @@ import com.badlogic.ashley.core.Entity;
 import com.itemshop.character.Character;
 import com.itemshop.game.assets.Assets;
 import com.itemshop.game.assets.CharacterSprites;
+import com.itemshop.job.Job;
+import com.itemshop.job.JobComponent;
 import com.itemshop.utilities.lotto.Lotto;
 
 /**
@@ -35,6 +37,9 @@ public class ShopkeeperFactory {
 		Utilities.setUpWalkingCharacter(engine, character, picker.draw());
 		
 		Utilities.setUpRandomWandering(engine, character);
+		
+		// All shopkeepers must be assigned their job role or they won't do any work.
+		character.add(new JobComponent(Job.SHOPWORKER));
 		
 		return character;
 	}
