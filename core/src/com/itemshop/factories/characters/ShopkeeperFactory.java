@@ -31,7 +31,8 @@ public class ShopkeeperFactory {
 			.add(Assets.getCharacterResources(Character.Shopkeeper4), 1)
 			.add(Assets.getCharacterResources(Character.Shopkeeper5), 1)
 			.add(Assets.getCharacterResources(Character.Shopkeeper6), 1)
-			.add(Assets.getCharacterResources(Character.Shopkeeper7), 1);
+			.add(Assets.getCharacterResources(Character.Shopkeeper7), 1)
+			.add(Assets.getCharacterResources(Character.Shopkeeper8), 1);
 		
 		Utilities.setUpWalkingCharacter(engine, character, picker.draw());
 		
