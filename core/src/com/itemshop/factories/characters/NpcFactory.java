@@ -28,7 +28,19 @@ public class NpcFactory {
 			.add(Assets.getCharacterResources(Character.GreenBlob), 1)
 			.add(Assets.getCharacterResources(Character.OrangeBlob), 1)
 			.add(Assets.getCharacterResources(Character.MoleKing), 1)
-			.add(Assets.getCharacterResources(Character.Mole), 1);
+			.add(Assets.getCharacterResources(Character.Mole), 1)
+			.add(Assets.getCharacterResources(Character.Greaser), 1)
+			.add(Assets.getCharacterResources(Character.Scientist), 1)
+			.add(Assets.getCharacterResources(Character.Lumberjack), 1)
+			.add(Assets.getCharacterResources(Character.Lady), 1)
+			.add(Assets.getCharacterResources(Character.Ghost), 1)
+			.add(Assets.getCharacterResources(Character.Skeleton), 1)
+			.add(Assets.getCharacterResources(Character.Knight1), 1)
+			.add(Assets.getCharacterResources(Character.Knight2), 1)
+			.add(Assets.getCharacterResources(Character.Knight3), 1)
+			.add(Assets.getCharacterResources(Character.Knight4), 1)
+			.add(Assets.getCharacterResources(Character.Eyeball), 1)
+			.add(Assets.getCharacterResources(Character.Robot), 1);
 
 		Utilities.setUpWalkingCharacter(engine, character, picker.draw());
 		
