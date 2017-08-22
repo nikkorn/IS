@@ -42,7 +42,7 @@ public class GameState implements IState {
 		}
 
 		// Create a test player.
-		for (int i = 0; i < 25; i++) {
+		for (int i = 0; i < 50; i++) {
 			engine.addEntity(NpcFactory.create(engine));
 		}
 

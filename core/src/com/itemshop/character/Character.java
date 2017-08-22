@@ -16,5 +16,17 @@ public enum Character {
 	OrangeBlob,
 	MoleKing,
 	Mole,
-	
+	Greaser,
+	Scientist,
+	Lumberjack,
+	Lady,
+	Ghost,
+	Shopkeeper8,
+	Skeleton,
+	Knight1,
+	Knight2,
+	Knight3,
+	Knight4,
+	Eyeball,
+	Robot
 }
