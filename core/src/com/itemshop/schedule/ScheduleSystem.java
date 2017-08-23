@@ -95,29 +95,29 @@ public class ScheduleSystem extends IteratingSystem {
 			// We only care about work queues that have work to be done. 
 			if (workQueueComponent.hasWorkQueued()) {
 				
-				// Get the schedule component of any schedulable entities that have a job matching that of the work queue.
-				ArrayList<ScheduleComponent> scheduleComponents = getScheduledComponentsWithJob(workQueueComponent.getJobRole());
+				// Get the worker entities that can do the job.
+				ArrayList<Entity> workers = getEntitesWithJob(workQueueComponent.getJobRole());
 				
 				// Assign work to those who can do it until the work queue is empty.
 				while (workQueueComponent.hasWorkQueued()) {
 					
 					// Pick a random job worker to assign the work to.
-					ScheduleComponent randomScheduleComponent = scheduleComponents.get(new Random().nextInt(scheduleComponents.size() - 1));
+					Entity worker = workers.get(new Random().nextInt(workers.size() - 1));
 					
 					// Assign the work!
-					workQueueComponent.takeWorkItem().update(randomScheduleComponent.activities);
+					workQueueComponent.takeWorkItem().update(worker, scheduleMapper.get(worker).activities);
 				}
 			}
 		}
 	}
 	
 	/**
-	 * Get scheduled components of entities with the specified job.
+	 * Get entities with the specified job.
 	 * @param job
 	 */
-	private ArrayList<ScheduleComponent> getScheduledComponentsWithJob(Job job) {
+	private ArrayList<Entity> getEntitesWithJob(Job job) {
 
-		ArrayList<ScheduleComponent> results = new ArrayList<ScheduleComponent>();
+		ArrayList<Entity> results = new ArrayList<Entity>();
 
 		// Check all entities with a schedule component for a job component and ...
 		for (Entity entity : this.getEntities()) {
@@ -126,7 +126,7 @@ public class ScheduleSystem extends IteratingSystem {
 			if (jobMapper.has(entity) && jobMapper.get(entity).job == job) {
 				
 				// ... Add it to the result list.
-				results.add(scheduleMapper.get(entity));
+				results.add(entity);
 			}
 		}
 		
@@ -153,7 +153,7 @@ public class ScheduleSystem extends IteratingSystem {
 				if (appointment.getHour() == time.getHour() && appointment.getMinute() == time.getMinute()) {
 					
 					// ... add the appointment activities to the schedule appointments.
-					appointment.getPlanner().update(scheduleComponent.activities);
+					appointment.getPlanner().update(entity, scheduleComponent.activities);
 
 					// If this appointment is to not be repeated, then remove it from the schedule.
 					if (!appointment.isRepeated()) {

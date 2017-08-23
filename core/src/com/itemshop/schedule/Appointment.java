@@ -24,7 +24,7 @@ public class Appointment {
 	 * @param repeated whether this appointment is repeated or just done one.
 	 */
 	public Appointment(int hour, int minute, boolean repeated) {
-		this(hour, minute, repeated, (current) -> {});
+		this(hour, minute, repeated, (doer, current) -> {});
 	}
 
 	/**

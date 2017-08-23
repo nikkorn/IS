@@ -41,7 +41,7 @@ public class DeliveryGuyFactory {
 		ScheduleComponent schedule = new ScheduleComponent();
 		
 		// Create a plan to deliver an item to the shop store room.
-		ActivityPlanner deliveryPlan = (current) -> {
+		ActivityPlanner deliveryPlan = (doer, current) -> {
 			// All other activities should be disposed of.
 			current.clear();
 			// Get the chests in the shop store room.
@@ -54,11 +54,11 @@ public class DeliveryGuyFactory {
 				Entity itemToDeliver = new RandomItemFactory().create();
 				engine.addEntity(itemToDeliver);
 				// Add an activity drop off an item to the shop.
-				current.add(new PlaceItemActivity(character, chest, itemToDeliver));
+				current.add(new PlaceItemActivity(doer, chest, itemToDeliver));
 				// Add an activity to wait there for a second.
 				current.add(new WaitActivity(1000));
 				// Add an activity to walk out of town.
-				current.add(new WalkActivity(character, 0, 27));
+				current.add(new WalkActivity(doer, 0, 27));
 			}
 		};
 		

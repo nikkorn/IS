@@ -64,7 +64,7 @@ public class WorkQueueComponent implements Component {
 			return this.queue.remove(this.queue.size() - 1);
 		} else {
 			// Just return a work item which does nothing.
-			return (current) -> {};
+			return (doer, current) -> {};
 		}
 	}
 }

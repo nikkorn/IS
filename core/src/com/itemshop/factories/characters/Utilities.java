@@ -133,15 +133,15 @@ public class Utilities {
 		ScheduleComponent schedule = new ScheduleComponent();
 
 		// Create the list of activities required to carry out a delivery.
-		ActivityPlanner wanderingPlan = (current) -> {
+		ActivityPlanner wanderingPlan = (doer, current) -> {
 			// Clear the current activities.
 			current.clear();
 			// Walk somewhere.
-			current.add(getRandomWalk(character));
+			current.add(getRandomWalk(doer));
 			// Wait for a while.
 			current.add(new WaitActivity(2000));
 			// Walk somewhere else.
-			current.add(getRandomWalk(character));
+			current.add(getRandomWalk(doer));
 		};
 
 		int offset = random.nextInt(60);
