@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.itemshop.factories.CameraFactory;
+import com.itemshop.factories.ShopFactory;
 import com.itemshop.factories.TownEntityFactory;
 import com.itemshop.factories.characters.NpcFactory;
 import com.itemshop.factories.characters.DeliveryGuyFactory;
@@ -35,6 +36,9 @@ public class GameState implements IState {
 
 		// Create the entities we need for this state.
 		TownEntityFactory.createTown(engine);
+		
+		// Create the shop entity.
+		ShopFactory.create(engine);
 
 		// Create a test player.
 		for (int i = 0; i < 25; i++) {

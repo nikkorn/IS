@@ -10,7 +10,7 @@ public interface ActivityPlanner {
 	/**
 	 * Update the list of current activities.
 	 * @param doer The doer of the activity.
-	 * @param current THe list of pending activities for the doer.
+	 * @param current The list of pending activities for the doer.
 	 */
 	public void update(Entity doer, ActivityList current);
 }

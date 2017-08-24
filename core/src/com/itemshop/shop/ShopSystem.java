@@ -88,8 +88,6 @@ public class ShopSystem extends EntitySystem {
 						current.add(new WaitActivity(1000));
 						// Place the item on a table in the shop.
 						current.add(new PlaceItemActivity(doer, targetTable, item));
-						// Remove the claim on this item.
-						item.remove(ClaimedComponent.class);
 					};
 					
 					// ... And add it the the shop work queue.
