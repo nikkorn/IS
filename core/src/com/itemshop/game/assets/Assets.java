@@ -103,6 +103,22 @@ public class Assets {
 	public static TextureRegion flower;
 	public static TextureRegion money_coins;
 	public static TextureRegion money_notes;
+	public static TextureRegion shipment;
+	public static TextureRegion book1;
+	public static TextureRegion book2;
+	public static TextureRegion book3;
+	public static TextureRegion goblet;
+	public static TextureRegion apron;
+	public static TextureRegion crown;
+	public static TextureRegion slime;
+	public static TextureRegion cigarettes;
+	public static TextureRegion log;
+	public static TextureRegion glasses;
+	public static TextureRegion mole_claw;
+	public static TextureRegion skull;
+	public static TextureRegion bone;
+	public static TextureRegion dagger;
+	public static TextureRegion cheese;
 	
 	public static TextureRegion play;
 	public static TextureRegion play_hover;
@@ -211,6 +227,22 @@ public class Assets {
 		flower = getItemAt(itemSheet, 5, 0);
 		money_coins = getItemAt(itemSheet, 6, 0);
 		money_notes = getItemAt(itemSheet, 7, 0);
+		shipment = getItemAt(itemSheet, 8, 0);
+		book1 = getItemAt(itemSheet, 9, 0);
+		book2 = getItemAt(itemSheet, 10, 0);
+		book3 = getItemAt(itemSheet, 11, 0);
+		goblet = getItemAt(itemSheet, 12, 0);
+		apron = getItemAt(itemSheet, 13, 0);
+		crown = getItemAt(itemSheet, 14, 0);
+		slime = getItemAt(itemSheet, 15, 0);
+		cigarettes = getItemAt(itemSheet, 0, 1);
+		log = getItemAt(itemSheet, 1, 1);
+		glasses = getItemAt(itemSheet, 2, 1);
+		mole_claw = getItemAt(itemSheet, 3, 1);
+		skull = getItemAt(itemSheet, 4, 1);
+		bone = getItemAt(itemSheet, 5, 1);
+		dagger = getItemAt(itemSheet, 6, 1);
+		cheese = getItemAt(itemSheet, 7, 1);
 
 		wood_horizontal = getTileAt(tileSheet, 0, 0);
 		

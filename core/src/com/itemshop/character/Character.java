@@ -28,5 +28,12 @@ public enum Character {
 	Knight3,
 	Knight4,
 	Eyeball,
-	Robot
+	Robot,
+	Chef,
+	SpaceMarine,
+	Builder,
+	Priest,
+	Baby,
+	Nerd,
+	Wizard
 }
