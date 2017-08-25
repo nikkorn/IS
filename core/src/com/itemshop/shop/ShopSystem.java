@@ -18,7 +18,9 @@ import com.itemshop.job.WorkQueueComponent;
 import com.itemshop.schedule.ActivityPlanner;
 import com.itemshop.schedule.activities.PickUpItemActivity;
 import com.itemshop.schedule.activities.PlaceItemActivity;
+import com.itemshop.schedule.activities.TalkActivity;
 import com.itemshop.schedule.activities.WaitActivity;
+import com.itemshop.utilities.lotto.Lotto;
 
 /**
  * Handles the inner workings of the town shop.
@@ -88,6 +90,16 @@ public class ShopSystem extends EntitySystem {
 						current.add(new WaitActivity(1000));
 						// Place the item on a table in the shop.
 						current.add(new PlaceItemActivity(doer, targetTable, item));
+						// Make a comment.
+						current.add(new TalkActivity(new Lotto<String>()
+								.add("That looks nice.")
+								.add("Perfect.")
+								.add("Great.")
+								.add("Top notch.")
+								.add("I'm happy with that.")
+								.add("I can smell the money.")
+								.draw()
+						));
 					};
 					
 					// ... And add it the the shop work queue.
