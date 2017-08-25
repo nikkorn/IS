@@ -9,8 +9,9 @@ import com.itemshop.render.PositionComponent;
 import com.itemshop.render.RenderOffsetComponent;
 import com.itemshop.render.TextureComponent;
 import com.itemshop.utilities.lotto.Lotto;
+import com.itemshop.area.TileType;
+import com.itemshop.area.TileTypeComponent;
 import com.itemshop.container.ContainerComponent;
-import com.itemshop.factories.items.RandomItemFactory;
 
 /**
  * Factory for creating a Table tile.
@@ -20,16 +21,6 @@ public class TableFactory implements TileFactory {
 	/** The maximum number of items a table can hold.*/
 	private static int MAXIMUM_CAPACITY = 2;
 
-	/** Generator of random items in the table. */
-	private RandomItemFactory itemGenerator;
-	
-	/**
-	 * Creates a TableFactory instance.
-	 */
-	public TableFactory() {
-		itemGenerator = new RandomItemFactory();
-	}
-
 	/**
 	 * Creates the entity.
 	 * @param engine The engine to add the entity to.
@@ -38,15 +29,12 @@ public class TableFactory implements TileFactory {
 	 * @param y The y position.
 	 * @param sameAbove Whether the tile above is of the same type.
 	 */
-	public void create(Engine engine, Random random, int x, int y, boolean sameAbove) {
+	public Entity create(Engine engine, Random random, int x, int y, boolean sameAbove) {
 		// Create the tile entity.
 		Entity entity = new Entity();
 
 		// Add the entities components.
 		entity.add(new PositionComponent(x, y));
-
-		// Determine the amount of items on display.
-		int numberOfItems = random.nextInt(MAXIMUM_CAPACITY + 1);
 
 		// Create the container component.
 		ContainerComponent containerComponent = new ContainerComponent(MAXIMUM_CAPACITY);
@@ -74,18 +62,6 @@ public class TableFactory implements TileFactory {
 			item.remove(RenderOffsetComponent.class);
 		};
 		
-		for (int i = 0; i < numberOfItems; i++) {
-			try {
-				// Create a random item.
-				Entity item = itemGenerator.create();
-				// As we are randomly populating this table, we need to add these entities to the engine manually for now.
-				engine.addEntity(item);
-				// Add this item to the table container.
-				containerComponent.add(item);
-			} catch (Exception exception) {
-			}
-		}
-		
 		// Add the container component to the table entity.
 		entity.add(containerComponent);
 		
@@ -96,8 +72,12 @@ public class TableFactory implements TileFactory {
 				.add(Assets.table_stone, 1)
 				.draw()
 		));
+		
+		entity.add(new TileTypeComponent(TileType.TABLE));
 
 		// Add the tile entity to the engine.
 		engine.addEntity(entity);
+		
+		return entity;
 	}
 }

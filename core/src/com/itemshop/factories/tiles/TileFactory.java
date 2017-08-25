@@ -2,6 +2,7 @@ package com.itemshop.factories.tiles;
 
 import java.util.Random;
 import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.Entity;
 
 /**
  * Factory to create a tile.
@@ -16,6 +17,7 @@ public interface TileFactory {
 	 * @param x The x position.
 	 * @param y The y position.
 	 * @param sameAbove Whether the tile above is of the same type.
+	 * @returns the tile entity.
 	 */
-	void create(Engine engine, Random random, int x, int y, boolean sameAbove);
+	Entity create(Engine engine, Random random, int x, int y, boolean sameAbove);
 }

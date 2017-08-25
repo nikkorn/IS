@@ -2,7 +2,6 @@ package com.itemshop.character.walking.astar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Stack;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.itemshop.movement.Direction;
@@ -37,23 +36,31 @@ public class AStarPathfinder {
 	}
 
 	/**
-	 * Takes an origin position and a destination position and produces a
-	 * stack of movement directions needed to reach the destination.
+	 * Takes an origin position and a destination position and produces a stack of movement directions needed to reach the destination.
 	 * @param originPosX
 	 * @param originPosY
 	 * @param destinationPosX
 	 * @param destinationPosY
-	 * @return The stack of directional movements to follow to reach the destination.
+	 * @return The result.
 	 */
-	public Stack<Direction> getPath(int originPosX, int originPosY, int destinationPosX, int destinationPosY) {
+	public AStarResult getPath(int originPosX, int originPosY, int destinationPosX, int destinationPosY) {
+		
+		// The result of the pathfinding algorithm.
+		AStarResult result = new AStarResult(); 
 
 		// Get the origin and goal node.
 		AStarNode origin = nodes.get(originPosX + ":" + originPosY);
 		AStarNode goal   = nodes.get(destinationPosX + ":" + destinationPosY);
 		
-		// If we did not get our goal node, then it is not reachable.
+		// If we did not get our goal node, then we will add one, but keep note that
+		// if there is a valid path to it, that the target itself is not walkable.
 		if (goal == null) {
-			return new Stack<Direction>();
+			// The target is not walkable.
+			result.isTargetWalkable = false;
+			// Create a node for the target ...
+			goal = new AStarNode(destinationPosX, destinationPosY);
+			// ... and add it the node list.
+			nodes.put(destinationPosX + ":" + destinationPosY, goal);
 		}
 
 		// Set the heuristic for the origin and goal nodes.
@@ -73,6 +80,9 @@ public class AStarPathfinder {
 
 			// If we added the destination to the closed map, we've found a path!
 			if (closedNodes.containsKey(goal.x + ":" + goal.y)) {
+				// The path is not blocked.
+				result.isPathBlocked = false;
+				// Stop looking for a path.
 				break;
 			}
 
@@ -110,22 +120,28 @@ public class AStarPathfinder {
 
 		// Work backwards from the goal node to work out the sequence of directional
 		// movements required to reach the goal from the original position.
-		Stack<Direction> movements = new Stack<Direction>();
-		AStarNode current          = goal;
+		AStarNode current = goal;
+		// If the target is not itself walkable, we need to omit the last
+		// directional movement which would move the entity onto it.
+		if (!result.isTargetWalkable) {
+			current = current.parent;
+		}
+		// Collect the directional movements that the path is composed of.
 		while (current.parent != null) {
 			if (current.x < current.parent.x) {
-				movements.push(Direction.LEFT);
+				result.movements.push(Direction.LEFT);
 			} else if (current.x > current.parent.x) {
-				movements.push(Direction.RIGHT);
+				result.movements.push(Direction.RIGHT);
 			} else if (current.y < current.parent.y) {
-				movements.push(Direction.DOWN);
+				result.movements.push(Direction.DOWN);
 			} else {
-				movements.push(Direction.UP);
+				result.movements.push(Direction.UP);
 			}
 			current = current.parent;
 		}
-
-		return movements;
+		
+		// Return the result.
+		return result;
 	}
 
 	/**

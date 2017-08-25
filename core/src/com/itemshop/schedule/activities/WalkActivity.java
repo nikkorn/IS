@@ -26,11 +26,20 @@ public class WalkActivity extends Activity {
 	 * @param entity
 	 * @param targetPositionX
 	 * @param targetPositionY
+	 * @param isTargetWalkable
 	 */
 	public WalkActivity(Entity entity, int targetPositionX, int targetPositionY) {
-		this.entity          = entity;
-		this.targetPositionX = targetPositionX;
-		this.targetPositionY = targetPositionY;
+		this.entity           = entity;
+		this.targetPositionX  = targetPositionX;
+		this.targetPositionY  = targetPositionY;
+	}
+	
+	/**
+	 * Get the path component for this activity.
+	 * @return path
+	 */
+	public PathComponent getPath() {
+		return this.path;
 	}
 	
 	@Override

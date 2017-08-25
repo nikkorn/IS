@@ -60,6 +60,7 @@ public class ContainerComponent implements Component {
 	 * Gets the current list of entities.
 	 * @return The current list of entities.
 	 */
+	@SuppressWarnings("unchecked")
 	public List<Entity> getContents() {
 		return (List<Entity>) contents.clone();
 	}

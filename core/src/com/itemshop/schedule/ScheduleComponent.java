@@ -12,7 +12,7 @@ public class ScheduleComponent implements Component {
 	 * The list of activities to undertake.
 	 * The first in the list is the currently active one. 
 	 */
-	public ArrayList<Activity> activities;
+	public ActivityList activities;
 	
 	/** 
 	 * The list of appointments to be met.
@@ -23,7 +23,7 @@ public class ScheduleComponent implements Component {
 	 * Create a new instance of the ScheduleComponent class.
 	 */
 	public ScheduleComponent() {
-		activities   = new ArrayList<Activity>();
+		activities   = new ActivityList();
 		appointments = new ArrayList<Appointment>();
 	}
 }

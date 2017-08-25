@@ -1,7 +1,5 @@
 package com.itemshop.schedule;
 
-import java.util.ArrayList;
-
 /**
  * Represents a scheduled appointment.
  */
@@ -15,9 +13,9 @@ public class Appointment {
 
 	/** Whether this appointment is repeated. */
 	private boolean isRepeated;
-
-	/** The list of activities to undertake for this appointment */
-	private ArrayList<Activity> activities;
+	
+	/** The planner with which we modify the activity list of a schedule. */
+	private ActivityPlanner planner;
 
 	/**
 	 * Create a new instance of the Appointment class with no activities.
@@ -26,7 +24,7 @@ public class Appointment {
 	 * @param repeated whether this appointment is repeated or just done one.
 	 */
 	public Appointment(int hour, int minute, boolean repeated) {
-		this(hour, minute, repeated, new ArrayList<Activity>());
+		this(hour, minute, repeated, (doer, current) -> {});
 	}
 
 	/**
@@ -34,13 +32,13 @@ public class Appointment {
 	 * @param hour the hour of the appointment
 	 * @param minute the minute of the appointment
 	 * @param repeated whether this appointment is repeated or just done one.
-	 * @param activities the list of activities to undertake for this appointment.
+	 * @param planner the planner with which we modify the activity list of a schedule.
 	 */
-	public Appointment(int hour, int minute, boolean repeated, ArrayList<Activity> activities) {
+	public Appointment(int hour, int minute, boolean repeated, ActivityPlanner planner) {
 		this.hour       = hour;
 		this.minute     = minute;
 		this.isRepeated = repeated;
-		this.activities = activities;
+		this.planner    = planner;
 	}
 
 	/**
@@ -66,20 +64,12 @@ public class Appointment {
 	public boolean isRepeated() {
 		return isRepeated;
 	}
-
+	
 	/**
-	 * Gets list of activities to undertake for this appointment.
-	 * @returns activities.
+	 * Get the activity planner for this appointment.
+	 * @returns planner.
 	 */
-	public ArrayList<Activity> getActivities() {
-		return activities;
-	}
-
-	/**
-	 * Sets list of activities to undertake for this appointment.
-	 * @param activities.
-	 */
-	public void setActivities(ArrayList<Activity> activities) {
-		this.activities = activities;
+	public ActivityPlanner getPlanner() {
+		return planner;
 	}
 }

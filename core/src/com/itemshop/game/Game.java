@@ -6,7 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.itemshop.area.AreaSystem;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.itemshop.character.walking.PathingSystem;
@@ -16,6 +16,7 @@ import com.itemshop.input.MouseSystem;
 import com.itemshop.render.RenderSystem;
 import com.itemshop.schedule.ScheduleSystem;
 import com.itemshop.schedule.TimeSystem;
+import com.itemshop.shop.ShopSystem;
 import com.itemshop.state.StateSystem;
 import com.itemshop.ui.UISystem;
 
@@ -71,6 +72,8 @@ public class Game extends ApplicationAdapter {
 		engine.addSystem(new ScheduleSystem(timeSystem.getTime()));
 		
 		engine.addSystem(new PathingSystem());
+		engine.addSystem(new AreaSystem());
+		engine.addSystem(new ShopSystem());
 		engine.addSystem(new KeyboardSystem());
 		engine.addSystem(new MouseSystem(worldCamera, uiCamera));
 		engine.addSystem(new RenderSystem(worldCamera, spriteBatch));

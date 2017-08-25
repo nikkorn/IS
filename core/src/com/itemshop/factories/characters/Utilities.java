@@ -1,8 +1,7 @@
 package com.itemshop.factories.characters;
 
-import java.util.ArrayList;
 import java.util.Random;
-
+import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
@@ -14,18 +13,27 @@ import com.itemshop.render.AnimationComponent;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.RenderOffsetComponent;
 import com.itemshop.render.TextureComponent;
-import com.itemshop.schedule.Activity;
+import com.itemshop.schedule.ActivityPlanner;
 import com.itemshop.schedule.Appointment;
 import com.itemshop.schedule.ScheduleComponent;
 import com.itemshop.schedule.activities.WaitActivity;
 import com.itemshop.schedule.activities.WalkActivity;
 import com.itemshop.utilities.lotto.Lotto;
 
+/**
+ * Utility functions to help with the creation of character entities.
+ */
 public class Utilities {
+	
 	/**
 	 * Random number generator.
 	 */
 	private static Random random = new Random();
+	
+	/**
+	 * The required component mappers.
+	 */
+	private static ComponentMapper<ScheduleComponent> scheduleMapper = ComponentMapper.getFor(ScheduleComponent.class);
 
 	/**
 	 * Big list of safe walkable places that characters can walk to.
@@ -93,32 +101,30 @@ public class Utilities {
 		// Handle walking changes.
 		WalkComponent walkingComponent = new WalkComponent();
 		walkingComponent.onStart = (direction) -> {
-			// Remove the players idle texture.
+			// Remove the characters idle texture.
 			character.remove(TextureComponent.class);
-			// Set the players walking animation.
+			// Set the characters walking animation.
 			character.add(sprites.getAnimationComponent(direction));
 		};
 		walkingComponent.onDirectionChange = (direction) -> {
-			// The player is just changing direction, so they need the correct walking
-			// animation to reflect this.
+			// The character is just changing direction, so they need the correct walking animation to reflect this.
 			character.add(sprites.getAnimationComponent(direction));
 		};
 		walkingComponent.onStop = (direction) -> {
-			// Remove the players walking animation.
+			// Remove the characters walking animation.
 			character.remove(AnimationComponent.class);
-			// Set the player's idle texture.
+			// Set the characters idle texture.
 			character.add(sprites.getTextureComponent(direction));
 		};
 		character.add(walkingComponent);
 
-		// Add the visual component for the player character.
+		// Add the visual component for the character character.
 		character.add(sprites.getTextureComponent(Direction.DOWN));
 
 		// All characters will have a facing direction.
 		character.add(new FacingDirectionComponent(Direction.DOWN));
 
-		// All characters will have a render offset so they are drawn in the centre of a
-		// tile.
+		// All characters will have a render offset so they are drawn in the centre of a tile.
 		character.add(new RenderOffsetComponent(0f, 0.25f));
 	}
 
@@ -128,39 +134,31 @@ public class Utilities {
 	 * @param character The character to wander randomly.
 	 */
 	public static void setUpRandomWandering(Engine engine, Entity character) {
-		// Give the delivery guy an initial position.
-		character.add(getRandomPosition());
 
-		// Create a schedule for the delivery guy.
-		ScheduleComponent schedule = new ScheduleComponent();
-
-		// Create the list of activities required to carry out a delivery.
-		ArrayList<Activity> deliveryActivities = new ArrayList<Activity>() {
-			{
-				// Walk somewhere.
-				add(getRandomWalk(character));
-				// Wait for a while.
-				add(new WaitActivity(2000));
-				// Walk somewhere else.
-				add(getRandomWalk(character));
-			}
+		// Create the list of activities required to have a nice walk.
+		ActivityPlanner wanderingPlan = (doer, current) -> {
+			// Clear the current activities.
+			current.clear();
+			// Walk somewhere.
+			current.add(getRandomWalk(doer));
+			// Wait for a while.
+			current.add(new WaitActivity(2000));
+			// Walk somewhere else.
+			current.add(getRandomWalk(doer));
 		};
 
 		int offset = random.nextInt(60);
 
 		for (int hour = 0; hour < 24; hour++) {
-			schedule.appointments.add(new Appointment(hour, offset, true, deliveryActivities));
+			scheduleMapper.get(character).appointments.add(new Appointment(hour, offset, true, wanderingPlan));
 		}
-
-		// Give the delivery guy the schedule
-		character.add(schedule);
 	}
 
 	/**
 	 * Gets a random (walkable) position.
 	 * @return The random position.
 	 */
-	private static PositionComponent getRandomPosition() {
+	public static PositionComponent getRandomPosition() {
 		Vector2 location = safeLocations.draw();
 		return new PositionComponent(location.x, location.y, 1);
 	}

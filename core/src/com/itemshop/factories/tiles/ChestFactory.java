@@ -6,11 +6,17 @@ import com.badlogic.ashley.core.Entity;
 import com.itemshop.game.assets.Assets;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.TextureComponent;
+import com.itemshop.area.TileType;
+import com.itemshop.area.TileTypeComponent;
+import com.itemshop.container.ContainerComponent;
 
 /**
- * Factory for creating a Waterfall tile.
+ * Factory for creating a chest tile.
  */
-public class WaterfallFactory implements TileFactory {
+public class ChestFactory implements TileFactory {
+	
+	/** The maximum number of items a chest can hold.*/
+	private static int MAXIMUM_CAPACITY = 15;
 
 	/**
 	 * Creates the entity.
@@ -26,8 +32,17 @@ public class WaterfallFactory implements TileFactory {
 
 		// Add the entities components.
 		entity.add(new PositionComponent(x, y));
-		// TODO: Use water_top if not sameAbove.
-		entity.add(new TextureComponent(Assets.water_falling));
+
+		// Create the container component.
+		ContainerComponent containerComponent = new ContainerComponent(MAXIMUM_CAPACITY);
+		
+		// Add the container component to the table entity.
+		entity.add(containerComponent);
+		
+		// Add the right texture.
+		entity.add(new TextureComponent(Assets.chest));
+		
+		entity.add(new TileTypeComponent(TileType.CHEST));
 
 		// Add the tile entity to the engine.
 		engine.addEntity(entity);
