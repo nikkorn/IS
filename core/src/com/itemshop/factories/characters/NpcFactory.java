@@ -43,8 +43,16 @@ public class NpcFactory {
 			.add(Assets.getCharacterResources(Character.Knight3), 1)
 			.add(Assets.getCharacterResources(Character.Knight4), 1)
 			.add(Assets.getCharacterResources(Character.Eyeball), 1)
-			.add(Assets.getCharacterResources(Character.Robot), 1);
-		
+			.add(Assets.getCharacterResources(Character.Robot), 1)
+			.add(Assets.getCharacterResources(Character.Robot), 1)
+			.add(Assets.getCharacterResources(Character.Chef), 1)
+			.add(Assets.getCharacterResources(Character.SpaceMarine), 1)
+			.add(Assets.getCharacterResources(Character.Builder), 1)
+			.add(Assets.getCharacterResources(Character.Priest), 1)
+			.add(Assets.getCharacterResources(Character.Baby), 1)
+			.add(Assets.getCharacterResources(Character.Nerd), 1)
+			.add(Assets.getCharacterResources(Character.Wizard), 1);
+
 		// Give the character an initial position.
 		character.add(Utilities.getRandomPosition());
 

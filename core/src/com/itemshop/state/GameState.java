@@ -41,12 +41,12 @@ public class GameState implements IState {
 		ShopFactory.create(engine);
 
 		// Create a test player.
-		for (int i = 0; i < 25; i++) {
+		for (int i = 0; i < 10; i++) {
 			engine.addEntity(ShopkeeperFactory.create(engine));
 		}
 
 		// Create a test player.
-		for (int i = 0; i < 50; i++) {
+		for (int i = 0; i < 65; i++) {
 			engine.addEntity(NpcFactory.create(engine));
 		}
 

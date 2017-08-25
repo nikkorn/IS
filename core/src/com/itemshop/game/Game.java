@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.itemshop.area.AreaSystem;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.itemshop.character.walking.PathingSystem;
 import com.itemshop.game.assets.Assets;
 import com.itemshop.input.KeyboardSystem;
@@ -30,13 +33,22 @@ public class Game extends ApplicationAdapter {
 	 * The scaling factor to apply to convert map coordinates to screen pixels.
 	 * Zoom so that the each sprite pixel is 2 screen pixels.
 	 */
-	public static final float WORLD_ZOOM = (1f / 16f) / 2;
+	public static final double WORLD_ZOOM = (1d / 16d) / 2d;
 
 	/** The game engine. */
 	Engine engine;
 	
 	/** The sprite batch. */
 	SpriteBatch spriteBatch;
+	
+	/** The screen viewport */
+	Viewport viewport;
+	
+	/** The world camera. */
+	OrthographicCamera worldCamera;
+	
+	/** The UI camera. */
+	OrthographicCamera uiCamera;
 	
 	@Override
 	public void create() {
@@ -46,8 +58,9 @@ public class Game extends ApplicationAdapter {
 		// Load the game assets.
 		Assets.load();
 
-		OrthographicCamera worldCamera = setUpWorldCamera();
-		OrthographicCamera uiCamera = setUpUICamera();
+		worldCamera = setUpWorldCamera();
+		uiCamera = setUpUICamera();
+		viewport = new ScreenViewport(worldCamera);
 
 		// Create the sprite batch.
 		spriteBatch = new SpriteBatch(); 
@@ -82,6 +95,13 @@ public class Game extends ApplicationAdapter {
 		spriteBatch.end();
 	}
 	
+	@Override
+	public void resize(int width, int height) {
+		viewport.update(width, height);
+		worldCamera.update();
+		uiCamera.update();
+	}
+	
 	/**
 	 * Sets up the world camera.
 	 * @return The world camera.
@@ -95,7 +115,7 @@ public class Game extends ApplicationAdapter {
 		// Move to the middle of the map.
 		camera.translate(MAP_SIZE / 2, MAP_SIZE / 2);
 		
-		camera.zoom = WORLD_ZOOM;
+		camera.zoom = (float)WORLD_ZOOM; // 0.03125f; // 1 / 16; // ; // 0.0625f;
 		
 		camera.update();
 		

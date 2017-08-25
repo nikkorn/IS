@@ -25,7 +25,7 @@ public class CheeseFactory implements ItemFactory {
 		
 		// Add the entities components.
 		item.add(new ItemTypeComponent(ItemType.CHEESE, "Cheese"));
-		item.add(new TextureComponent(Assets.unknown));
+		item.add(new TextureComponent(Assets.cheese));
 		item.add(new QualityComponent());
 		item.add(new ValueComponent(5));	
 		item.add(new RenderSizeComponent(0.625f, 0.625f));
