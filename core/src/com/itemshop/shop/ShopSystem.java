@@ -91,7 +91,7 @@ public class ShopSystem extends EntitySystem {
 						// Place the item on a table in the shop.
 						current.add(new PlaceItemActivity(doer, targetTable, item));
 						// Make a comment.
-						current.add(new TalkActivity(new Lotto<String>()
+						current.add(new TalkActivity(doer, new Lotto<String>()
 								.add("That looks nice.")
 								.add("Perfect.")
 								.add("Great.")

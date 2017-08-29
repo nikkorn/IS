@@ -17,6 +17,7 @@ import com.itemshop.render.RenderSystem;
 import com.itemshop.schedule.ScheduleSystem;
 import com.itemshop.schedule.TimeSystem;
 import com.itemshop.shop.ShopSystem;
+import com.itemshop.speech.SpeechSystem;
 import com.itemshop.state.StateSystem;
 import com.itemshop.ui.UISystem;
 
@@ -74,6 +75,7 @@ public class Game extends ApplicationAdapter {
 		engine.addSystem(new PathingSystem());
 		engine.addSystem(new AreaSystem());
 		engine.addSystem(new ShopSystem());
+		engine.addSystem(new SpeechSystem());
 		engine.addSystem(new KeyboardSystem());
 		engine.addSystem(new MouseSystem(worldCamera, uiCamera));
 		engine.addSystem(new RenderSystem(worldCamera, spriteBatch));
