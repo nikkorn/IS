@@ -20,6 +20,12 @@ public class SpeechComponent implements Component {
 	/** The display start time. */
 	public long displayStartTime;
 	
+	/** The speech box x offset. */
+	public float boxOffsetX;
+	
+	/** The speech box y offset. */
+	public float boxOffsetY;
+	
 	/**
 	 * Create a new instance of SpeechComponent.
 	 * @param speech

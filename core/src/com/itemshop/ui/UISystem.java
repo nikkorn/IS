@@ -60,6 +60,8 @@ public class UISystem extends IteratingSystem {
     	ScreenPositionComponent screenPosition = screenPositionMapper.get(entity);
     	TextureComponent texture = textureMapper.get(entity);
     	
+    	spriteBatch.begin();
     	spriteBatch.draw(texture.region, screenPosition.x, screenPosition.y, screenPosition.width, screenPosition.height);
+    	spriteBatch.end();
     }
 }

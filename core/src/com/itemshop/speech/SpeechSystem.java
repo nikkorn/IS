@@ -4,11 +4,25 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.itemshop.game.assets.FontPack;
+import com.itemshop.game.assets.FontPack.FontType;
+import com.itemshop.movement.MovementTileTransitionComponent;
+import com.itemshop.game.assets.FontSize;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.RenderOffsetComponent;
+import com.itemshop.render.RenderSizeComponent;
 import com.itemshop.render.TextureComponent;
 
 /**
@@ -17,14 +31,31 @@ import com.itemshop.render.TextureComponent;
 public class SpeechSystem extends IteratingSystem {
 	
 	/** Component mappers to get components from entities. */
-    private static ComponentMapper<PositionComponent> positionMapper = ComponentMapper.getFor(PositionComponent.class);
-    private static ComponentMapper<SpeechComponent> speechMapper     = ComponentMapper.getFor(SpeechComponent.class);
+    private static ComponentMapper<PositionComponent> positionMapper                   = ComponentMapper.getFor(PositionComponent.class);
+    private static ComponentMapper<SpeechComponent> speechMapper                       = ComponentMapper.getFor(SpeechComponent.class);
+    private static ComponentMapper<MovementTileTransitionComponent> movementTileOffset = ComponentMapper.getFor(MovementTileTransitionComponent.class);
+    private static ComponentMapper<RenderOffsetComponent> renderOffsetMapper           = ComponentMapper.getFor(RenderOffsetComponent.class);
+    
+    /** The font with which to draw our speech box text. */
+    private BitmapFont speechBoxFont;
+    
+    /** The sprite batch. */
+	//private SpriteBatch batch;
 
 	/**
 	 * Create a new instance of the SpeechSystem class.
+	 * @param batch
 	 */
-	public SpeechSystem() {
+	public SpeechSystem(SpriteBatch batch) {
 		super(Family.all(SpeechComponent.class, PositionComponent.class).get());
+		
+		//this.batch = batch;
+		
+		// Create the font with which to write speech box text.
+		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+    	parameter.size                  = FontSize.SMALL;
+    	speechBoxFont                   = FontPack.getFontPack().getFont(FontType.MAIN_FONT, parameter);
+    	speechBoxFont.setColor(Color.WHITE);
 	}
 
 	@Override
@@ -43,13 +74,10 @@ public class SpeechSystem extends IteratingSystem {
 			speechComponent.displayStartTime = System.currentTimeMillis();
 			
 			// Create speech box texture.
-			speechComponent.speechBox.add(createSpeechBoxTextureComponent(speechComponent.speechText));
+			createSpeechBoxTexture(speechComponent);
 			
 			// A speech box will share the same position as the talker.
 			speechComponent.speechBox.add(positionMapper.get(entity));
-			
-			// Add a render offset to the speech box entity so that it is drawn above the talker. 
-			speechComponent.speechBox.add(new RenderOffsetComponent(1f, 1f));
 			
 			this.getEngine().addEntity(speechComponent.speechBox);
 			
@@ -60,22 +88,91 @@ public class SpeechSystem extends IteratingSystem {
 			if ((System.currentTimeMillis() - speechComponent.displayStartTime) >= speechComponent.duration) {
 				this.getEngine().removeEntity(speechComponent.speechBox);
 				entity.remove(SpeechComponent.class);
+				return;
+			}
+			
+			// Get the render offset component of the speech box.
+			RenderOffsetComponent speechBoxRenderOffset = renderOffsetMapper.get(speechComponent.speechBox);
+			
+			// Modify the render offset of this speech box entity to reflect the potential tile offset of the talker.
+			if (movementTileOffset.has(entity)) {
+				
+				// The offsets and size to use when drawing this entity.
+		    	float offsetX = speechComponent.boxOffsetX, offsetY = speechComponent.boxOffsetY;
+		    	
+		    	// Apply an offset if the talker is transitioning between tiles.
+		    	if (movementTileOffset.has(entity)) {
+		    		
+		    		// Apply the offset in the specified direction.
+		    		switch(movementTileOffset.get(entity).direction) {
+						case DOWN:
+							offsetY -= movementTileOffset.get(entity).offset;
+							break;
+						case LEFT:
+							offsetX -= movementTileOffset.get(entity).offset;
+							break;
+						case RIGHT:
+							offsetX += movementTileOffset.get(entity).offset;
+							break;
+						case UP:
+							offsetY += movementTileOffset.get(entity).offset;
+							break;
+		    		}
+		    	}
+				
+				speechBoxRenderOffset.offsetX = offsetX;
+				speechBoxRenderOffset.offsetY = offsetY;
+			} else {
+				speechBoxRenderOffset.offsetX = speechComponent.boxOffsetX;
+				speechBoxRenderOffset.offsetY = speechComponent.boxOffsetY;
 			}
 		}
 	}
 	
 	/**
 	 * Create a texture component for a speech box entity.
+	 * @param speechBox
 	 * @param text
-	 * @return texture component.
 	 */
-	private TextureComponent createSpeechBoxTextureComponent(String text) {
+	private void createSpeechBoxTexture(SpeechComponent speechComponent) {
 		
-		Pixmap speechBox = new Pixmap(30, 30, Pixmap.Format.RGB888);
+		GlyphLayout glyphLayout = new GlyphLayout();
+		glyphLayout.setText(speechBoxFont, speechComponent.speechText);
 		
-		// TODO Actually draw the speech box to the pixmap.
-		speechBox.fillRectangle(0, 0, 30, 30);
+        FrameBuffer fbo    = new FrameBuffer(Format.RGB888, 60, 16, false);
+        SpriteBatch sBatch = new SpriteBatch();
+        
+        //batch.enableBlending();
+        //Gdx.gl.glBlendFuncSeparate(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA, GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_ALPHA);
+
+        fbo.begin();
+        Gdx.gl.glClearColor(0, 0, 0, 0);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        sBatch.begin();
+        
+        ShapeRenderer shapeRenderer = new ShapeRenderer();
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(Color.BLUE);
+        shapeRenderer.rect(0, 0, 10, 10);
+        shapeRenderer.end();
+        
+        speechBoxFont.draw(sBatch, speechComponent.speechText, 0, 0);
+        sBatch.end();
+        fbo.end();
 		
-		return new TextureComponent(new TextureRegion(new Texture(speechBox)));
+		TextureRegion texture = new TextureRegion(fbo.getColorBufferTexture());
+		texture.flip(false, true);
+		
+		speechComponent.boxOffsetX = 1f;
+		speechComponent.boxOffsetY = 1f;
+		
+		speechComponent.speechBox.add(new TextureComponent(texture));
+		
+		// Add a render offset to the speech box entity so that it is drawn above the talker. 
+		speechComponent.speechBox.add(new RenderOffsetComponent(speechComponent.boxOffsetX, speechComponent.boxOffsetY));
+		
+		// Add a render size to match the speech box size.
+		//speechBox.add(new RenderSizeComponent(glyphLayout.width, glyphLayout.height));
+		speechComponent.speechBox.add(new RenderSizeComponent(glyphLayout.width / 16, glyphLayout.height / 16));
 	}
 }

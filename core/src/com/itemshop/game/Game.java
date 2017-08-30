@@ -75,7 +75,7 @@ public class Game extends ApplicationAdapter {
 		engine.addSystem(new PathingSystem());
 		engine.addSystem(new AreaSystem());
 		engine.addSystem(new ShopSystem());
-		engine.addSystem(new SpeechSystem());
+		engine.addSystem(new SpeechSystem(spriteBatch));
 		engine.addSystem(new KeyboardSystem());
 		engine.addSystem(new MouseSystem(worldCamera, uiCamera));
 		engine.addSystem(new RenderSystem(worldCamera, spriteBatch));
@@ -88,12 +88,8 @@ public class Game extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		spriteBatch.begin();
-		
 		// Update the engine.
 		engine.update(Gdx.graphics.getDeltaTime());
-		
-		spriteBatch.end();
 	}
 	
 	@Override

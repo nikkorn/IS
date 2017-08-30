@@ -63,7 +63,9 @@ public class RenderSystem extends SortedIteratingSystem {
 		time += Gdx.graphics.getDeltaTime();
     	
 		// Draw the game.
+		spriteBatch.begin();
 		super.update(deltaTime);
+		spriteBatch.end();
     }
     
     @Override

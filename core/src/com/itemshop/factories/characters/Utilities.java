@@ -16,6 +16,7 @@ import com.itemshop.render.TextureComponent;
 import com.itemshop.schedule.ActivityPlanner;
 import com.itemshop.schedule.Appointment;
 import com.itemshop.schedule.ScheduleComponent;
+import com.itemshop.schedule.activities.TalkActivity;
 import com.itemshop.schedule.activities.WaitActivity;
 import com.itemshop.schedule.activities.WalkActivity;
 import com.itemshop.utilities.lotto.Lotto;
@@ -139,12 +140,39 @@ public class Utilities {
 		ActivityPlanner wanderingPlan = (doer, current) -> {
 			// Clear the current activities.
 			current.clear();
+			// Say something nice.
+			current.add(new TalkActivity(doer, new Lotto<String>()
+					.add("Lovely day!")
+					.add("I'm hungry")
+					.add("Good to strech my legs")
+					.add("Amazing weather we are having!")
+					.add("*whistle*")
+					.add("What a great walk!")
+					.draw()));
 			// Walk somewhere.
 			current.add(getRandomWalk(doer));
 			// Wait for a while.
-			current.add(new WaitActivity(2000));
+			current.add(new WaitActivity(1000));
+			// Say something nice.
+			current.add(new TalkActivity(doer, new Lotto<String>()
+					.add("Lovely day!")
+					.add("I'm hungry")
+					.add("Good to strech my legs")
+					.add("Amazing weather we are having!")
+					.add("*whistle*")
+					.add("What a great walk!")
+					.draw()));
 			// Walk somewhere else.
 			current.add(getRandomWalk(doer));
+			// Say something nice.
+			current.add(new TalkActivity(doer, new Lotto<String>()
+					.add("Lovely day!")
+					.add("I'm hungry")
+					.add("Good to strech my legs")
+					.add("Amazing weather we are having!")
+					.add("*whistle*")
+					.add("What a great walk!")
+					.draw()));
 		};
 
 		int offset = random.nextInt(60);
