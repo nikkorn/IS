@@ -75,7 +75,7 @@ public class Game extends ApplicationAdapter {
 		engine.addSystem(new PathingSystem());
 		engine.addSystem(new AreaSystem());
 		engine.addSystem(new ShopSystem());
-		engine.addSystem(new SpeechSystem(spriteBatch));
+		engine.addSystem(new SpeechSystem());
 		engine.addSystem(new KeyboardSystem());
 		engine.addSystem(new MouseSystem(worldCamera, uiCamera));
 		engine.addSystem(new RenderSystem(worldCamera, spriteBatch));
