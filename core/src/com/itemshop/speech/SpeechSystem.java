@@ -6,7 +6,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -45,9 +45,11 @@ public class SpeechSystem extends IteratingSystem {
 		
 		// Create the font with which to write speech box text.
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-    	parameter.size                  = FontSize.SMALL;
+    	parameter.size                  = FontSize.MEDIUM;
+    	parameter.minFilter             = TextureFilter.Nearest;
+    	parameter.magFilter             = TextureFilter.MipMapLinearNearest;
     	speechBoxFont                   = FontPack.getFontPack().getFont(FontType.MAIN_FONT, parameter);
-    	speechBoxFont.setColor(Color.GREEN);
+    	speechBoxFont.setColor(Color.WHITE);
 	}
     
 	@Override
@@ -131,9 +133,7 @@ public class SpeechSystem extends IteratingSystem {
 		GlyphLayout glyphLayout = new GlyphLayout();
 		glyphLayout.setText(speechBoxFont, speechComponent.speechText);
 		
-		Texture texture = new Texture("images/map/town_map.png");
-		
-		FrameBuffer fbo    = new FrameBuffer(Pixmap.Format.RGBA8888, 40, 40, false);
+		FrameBuffer fbo    = new FrameBuffer(Pixmap.Format.RGB888, (int) glyphLayout.width, (int) glyphLayout.height, false);
 		SpriteBatch bBatch = new SpriteBatch();
 
         // Set up an ortho projection matrix
@@ -144,15 +144,16 @@ public class SpeechSystem extends IteratingSystem {
         // Render the text onto an FBO
         fbo.begin();
         bBatch.begin();
-        bBatch.draw(texture, 0, 0, 40, 40);
-        speechBoxFont.draw(bBatch, speechComponent.speechText, 0, 0);
+        speechBoxFont.draw(bBatch, speechComponent.speechText, 0, glyphLayout.height);
         bBatch.end();
         fbo.end();
 
         // Flip the texture, and return it
         TextureRegion tex = new TextureRegion(fbo.getColorBufferTexture());
-        tex.flip(false, true);
+       	tex.flip(false, true);
 		        
+       	tex.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+       	
 		speechComponent.boxOffsetX = 1f;
 		speechComponent.boxOffsetY = 1f;
 		
@@ -162,7 +163,6 @@ public class SpeechSystem extends IteratingSystem {
 		speechComponent.speechBox.add(new RenderOffsetComponent(speechComponent.boxOffsetX, speechComponent.boxOffsetY));
 		
 		// Add a render size to match the speech box size.
-		//speechBox.add(new RenderSizeComponent(glyphLayout.width, glyphLayout.height));
-		speechComponent.speechBox.add(new RenderSizeComponent(40 / 16, 40 / 16));
+		speechComponent.speechBox.add(new RenderSizeComponent(glyphLayout.width / 16, glyphLayout.height / 16));
 	}
 }
