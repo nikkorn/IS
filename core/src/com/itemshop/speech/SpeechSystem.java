@@ -45,7 +45,7 @@ public class SpeechSystem extends IteratingSystem {
 		
 		// Create the font with which to write speech box text.
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-    	parameter.size                  = FontSize.MEDIUM;
+    	parameter.size                  = FontSize.MEDIUM * 4;
     	parameter.minFilter             = TextureFilter.Nearest;
     	parameter.magFilter             = TextureFilter.MipMapLinearNearest;
     	speechBoxFont                   = FontPack.getFontPack().getFont(FontType.MAIN_FONT, parameter);
@@ -133,36 +133,34 @@ public class SpeechSystem extends IteratingSystem {
 		GlyphLayout glyphLayout = new GlyphLayout();
 		glyphLayout.setText(speechBoxFont, speechComponent.speechText);
 		
-		FrameBuffer fbo    = new FrameBuffer(Pixmap.Format.RGB888, (int) glyphLayout.width, (int) glyphLayout.height, false);
-		SpriteBatch bBatch = new SpriteBatch();
-
+		FrameBuffer fbo   = new FrameBuffer(Pixmap.Format.RGB888, (int) glyphLayout.width, (int) glyphLayout.height, false);
+		SpriteBatch batch = new SpriteBatch();
+		
         // Set up an ortho projection matrix
         Matrix4 projMat = new Matrix4();
         projMat.setToOrtho2D(0, 0, fbo.getWidth(), fbo.getHeight());
-        bBatch.setProjectionMatrix(projMat);
+        batch.setProjectionMatrix(projMat);
 
         // Render the text onto an FBO
         fbo.begin();
-        bBatch.begin();
-        speechBoxFont.draw(bBatch, speechComponent.speechText, 0, glyphLayout.height);
-        bBatch.end();
+        batch.begin();
+        speechBoxFont.draw(batch, speechComponent.speechText, 0, glyphLayout.height);
+        batch.end();
         fbo.end();
 
         // Flip the texture, and return it
         TextureRegion tex = new TextureRegion(fbo.getColorBufferTexture());
        	tex.flip(false, true);
-		        
-       	tex.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-       	
+		     
 		speechComponent.boxOffsetX = 1f;
 		speechComponent.boxOffsetY = 1f;
-		
+
 		speechComponent.speechBox.add(new TextureComponent(tex));
 		
 		// Add a render offset to the speech box entity so that it is drawn above the talker. 
 		speechComponent.speechBox.add(new RenderOffsetComponent(speechComponent.boxOffsetX, speechComponent.boxOffsetY));
 		
 		// Add a render size to match the speech box size.
-		speechComponent.speechBox.add(new RenderSizeComponent(glyphLayout.width / 16, glyphLayout.height / 16));
+		speechComponent.speechBox.add(new RenderSizeComponent(fbo.getWidth() / (4f*16f), fbo.getHeight() / (4f*16f)));
 	}
 }

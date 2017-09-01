@@ -17,7 +17,7 @@ public class Assets {
 	private static final int TILE_SIZE = 16;
 	private static final int ITEM_SIZE = 10;
 
-	private static final int BUTTON_WIDTH = 64;
+	private static final int BUTTON_WIDTH  = 64;
 	private static final int BUTTON_HEIGHT = 16;
 
 	public static TextureRegion wood_horizontal;
