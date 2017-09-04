@@ -40,6 +40,7 @@ public class TownEntityFactory {
 		put(-16711681, new FountainFactory());
 		put(-32985, new MailBoxFactory());
 		put(-9048, new ChestFactory());
+		put(-15982378, new BedFactory());
 	}};
 	
 	@SuppressWarnings("serial")

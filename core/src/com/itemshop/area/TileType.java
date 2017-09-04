@@ -5,5 +5,6 @@ package com.itemshop.area;
  */
 public enum TileType {
 	TABLE,
-	CHEST
+	CHEST, 
+	BED
 }

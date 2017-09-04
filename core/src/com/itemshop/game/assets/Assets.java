@@ -88,6 +88,8 @@ public class Assets {
 	public static TextureRegion till;
 	public static TextureRegion chest;
 	public static TextureRegion bin;
+	public static TextureRegion bed_empty;
+	public static TextureRegion bed_full;
 
 	public static TextureRegion town_info_board;
 	public static TextureRegion mail_box;
@@ -207,6 +209,8 @@ public class Assets {
 		till = getTileAt(tileSheet, 6, 8);
 		chest = getTileAt(tileSheet, 7, 8);
 		bin = getTileAt(tileSheet, 8, 8);
+		bed_empty = getTileAt(tileSheet, 9, 8);
+		bed_full = getTileAt(tileSheet, 10, 8);
 
 		town_info_board = getTileAt(tileSheet, 0, 9);
 		mail_box = getTileAt(tileSheet, 4, 9);
