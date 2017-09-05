@@ -188,7 +188,7 @@ public class Utilities {
 	 */
 	public static PositionComponent getRandomPosition() {
 		Vector2 location = safeLocations.draw();
-		return new PositionComponent(location.x, location.y, 1);
+		return new PositionComponent(location.x, location.y, 2);
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package com.itemshop.factories.characters;
 
+import java.util.ArrayList;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.itemshop.area.Area;
@@ -14,6 +15,8 @@ import com.itemshop.schedule.ScheduleComponent;
 import com.itemshop.schedule.activities.ClimbIntoContainerActivity;
 import com.itemshop.schedule.activities.ClimbOutOfContainerActivity;
 import com.itemshop.schedule.activities.TalkActivity;
+import com.itemshop.schedule.activities.WaitActivity;
+import com.itemshop.schedule.activities.WalkToTileActivity;
 
 /**
  * Creates the Walter entity.
@@ -57,8 +60,26 @@ public class WalterFactory {
 			current.add(new TalkActivity(doer, "What a great nap!"));
 		};
 		
+		ActivityPlanner lightTownLanternsPlan = (doer, current) -> {
+			// All other activities should be disposed of.
+			current.clear();
+			// Get all the lanterns in town.
+			ArrayList<Entity> lanterns = engine.getSystem(AreaSystem.class).getTilesOfType(TileType.LANTERN);
+			// Go light them all.
+			for (Entity lantern : lanterns) {
+				// Walk to the next lantern.
+				current.add(new WalkToTileActivity(doer, lantern));
+				
+				// TODO Get LightSourceComponent of lantern and enable it.
+				
+				// Wait a bit before moving to the next
+				current.add(new WaitActivity(1000));
+			}
+		};
+		
 		// Schedule appointments for Walter.
 		schedule.appointments.add(new Appointment(9, 00, true, wakeUpPlan));
+		schedule.appointments.add(new Appointment(9, 35, true, lightTownLanternsPlan));
 		schedule.appointments.add(new Appointment(20, 00, true, sleepPlan));
 		
 		// Give the delivery guy the schedule.

@@ -41,6 +41,7 @@ public class TownEntityFactory {
 		put(-32985, new MailBoxFactory());
 		put(-9048, new ChestFactory());
 		put(-15982378, new BedFactory());
+		put(-8898952, new LanternFactory());
 	}};
 	
 	@SuppressWarnings("serial")
