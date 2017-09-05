@@ -43,9 +43,12 @@ public class RenderSystem extends SortedIteratingSystem {
 	 * Constructs the render system instance.
 	 */
 	public RenderSystem(OrthographicCamera worldCamera, SpriteBatch spriteBatch) {
-		super(Family.all(PositionComponent.class).one(TextureComponent.class, AnimationComponent.class).get(), new ZComparator());
+		super(Family.all(PositionComponent.class)
+				.one(TextureComponent.class, AnimationComponent.class)
+				.exclude(InvisibleComponent.class).get(), new ZComparator());
 
 		this.spriteBatch = spriteBatch; 
+
 		camera = worldCamera;
 	}
 

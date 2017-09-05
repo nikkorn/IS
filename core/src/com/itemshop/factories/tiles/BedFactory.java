@@ -4,6 +4,7 @@ import java.util.Random;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.itemshop.game.assets.Assets;
+import com.itemshop.render.InvisibleComponent;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.TextureComponent;
 import com.itemshop.area.TileType;
@@ -38,11 +39,15 @@ public class BedFactory implements TileFactory {
 		
 		// Add actions to perform when entities are added to this container.
 		containerComponent.onEntityAdded = (occupant) -> {
-			// TODO Hide occupant!
+			// Hide occupant!
+			occupant.add(new InvisibleComponent());
+			// Change bed texture to make it look full.
 			entity.add(new TextureComponent(Assets.bed_full));
 		};
 		containerComponent.onEntityRemoved = (occupant) -> {
-			// TODO Show occupant!
+			// Show occupant!
+			occupant.remove(InvisibleComponent.class);
+			// Change bed texture to make it look empty.
 			entity.add(new TextureComponent(Assets.bed_empty));
 		};
 		

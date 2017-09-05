@@ -47,7 +47,6 @@ public class NpcFactory {
 			.add(Assets.getCharacterResources(Character.Robot), 1)
 			.add(Assets.getCharacterResources(Character.Chef), 1)
 			.add(Assets.getCharacterResources(Character.SpaceMarine), 1)
-			.add(Assets.getCharacterResources(Character.Builder), 1)
 			.add(Assets.getCharacterResources(Character.Priest), 1)
 			.add(Assets.getCharacterResources(Character.Baby), 1)
 			.add(Assets.getCharacterResources(Character.Nerd), 1)

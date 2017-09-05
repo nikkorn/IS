@@ -9,6 +9,7 @@ import com.itemshop.factories.TownEntityFactory;
 import com.itemshop.factories.characters.NpcFactory;
 import com.itemshop.factories.characters.DeliveryGuyFactory;
 import com.itemshop.factories.characters.ShopkeeperFactory;
+import com.itemshop.factories.characters.WalterFactory;
 
 /**
  * The game state in which the player is in town.
@@ -51,7 +52,10 @@ public class GameState implements IState {
 		}
 
 		// Create the delivery guy.
-		engine.addEntity(DeliveryGuyFactory.create(engine));
+		DeliveryGuyFactory.create(engine);
+		
+		// Create Walter.
+		WalterFactory.create(engine);
 	}
 
 	/**
