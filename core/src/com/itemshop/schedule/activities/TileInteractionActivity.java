@@ -11,6 +11,9 @@ public abstract class TileInteractionActivity extends WalkActivity {
 	
 	/** The required component mappers. */
     private static ComponentMapper<PositionComponent> positionMapper = ComponentMapper.getFor(PositionComponent.class);
+    
+    /** The tile to interact with. */
+    private Entity tile;
 
     /**
      * Create a new instance of the TileInteractionActivity class.
@@ -20,12 +23,21 @@ public abstract class TileInteractionActivity extends WalkActivity {
 	public TileInteractionActivity(Entity character, Entity tile) {
 		// Call through to the walk activity to set our target location to match that of the target tile.
 		super(character, (int) positionMapper.get(tile).x, (int) positionMapper.get(tile).y);
+		this.tile = tile;
 	}
 	
 	/**
 	 * Called when the tile to interact with has been reached.
 	 */
 	public abstract void interact();
+	
+	/**
+	 * Get the tile to interact with.
+	 * @return tile
+	 */
+	public Entity getTile() {
+		return this.tile;
+	}
 
 	@Override
 	public void onBegin() {

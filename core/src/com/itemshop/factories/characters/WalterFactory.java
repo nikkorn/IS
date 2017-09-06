@@ -1,6 +1,8 @@
 package com.itemshop.factories.characters;
 
 import java.util.ArrayList;
+
+import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.itemshop.area.Area;
@@ -8,12 +10,14 @@ import com.itemshop.area.AreaSystem;
 import com.itemshop.area.TileType;
 import com.itemshop.character.Character;
 import com.itemshop.game.assets.Assets;
+import com.itemshop.lighting.LightSourceComponent;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.schedule.ActivityPlanner;
 import com.itemshop.schedule.Appointment;
 import com.itemshop.schedule.ScheduleComponent;
 import com.itemshop.schedule.activities.ClimbIntoContainerActivity;
 import com.itemshop.schedule.activities.ClimbOutOfContainerActivity;
+import com.itemshop.schedule.activities.PerformTileActionActivity;
 import com.itemshop.schedule.activities.TalkActivity;
 import com.itemshop.schedule.activities.WaitActivity;
 import com.itemshop.schedule.activities.WalkToTileActivity;
@@ -22,6 +26,11 @@ import com.itemshop.schedule.activities.WalkToTileActivity;
  * Creates the Walter entity.
  */
 public class WalterFactory {
+	
+	/**
+	 * The required component mappers.
+	 */
+	private static ComponentMapper<LightSourceComponent> lightSouceMapper = ComponentMapper.getFor(LightSourceComponent.class);
 	
 	/**
 	 * Creates a shopkeeper entity.
@@ -69,9 +78,11 @@ public class WalterFactory {
 			for (Entity lantern : lanterns) {
 				// Walk to the next lantern.
 				current.add(new WalkToTileActivity(doer, lantern));
-				
-				// TODO Get LightSourceComponent of lantern and enable it.
-				
+				// Light the lantern.
+				current.add(new PerformTileActionActivity(doer, lantern, (target) -> {
+					// Light the lantern.
+					lightSouceMapper.get(lantern).light();
+				}));
 				// Wait a bit before moving to the next
 				current.add(new WaitActivity(1000));
 			}

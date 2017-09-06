@@ -6,6 +6,7 @@ import com.badlogic.ashley.core.Entity;
 import com.itemshop.area.TileType;
 import com.itemshop.area.TileTypeComponent;
 import com.itemshop.game.assets.Assets;
+import com.itemshop.lighting.LightSourceComponent;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.TextureComponent;
 
@@ -30,7 +31,17 @@ public class LanternFactory implements TileFactory {
 		entity.add(new PositionComponent(x, y));
 		
 		// Add the unlit lantern texture.
-		entity.add(new TextureComponent(Assets.lantern_lit));
+		entity.add(new TextureComponent(Assets.lantern_unlit));
+		
+		// Add a light source component to the tile.
+		LightSourceComponent lightSourceComponent = new LightSourceComponent();
+		lightSourceComponent.onLight = () -> {
+			entity.add(new TextureComponent(Assets.lantern_lit));
+		};
+		lightSourceComponent.onExtinguish = () -> {
+			entity.add(new TextureComponent(Assets.lantern_unlit));
+		};
+		entity.add(lightSourceComponent);
 		
 		entity.add(new TileTypeComponent(TileType.LANTERN));
 
