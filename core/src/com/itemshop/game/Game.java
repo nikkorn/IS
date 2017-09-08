@@ -13,6 +13,7 @@ import com.itemshop.character.walking.PathingSystem;
 import com.itemshop.game.assets.Assets;
 import com.itemshop.input.KeyboardSystem;
 import com.itemshop.input.MouseSystem;
+import com.itemshop.money.PaymentSystem;
 import com.itemshop.render.RenderSystem;
 import com.itemshop.schedule.ScheduleSystem;
 import com.itemshop.schedule.TimeSystem;
@@ -75,6 +76,7 @@ public class Game extends ApplicationAdapter {
 		engine.addSystem(new PathingSystem());
 		engine.addSystem(new AreaSystem());
 		engine.addSystem(new ShopSystem());
+		engine.addSystem(new PaymentSystem());
 		engine.addSystem(new SpeechSystem());
 		engine.addSystem(new KeyboardSystem());
 		engine.addSystem(new MouseSystem(worldCamera, uiCamera));

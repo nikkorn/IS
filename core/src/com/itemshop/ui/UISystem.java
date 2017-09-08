@@ -7,6 +7,9 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.itemshop.money.PaymentSystem;
+import com.itemshop.money.WalletComponent;
+import com.itemshop.money.WalletOwner;
 import com.itemshop.render.TextureComponent;
 
 /**
@@ -51,17 +54,34 @@ public class UISystem extends IteratingSystem {
 		camera.update();
 		spriteBatch.setProjectionMatrix(camera.combined);
 
-		// Draw the game.
+		spriteBatch.begin();
+		
+		// Draw the entities with screen positions and textures.
 		super.update(deltaTime);
+		
+		// Draw the game HUD.
+		this.drawHUD();
+		
+		spriteBatch.end();
 	}
     
     @Override
     public void processEntity(Entity entity, float deltaTime) {
     	ScreenPositionComponent screenPosition = screenPositionMapper.get(entity);
-    	TextureComponent texture = textureMapper.get(entity);
-    	
-    	spriteBatch.begin();
+    	TextureComponent texture               = textureMapper.get(entity);
+  
     	spriteBatch.draw(texture.region, screenPosition.x, screenPosition.y, screenPosition.width, screenPosition.height);
-    	spriteBatch.end();
+    }
+    
+    /**
+     * Draw the game HUD
+     */
+    private void drawHUD() {
+    	
+    	// Draw the shops money amount. First we need to get the wallet component of the shop from the game engine.
+    	WalletComponent wallet = this.getEngine().getSystem(PaymentSystem.class).getWallet(WalletOwner.SHOP);
+    	if (wallet != null) {
+    		font.draw(spriteBatch, wallet.money + " gold", 20, 40);
+    	}
     }
 }
