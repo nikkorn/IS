@@ -16,10 +16,10 @@ import com.itemshop.input.MouseSystem;
 import com.itemshop.money.PaymentSystem;
 import com.itemshop.render.RenderSystem;
 import com.itemshop.schedule.ScheduleSystem;
-import com.itemshop.schedule.TimeSystem;
 import com.itemshop.shop.ShopSystem;
 import com.itemshop.speech.SpeechSystem;
 import com.itemshop.state.StateSystem;
+import com.itemshop.time.TimeSystem;
 import com.itemshop.ui.UISystem;
 
 /**

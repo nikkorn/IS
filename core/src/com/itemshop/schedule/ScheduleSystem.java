@@ -12,6 +12,7 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.itemshop.job.Job;
 import com.itemshop.job.JobComponent;
 import com.itemshop.job.WorkQueueComponent;
+import com.itemshop.time.Time;
 
 /**
  * Handles processing of each entity's schedule component.

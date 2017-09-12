@@ -19,10 +19,10 @@ import com.itemshop.money.PaymentSystem;
 import com.itemshop.money.WalletComponent;
 import com.itemshop.money.WalletOwner;
 import com.itemshop.render.TextureComponent;
-import com.itemshop.schedule.Time;
-import com.itemshop.schedule.TimeSystem;
 import com.itemshop.state.State;
 import com.itemshop.state.StateSystem;
+import com.itemshop.time.Time;
+import com.itemshop.time.TimeSystem;
 
 /**
  * Stand alone render system for drawing the in-game UI.
@@ -118,7 +118,9 @@ public class UISystem extends IteratingSystem {
     	// Draw the time.
     	Time time = this.getEngine().getSystem(TimeSystem.class).getTime();
     	if (time != null) {
-    		font.draw(batch, time.getFormattedTime(), Gdx.graphics.getWidth() - 65, 22);
+    		font.draw(batch, time.getFormattedTime(), Gdx.graphics.getWidth() - 260, 22);
+    		font.draw(batch, "DAY " + time.getDay(), Gdx.graphics.getWidth() - 180, 22);
+    		font.draw(batch, time.getSeason().toString(), Gdx.graphics.getWidth() - 100, 22);
     	}
  
     	batch.end();

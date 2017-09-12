@@ -1,4 +1,4 @@
-package com.itemshop.schedule;
+package com.itemshop.time;
 
 import com.badlogic.ashley.systems.IntervalSystem;
 
