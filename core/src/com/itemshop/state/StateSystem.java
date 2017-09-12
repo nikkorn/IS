@@ -62,4 +62,12 @@ public class StateSystem extends EntitySystem {
 		// Begin the new state.
 		currentState.beginState(engine);
 	}
+	
+	/**
+	 * Get the state type of the current state.
+	 * @return state
+	 */
+	public State getCurrentState() {
+		return currentState.getState();
+	}
 }

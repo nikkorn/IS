@@ -130,6 +130,9 @@ public class Assets {
 	
 	public static Texture cursor;
 	
+	// UI Assets
+	public static Texture hud_bottom_bar;
+	
 	/**
 	 * Load assets from disk.
 	 */
@@ -261,6 +264,16 @@ public class Assets {
 		play = getButtonAt(menuSheet, 0, 0);
 		play_hover = getButtonAt(menuSheet, 0, 1);
 		play_click = getButtonAt(menuSheet, 0, 2);
+		
+		// Load the UI assets.
+		loadUIAssets();
+	}
+
+	/**
+	 * Load UI assets.
+	 */
+	private static void loadUIAssets() {
+		hud_bottom_bar = getTexture("images/ui/hud/hud_bottom_bar.png");
 	}
 
 	/**
