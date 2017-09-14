@@ -10,10 +10,15 @@ import com.itemshop.area.TileType;
 import com.itemshop.character.Character;
 import com.itemshop.factories.items.RandomItemFactory;
 import com.itemshop.game.assets.Assets;
+import com.itemshop.money.Payment;
+import com.itemshop.money.PaymentType;
+import com.itemshop.money.WalletComponent;
+import com.itemshop.money.WalletOwner;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.schedule.ActivityPlanner;
 import com.itemshop.schedule.Appointment;
 import com.itemshop.schedule.ScheduleComponent;
+import com.itemshop.schedule.activities.PaymentActivity;
 import com.itemshop.schedule.activities.PlaceItemActivity;
 import com.itemshop.schedule.activities.WaitActivity;
 import com.itemshop.schedule.activities.WalkActivity;
@@ -37,6 +42,9 @@ public class DeliveryGuyFactory {
 		// Give the delivery guy an initial position.
 		character.add(new PositionComponent(0, 27, 1));
 		
+		// Give the delivery guy a wallet.
+		character.add(new WalletComponent());
+		
 		// Create a schedule for the delivery guy.
 		ScheduleComponent schedule = new ScheduleComponent();
 		
@@ -55,6 +63,8 @@ public class DeliveryGuyFactory {
 				engine.addEntity(itemToDeliver);
 				// Add an activity drop off an item to the shop.
 				current.add(new PlaceItemActivity(doer, chest, itemToDeliver));
+				// Charge the shop.
+				current.add(new PaymentActivity(doer, new Payment(WalletOwner.SHOP, PaymentType.RECEIVE, 10)));
 				// Add an activity to wait there for a second.
 				current.add(new WaitActivity(1000));
 				// Add an activity to walk out of town.

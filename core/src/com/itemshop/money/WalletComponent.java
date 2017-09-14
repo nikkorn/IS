@@ -26,6 +26,11 @@ public class WalletComponent implements Component {
 	}
 	
 	/**
+	 * Create a new instance of the WalletComponent class.
+	 */
+	public WalletComponent() {}
+	
+	/**
 	 * Add a pending payment to this wallet.
 	 * @param payment
 	 */

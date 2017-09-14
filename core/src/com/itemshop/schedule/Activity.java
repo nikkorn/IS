@@ -1,5 +1,7 @@
 package com.itemshop.schedule;
 
+import com.badlogic.ashley.core.Engine;
+
 /**
  * Represents a scheduled activity.
  */
@@ -11,10 +13,18 @@ public abstract class Activity {
 	/** Whether the activity has finished. */
 	private boolean hasFinished = false;
 	
+	/** The game engine for use within the activity. */
+	private Engine engine = null;
+	
 	/**
 	 * Process this activity.
+	 * @param engine
 	 */
-	public void process() {
+	public void process(Engine engine) {
+		// Set the engine for use in this activity if we have not already done so.
+		if (this.engine == null) {
+			this.engine = engine;
+		}
 		// Has this activity begun yet?
 		if (!hasBegun) {
 			onBegin();
@@ -47,6 +57,14 @@ public abstract class Activity {
 	 */
 	public boolean hasBegun() {
 		return this.hasBegun;
+	}
+	
+	/**
+	 * Get the game engine.
+	 * @return engine.
+	 */
+	public Engine getEngine() {
+		return this.engine;
 	}
 	
 	/**

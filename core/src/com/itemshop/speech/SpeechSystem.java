@@ -94,25 +94,21 @@ public class SpeechSystem extends IteratingSystem {
 				// The offsets and size to use when drawing this entity.
 		    	float offsetX = speechComponent.boxOffsetX, offsetY = speechComponent.boxOffsetY;
 		    	
-		    	// Apply an offset if the talker is transitioning between tiles.
-		    	if (movementTileOffset.has(entity)) {
-		    		
-		    		// Apply the offset in the specified direction.
-		    		switch(movementTileOffset.get(entity).direction) {
-						case DOWN:
-							offsetY -= movementTileOffset.get(entity).offset;
-							break;
-						case LEFT:
-							offsetX -= movementTileOffset.get(entity).offset;
-							break;
-						case RIGHT:
-							offsetX += movementTileOffset.get(entity).offset;
-							break;
-						case UP:
-							offsetY += movementTileOffset.get(entity).offset;
-							break;
-		    		}
-		    	}
+		    	// Apply the offset in the specified direction.
+	    		switch(movementTileOffset.get(entity).direction) {
+					case DOWN:
+						offsetY -= movementTileOffset.get(entity).offset;
+						break;
+					case LEFT:
+						offsetX -= movementTileOffset.get(entity).offset;
+						break;
+					case RIGHT:
+						offsetX += movementTileOffset.get(entity).offset;
+						break;
+					case UP:
+						offsetY += movementTileOffset.get(entity).offset;
+						break;
+	    		}
 				
 				speechBoxRenderOffset.offsetX = offsetX;
 				speechBoxRenderOffset.offsetY = offsetY;
@@ -133,7 +129,10 @@ public class SpeechSystem extends IteratingSystem {
 		GlyphLayout glyphLayout = new GlyphLayout();
 		glyphLayout.setText(speechBoxFont, speechComponent.speechText);
 		
-		FrameBuffer fbo   = new FrameBuffer(Pixmap.Format.RGB888, (int) glyphLayout.width, (int) glyphLayout.height, false);
+		// Determine the speech box padding.
+		int padding = (int)(glyphLayout.height / 3f);
+		
+		FrameBuffer fbo   = new FrameBuffer(Pixmap.Format.RGB888, (int) glyphLayout.width + (padding*2), (int) glyphLayout.height + (padding*2), false);
 		SpriteBatch batch = new SpriteBatch();
 		
         // Set up an ortho projection matrix
@@ -144,14 +143,14 @@ public class SpeechSystem extends IteratingSystem {
         // Render the text onto an FBO
         fbo.begin();
         batch.begin();
-        speechBoxFont.draw(batch, speechComponent.speechText, 0, glyphLayout.height);
+        speechBoxFont.draw(batch, speechComponent.speechText, padding, glyphLayout.height + padding);
         batch.end();
         fbo.end();
 
         // Flip the texture, and return it
         TextureRegion tex = new TextureRegion(fbo.getColorBufferTexture());
        	tex.flip(false, true);
-		     
+  
 		speechComponent.boxOffsetX = 1f;
 		speechComponent.boxOffsetY = 1f;
 

@@ -175,8 +175,8 @@ public class ScheduleSystem extends IteratingSystem {
 				// ... remove it, otherwise ...
 				scheduleComponent.activities.remove(currentActivity);
 			} else {
-				// ... process it.
-				currentActivity.process();
+				// ... process it, passing the game engine for the activity to use.
+				currentActivity.process(this.getEngine());
 			}
 		}
 	}

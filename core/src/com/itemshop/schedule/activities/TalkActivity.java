@@ -1,5 +1,6 @@
 package com.itemshop.schedule.activities;
 
+import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.itemshop.schedule.Activity;
 import com.itemshop.speech.SpeechComponent;
@@ -15,10 +16,12 @@ public class TalkActivity extends Activity {
 	/** The talker. */
 	private Entity talker;
 	
+	/** The required component mappers. */
+    private static ComponentMapper<SpeechComponent> speechMapper = ComponentMapper.getFor(SpeechComponent.class);
+	
 	/**
 	 * Create a new instance of the TalkActivity class.
 	 * @param talker
-	 * @param engine
 	 * @param speech
 	 */
 	public TalkActivity(Entity talker, String speech) {
@@ -28,15 +31,16 @@ public class TalkActivity extends Activity {
 	
 	@Override
 	public void onBegin() {
+		// If the talker already has a speech component, then we need to get rid of the speech box entity it references.
+		if (speechMapper.has(talker) && (speechMapper.get(talker).speechBox != null)) {
+			this.getEngine().removeEntity(speechMapper.get(talker).speechBox);
+		}
+		// Add the new speech component.
 		talker.add(new SpeechComponent(speech));
 	}
 	
 	@Override
 	public void perform() {
-
-		// Say something!
-		System.out.println(speech);
-		
 		// We are done!
 		this.finish();
 	}
