@@ -8,6 +8,7 @@ import com.itemshop.item.QualityComponent;
 import com.itemshop.item.ValueComponent;
 import com.itemshop.render.RenderSizeComponent;
 import com.itemshop.render.TextureComponent;
+import com.itemshop.shop.ShopDisplay;
 
 /**
  * Factory for creating a Cheese item.
@@ -23,8 +24,11 @@ public class CheeseFactory implements ItemFactory {
 		// Create the entity.
 		Entity item = new Entity();
 		
+		ItemTypeComponent itemTypeComponent = new ItemTypeComponent(ItemType.CHEESE, "Cheese");
+		itemTypeComponent.setTargetDisplay(ShopDisplay.TABLE);
+		
 		// Add the entities components.
-		item.add(new ItemTypeComponent(ItemType.CHEESE, "Cheese"));
+		item.add(itemTypeComponent);
 		item.add(new TextureComponent(Assets.cheese));
 		item.add(new QualityComponent());
 		item.add(new ValueComponent(5));	

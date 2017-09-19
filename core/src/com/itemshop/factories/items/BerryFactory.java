@@ -9,6 +9,7 @@ import com.itemshop.item.QualityComponent;
 import com.itemshop.item.ValueComponent;
 import com.itemshop.render.RenderSizeComponent;
 import com.itemshop.render.TextureComponent;
+import com.itemshop.shop.ShopDisplay;
 
 /**
  * Factory for creating a Berry item.
@@ -24,8 +25,11 @@ public class BerryFactory implements ItemFactory {
 		// Create the entity.
 		Entity item = new Entity();
 		
+		ItemTypeComponent itemTypeComponent = new ItemTypeComponent(ItemType.BERRY, "Berry");
+		itemTypeComponent.setTargetDisplay(ShopDisplay.TABLE);
+		
 		// Add the entities components.
-		item.add(new ItemTypeComponent(ItemType.BERRY, "Berry"));
+		item.add(itemTypeComponent);
 		item.add(new TextureComponent(Assets.cherry));
 		item.add(new QualityComponent());
 		item.add(new ValueComponent(3));

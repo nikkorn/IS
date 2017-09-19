@@ -1,7 +1,6 @@
 package com.itemshop.factories.characters;
 
 import java.util.ArrayList;
-
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;

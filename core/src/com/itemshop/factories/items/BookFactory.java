@@ -8,6 +8,7 @@ import com.itemshop.item.QualityComponent;
 import com.itemshop.item.ValueComponent;
 import com.itemshop.render.RenderSizeComponent;
 import com.itemshop.render.TextureComponent;
+import com.itemshop.shop.ShopDisplay;
 
 /**
  * Factory for creating a Book item.
@@ -23,8 +24,11 @@ public class BookFactory implements ItemFactory {
 		// Create the entity.
 		Entity item = new Entity();
 		
+		ItemTypeComponent itemTypeComponent = new ItemTypeComponent(ItemType.BOOK, "Book");
+		itemTypeComponent.setTargetDisplay(ShopDisplay.BOOKCASE);
+		
 		// Add the entities components.
-		item.add(new ItemTypeComponent(ItemType.BOOK, "Book"));
+		item.add(itemTypeComponent);
 		item.add(new TextureComponent(Assets.book1));
 		item.add(new QualityComponent());
 		item.add(new ValueComponent(3));	

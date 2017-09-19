@@ -3,12 +3,15 @@ package com.itemshop.factories.tiles;
 import java.util.Random;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.itemshop.area.TileType;
+import com.itemshop.area.TileTypeComponent;
 import com.itemshop.container.ContainerComponent;
-import com.itemshop.factories.items.BookFactory;
 import com.itemshop.game.assets.Assets;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.TextureComponent;
+import com.itemshop.shop.ShopDisplay;
+import com.itemshop.shop.ShopDisplayComponent;
 
 /**
  * Factory for creating a Bookcase tile.
@@ -27,29 +30,34 @@ public class BookcaseFactory implements TileFactory {
 	 * @param sameAbove Whether the tile above is of the same type.
 	 */
 	public Entity create(Engine engine, Random random, int x, int y, boolean sameAbove) {
+		
 		// Create the tile entity.
 		Entity entity = new Entity();
 
 		// Add the entities components.
 		entity.add(new PositionComponent(x, y));
-
-		// Determine the amount of books on display.
-		int numberOfBooks = random.nextInt(MAXIMUM_CAPACITY + 1);
 		
-		// Populate the container component.
+		// Add a container component.
 		ContainerComponent containerComponent = new ContainerComponent(MAXIMUM_CAPACITY);
-		BookFactory bookFactory = new BookFactory();
-		for (int i = 0; i < numberOfBooks; i++) {
-			try {
-				containerComponent.add(bookFactory.create());
-			} catch (Exception exception) {
-			}
-		}
+		// Add actions to perform when entities are added/removed from this container.
+		containerComponent.onEntityAdded = (item) -> {
+			// TextureComponent should be switched when books are added.
+			entity.add(new TextureComponent(getTexture(containerComponent.getSize())));
+		};
+		containerComponent.onEntityRemoved = (item) -> {
+			// TextureComponent should be switched when books are removed.
+			entity.add(new TextureComponent(getTexture(containerComponent.getSize())));
+		};
 		entity.add(containerComponent);
 		
+		// This is a shop display so it needs a shop display component.
+		entity.add(new ShopDisplayComponent(ShopDisplay.BOOKCASE));
+		
+		// Add a component defining this as a tile.
+		entity.add(new TileTypeComponent(TileType.BOOKCASE));
+		
 		// Add the right texture.
-		// TODO: TextureComponent should be switched when books are added/removed.
-		entity.add(new TextureComponent(getTexture(numberOfBooks)));
+		entity.add(new TextureComponent(Assets.bookcase_0));
 
 		// Add the tile entity to the engine.
 		engine.addEntity(entity);

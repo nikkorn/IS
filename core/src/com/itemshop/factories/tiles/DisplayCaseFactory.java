@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.itemshop.game.assets.Assets;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.TextureComponent;
+import com.itemshop.shop.ShopDisplay;
+import com.itemshop.shop.ShopDisplayComponent;
 import com.itemshop.utilities.lotto.Lotto;
 import com.itemshop.container.ContainerComponent;
 import com.itemshop.factories.items.RandomItemFactory;
@@ -60,6 +62,9 @@ public class DisplayCaseFactory implements TileFactory {
 				.add(Assets.cabinet_stone, 1)
 				.draw()
 		));
+		
+		// This is a shop display so it needs a shop display component.
+		entity.add(new ShopDisplayComponent(ShopDisplay.CABINET));
 
 		// Add the tile entity to the engine.
 		engine.addEntity(entity);

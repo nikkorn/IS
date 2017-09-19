@@ -7,5 +7,6 @@ public enum TileType {
 	TABLE,
 	CHEST, 
 	BED, 
-	LANTERN
+	LANTERN,
+	BOOKCASE
 }

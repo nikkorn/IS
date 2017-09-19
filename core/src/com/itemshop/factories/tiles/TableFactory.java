@@ -8,6 +8,8 @@ import com.itemshop.game.assets.Assets;
 import com.itemshop.render.PositionComponent;
 import com.itemshop.render.RenderOffsetComponent;
 import com.itemshop.render.TextureComponent;
+import com.itemshop.shop.ShopDisplay;
+import com.itemshop.shop.ShopDisplayComponent;
 import com.itemshop.utilities.lotto.Lotto;
 import com.itemshop.area.TileType;
 import com.itemshop.area.TileTypeComponent;
@@ -64,6 +66,9 @@ public class TableFactory implements TileFactory {
 		
 		// Add the container component to the table entity.
 		entity.add(containerComponent);
+		
+		// This is a shop display so it needs a shop display component.
+		entity.add(new ShopDisplayComponent(ShopDisplay.TABLE));
 		
 		// Add the right texture.
 		entity.add(new TextureComponent(
