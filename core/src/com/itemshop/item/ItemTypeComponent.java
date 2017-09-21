@@ -11,6 +11,9 @@ public class ItemTypeComponent implements Component {
 	/** The item type. */
 	public ItemType type;
 	
+	/** The item category. */
+	public ItemCategory category;
+	
 	/** The item name. */
 	public String name;
 	
@@ -23,8 +26,19 @@ public class ItemTypeComponent implements Component {
 	 * @param name
 	 */
 	public ItemTypeComponent(ItemType type, String name) {
-		this.type = type;
-		this.name = name;
+		this(type, ItemCategory.NONE, name);
+	}
+	
+	/**
+	 * Create a new instance of ItemTypeComponent.
+	 * @param type
+	 * @param category
+	 * @param name
+	 */
+	public ItemTypeComponent(ItemType type, ItemCategory category, String name) {
+		this.type     = type;
+		this.category = category;
+		this.name     = name;
 	}
 
 	/**
